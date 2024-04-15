@@ -15,29 +15,30 @@
 # include "libft/libft.h"
 # include <stdbool.h>
 
-typedef struct s_all
-{
-	t_line	*line;
-	char	*lastwd;
-}	t_all;
-
-typedef struct s_line
-{
-	int		total_cmd;
-	t_cmd	*each_cmd;
-}	t_line;
-
 typedef struct s_pipex
 {
 	char	*delimiter;
 	char	**infile;
 	char	**outfile;
-	char	*cmd;
-	char	**flag;
+	char	**cmd;
+	// char	**flag;
 	bool	is_builtin;
 	bool	is_infile;
 	bool	is_heredoc;
 }	t_cmd;
+
+typedef struct s_line
+{
+	int		invalid;
+	int		total_cmd;
+	t_cmd	*each_cmd;
+}	t_line;
+
+typedef struct s_all
+{
+	t_line	*line;
+	char	*lastwd;
+}	t_all;
 
 int		main(int argc, char **argv, char **envm);
 

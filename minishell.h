@@ -24,7 +24,10 @@ typedef struct s_pipex
 	// char	**flag;
 	bool	is_builtin;
 	bool	is_infile;
+	bool	is_outfile;
 	bool	is_heredoc;
+	bool	is_append;
+
 }	t_cmd;
 
 typedef struct s_line
@@ -44,6 +47,7 @@ int		main(int argc, char **argv, char **envm);
 
 char	*get_current_dir(void);
 void	change_directory(char *dir);
+char	**ft_split_until(char const *s, char c, int max_position);
 
 
 #endif

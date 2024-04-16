@@ -1,15 +1,1 @@
-again_out
-builtins.c
-builtins.o
-infile
-infile_second.txt
-infile.txt
-libft
-main.c
-main.o
-Makefile
-Minishell
-minishell.h
-out
-out_new
-tests
+exit

@@ -6,7 +6,7 @@ LIBS = -lreadline
 
 #HEADERS   := -I ./include -I $(LIBFTDIR)
 
-SRCS	= main.c builtins.c
+SRCS	= main.c builtins.c ft_splite_modified.c
 objects	= $(SRCS:.c=.o)
 
 all: $(NAME)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_strnstr.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/09 11:29:14 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/16 16:18:00 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:39:52 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 09:39:53 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,27 @@
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	size_t	c;
+	size_t	i;
+	size_t	j;
 
-	if (*little == 0 || big == little)
+	i = 0;
+	j = 0;
+	if (little[0] == '\0')
 		return ((char *)big);
-	c = ft_strlen(little);
-	while (*big && c <= len--)
+	if (big[0] == '\0')
+		return (NULL);
+	if (len == 0)
+		return (NULL);
+	while (j < len)
 	{
-		if (!(ft_strncmp((char *)big, (char *)little, c)))
-			return ((char *)big);
-		big++;
+		while (big[j + i] == little[i] && j + i < len)
+		{
+			if (little[i + 1] == '\0')
+				return ((char *)big + j);
+			i++;
+		}
+		i = 0;
+		j++;
 	}
 	return (NULL);
 }

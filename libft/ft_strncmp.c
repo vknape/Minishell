@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_strncmp.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/06 12:18:51 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/02/15 12:26:27 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:39:49 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 16:29:02 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+int	ft_strncmp(const char *str1, const char *str2, size_t n)
 {
-	int				i;
-	int				result;
+	size_t			i;
+	unsigned char	a;
+	unsigned char	b;
 
 	i = 0;
-	result = 0;
-	while (((unsigned char)s1[i] != '\0' || \
-	(unsigned char)s2[i] != '\0') && n > 0)
+	if (n == 0)
+		return (0);
+	while (i < n && (str1[i] || str2[i]))
 	{
-		if ((unsigned char)s1[i] != (unsigned char)s2[i])
-		{
-			result = (unsigned char)s1[i] - (unsigned char)s2[i];
-			break ;
-		}
+		a = str1[i];
+		b = str2[i];
+		if (a != b)
+			return (a - b);
 		i++;
-		n--;
 	}
-	return (result);
+	return (str1[i - 1] - str2[i - 1]);
 }

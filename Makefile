@@ -6,13 +6,13 @@ LIBS = -lreadline
 
 #HEADERS   := -I ./include -I $(LIBFTDIR)
 
-SRCS	= main.c builtins.c ft_splite_modified.c
+SRCS	= main.c builtins.c ft_splite_modified.c ft_split_skip.c
 objects	= $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(LIBFTDIR): 
-	@make all -C ./libft
+	@make bonus -C ./libft
 
 $(NAME): 	$(objects) $(LIBFTDIR)
 	@cc $(FLAGS) -o $(NAME) $(objects) $(LIBFTDIR) $(LIBS)

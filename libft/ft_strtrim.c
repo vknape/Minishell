@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_strtrim.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/11 09:09:36 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/20 11:24:40 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:40:00 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 16:33:33 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,18 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	int		start;
-	int		end;
-	char	*str;
+	char		*res;
+	size_t		length;
+	const char	*end = s1 + ft_strlen((char *)s1) - 1;
 
-	if (!s1 || !set)
-		return (NULL);
-	start = 0;
-	end = ft_strlen(s1) - 1;
-	while (ft_strchr(set, s1[start]) && start <= end)
-		start++;
-	if (start > end)
-		return (ft_strdup(s1 + end + 1));
-	while (ft_strchr(set, s1[end]) && end >= 0)
+	while (ft_strchr(set, *s1) && *s1)
+		s1++;
+	while (ft_strchr(set, *end) && end >= s1)
 		end--;
-	str = malloc(((end - start) + 2) * sizeof(char));
-	if (!str)
+	length = end - s1 + 2;
+	res = (char *)malloc((length) * sizeof(char));
+	if (res == NULL)
 		return (NULL);
-	ft_strlcpy(str, &s1[start], end - start + 2);
-	return (str);
+	ft_strlcpy(res, s1, (length));
+	return (res);
 }

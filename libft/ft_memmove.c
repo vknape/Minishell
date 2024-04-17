@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_memmove.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/03 15:28:58 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/20 15:41:41 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@student.codam.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/23 09:08:13 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/23 10:08:07 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	size_t	i;
+	size_t		i;
+	char		*csrc;
+	char		*cdest;
 
 	i = 0;
+	csrc = (char *)src;
+	cdest = (char *)dest;
 	if (!dest && !src)
 		return (NULL);
-	if (dest > src)
+	if (cdest > csrc)
 	{
-		while (i < n)
-		{
-			((unsigned char *)dest)[n - 1] = ((unsigned char *)src)[n - 1];
-			n--;
-		}
+		while (n-- > 0)
+			cdest[n] = csrc[n];
 	}
 	else
 	{
 		while (i < n)
 		{
-			((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
+			cdest[i] = csrc[i];
 			i++;
 		}
 	}

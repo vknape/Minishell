@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_isalnum.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/03 10:32:25 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/17 14:29:33 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:38:22 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 09:38:23 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isalnum(int c)
+int	ft_isalnum(int i)
 {
-	if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') \
-	|| (c >= 'A' && c <= 'Z'))
+	if (ft_isalpha(i) || ft_isdigit(i))
 		return (1);
 	return (0);
 }

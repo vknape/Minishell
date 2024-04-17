@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_calloc.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/10 08:40:13 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/19 14:41:33 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:38:17 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 09:52:25 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
-	void	*p;
+	void	*ptr;
 
-	if ((nmemb > 2147483647 && size > 0) || (size > 2147483647 && nmemb > 0))
+	if ((nmemb > LONG_MAX && size > 0) || (size > LONG_MAX && nmemb > 0))
 		return (NULL);
-	if (nmemb >= __SIZE_MAX__ || size >= __SIZE_MAX__)
+	ptr = malloc(nmemb * size);
+	if (ptr == NULL)
 		return (NULL);
-	if (nmemb * size > 2147483647)
-		return (NULL);
-	p = malloc(nmemb * size);
-	if (p == NULL)
-		return (p);
-	ft_bzero(p, size * nmemb);
-	return (p);
+	ft_bzero(ptr, nmemb * size);
+	return (ptr);
 }

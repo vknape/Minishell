@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_strdup.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/10 12:31:17 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/20 15:30:55 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:39:27 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 10:37:51 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 char	*ft_strdup(const char *s)
 {
-	size_t	i;
-	char	*p;
+	int		i;
+	int		len;
+	char	*dup;
 
-	i = ft_strlen(s) + 1;
-	p = (char *)malloc(i * sizeof(char));
-	if (!p)
-		return (NULL);
 	i = 0;
-	while (s[i] != '\0')
+	len = ft_strlen((char *)s) + 1;
+	dup = (char *)malloc(len * sizeof(char));
+	if (dup == NULL)
+		return (NULL);
+	while (s[i])
 	{
-		p[i] = s[i];
+		dup[i] = s[i];
 		i++;
 	}
-	p[i] = '\0';
-	return (p);
+	dup[i] = '\0';
+	return (dup);
 }

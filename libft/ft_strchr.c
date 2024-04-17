@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_strchr.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/06 10:40:43 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/23 10:02:06 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:39:24 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 09:39:25 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	while (c > 255)
-		c -= 256;
-	while (*s != '\0')
+	unsigned int	i;
+
+	i = 0;
+	c = c % 256;
+	while (s[i] != c)
 	{
-		if ((unsigned char)*s == c)
-			return ((char *)s);
-		s++;
+		if (!s[i])
+			return (NULL);
+		i++;
 	}
-	if (c == '\0')
-		return ((char *)s);
-	return (NULL);
+	return ((char *)(s + i));
 }

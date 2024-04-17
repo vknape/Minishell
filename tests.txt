@@ -39,3 +39,5 @@ ls < infil < outfile | ls  //errors on reading nonexisting infile but executes c
 cat < infile < infile2 | cat @@opens infile then infile2 then cats
 cat < cat < infile | cat //redirect only accepts files
 cat < ls (no permission) | cat //errors no permission, doesn't also check for program ls
+sleep 5 $? @@executes sleep 5 and adds value if available of next input
+""" @@waits for same quote to close, same for single quotes

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_putstr_fd.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/13 12:25:12 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/20 11:23:05 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@student.codam.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:39:17 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/25 13:41:14 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,5 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int	len;
-
-	len = ft_strlen(s);
-	if (s)
-		write(fd, s, len);
+	write(fd, s, ft_strlen(s));
 }

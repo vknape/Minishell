@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_putnbr_fd.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/13 12:46:55 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/20 11:23:47 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 10:14:36 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 10:25:15 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,18 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	long	nbr;
-	char	current;
-	char	sign;
-
-	sign = '-';
-	nbr = n;
-	if (nbr < 0)
+	if (n == INT_MIN)
+		ft_putstr_fd("-2147483648", fd);
+	else if (n < 0 && n > INT_MIN)
 	{
-		nbr = nbr * -1;
-		write(fd, &sign, 1);
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(-n, fd);
 	}
-	if (nbr >= 10)
+	else if (n >= 10)
 	{
-		ft_putnbr_fd(nbr / 10, fd);
-		ft_putnbr_fd(nbr % 10, fd);
+		ft_putnbr_fd(n / 10, fd);
+		ft_putchar_fd((n % 10 + '0'), fd);
 	}
 	else
-	{
-		current = nbr + '0';
-		write(fd, &current, 1);
-	}
+		ft_putchar_fd(n + '0', fd);
 }

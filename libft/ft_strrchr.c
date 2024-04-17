@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_strrchr.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/09 08:17:09 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/20 15:19:55 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:39:57 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 16:31:05 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,15 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char	*tp;
-	int		len;
+	char	*end;
 
-	tp = NULL;
-	len = ft_strlen(s) - 1;
-	while (c > 255)
-		c = c - 256;
-	if (c == '\0')
-		return ((char *)s + len + 1);
-	while (s && len >= 0)
+	c = c % 256;
+	end = (char *)s + ft_strlen(s);
+	while (*end != c)
 	{
-		if (s[len] == c)
-		{
-			tp = (char *)&s[len];
-			return (tp);
-		}
-		len--;
+		if (end == s)
+			return (NULL);
+		end--;
 	}
-	return (tp);
+	return (end);
 }

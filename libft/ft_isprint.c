@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_isprint.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/03 11:09:30 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/18 15:24:46 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:38:37 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 09:38:38 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isprint(int c)
+int	ft_isprint(int i)
 {
-	if (c >= 32 && c <= 126)
+	if (i >= 32 && i <= 126)
 		return (1);
 	return (0);
 }

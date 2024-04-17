@@ -1,40 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_atoi.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/09 13:33:44 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/20 10:55:39 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:34:03 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 09:44:29 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi(const char *str)
 {
-	int	result;
+	int	i;
+	int	j;
 	int	neg;
 
-	result = 0;
+	i = 0;
+	j = 0;
 	neg = 1;
-	while (*nptr == 32 || (*nptr >= 9 && *nptr <= 13))
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		nptr++;
+		if (str[i] == '-')
+			neg = -1;
+		i++;
 	}
-	if ((*nptr == '-') || (*nptr == '+'))
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (*nptr == '-')
-		{
-			neg = neg * -1;
-		}
-		nptr++;
+		j *= 10;
+		j += str[i] - 48;
+		i++;
 	}
-	while (*nptr >= '0' && *nptr <= '9')
-	{
-		result = (result * 10 + *nptr - '0');
-		nptr++;
-	}
-	return (result * neg);
+	return (j * neg);
 }

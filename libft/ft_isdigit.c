@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_isdigit.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/02 15:45:32 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/18 15:20:27 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:38:34 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 09:38:35 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isdigit(int c)
+int	ft_isdigit(int i)
 {
-	if (c >= '0' && c <= '9')
-	{
+	if (i >= 48 && i <= 57)
 		return (1);
-	}
 	return (0);
 }

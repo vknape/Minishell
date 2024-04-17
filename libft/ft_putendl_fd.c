@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_putendl_fd.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/13 12:33:35 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/16 12:56:42 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@student.codam.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:39:10 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/25 13:55:25 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	int		len;
-	char	newline;
-
-	len = ft_strlen(s);
-	newline = '\n';
-	if (s)
-		write(fd, s, len);
-	write(fd, &newline, 1);
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }

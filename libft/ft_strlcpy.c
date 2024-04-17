@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_strlcpy.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/06 13:11:24 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/02/20 12:58:12 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:39:40 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 16:24:56 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
+int	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	int		i;
-	size_t	len;
+	int	i;
 
 	i = 0;
-	len = ft_strlen(src);
-	if (size == 0)
-		return (len);
-	while (src[i] != '\0' && (size - 1) > 0)
-	{
-		dst[i] = src[i];
+	while (src[i])
 		i++;
+	if (*src == 0)
+	{
+		*dst = '\0';
+		return (0);
+	}
+	if (size == 0)
+		return (i);
+	while (*src != '\0' && size > 1)
+	{
+		*dst = *src;
+		dst++;
+		src++;
 		size--;
 	}
-	dst[i] = '\0';
-	return (len);
+	*dst = '\0';
+	return (i);
 }

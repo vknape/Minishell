@@ -3,27 +3,27 @@
 
 
 
-int	count_cmd(char *curline, t_all *all)
-{
-	int	i;
-	int	j;
+// int	count_cmd(char *curline, t_all *all)
+// {
+// 	int	i;
+// 	int	j;
 
-	i = 0;
-	j = 1;
-	while (curline[i] != '\0')
-	{
-		if (ft_strchr("|<>$", curline[i]))
-		{
-			while (curline[i] != '\0' && ft_strchr("|<>$", curline[i]))
-				i++;
-			j++;
-		}
-		i++;
-	}
-	all->line->total_cmd = j;
-	return (j);
+// 	i = 0;
+// 	j = 1;
+// 	while (curline[i] != '\0')
+// 	{
+// 		if (ft_strchr("|<>$", curline[i]))
+// 		{
+// 			while (curline[i] != '\0' && ft_strchr("|<>$", curline[i]))
+// 				i++;
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	all->line->total_cmd = j;
+// 	return (j);
 
-}
+// }
 
 
 
@@ -77,85 +77,118 @@ void	fill_heredoc(char *curline, t_line *line, int max_p, int i)
 
 
 
-void	to_fill_struct(char *curline, t_all *all)
-{
-	t_line	*line;
-	int temp_j;
-	int	j;
-	int	i;
+// void	to_fill_struct(char *curline, t_all *all)
+// {
+// 	t_line	*line;
+// 	int temp_j;
+// 	int	j;
+// 	int	i;
 
-	line = all->line;
-	temp_j = 0;
-	i = 0;
-	printf("here \n");
-	while (curline[temp_j] != '\0')
-	{
-		while (curline[temp_j] != '\0' && (curline[temp_j] == ' ' || curline[temp_j] == '\t'))
-			temp_j++;
-		j = temp_j;
-		while (curline[temp_j] != '\0' && !ft_strchr("<>|$", curline[temp_j]))
-			temp_j++;
-		if (curline[temp_j + 1] == '\0')
-		{
-			// last part of line
-			if (i - 1 > 0 && line->each_cmd[i - 1].cmd)
-			{
-				fill_cmd(&curline[j], line, ((temp_j - j) + 1), i);
-			}
-			if (i - 1 > 0 && line->each_cmd[i - 1].infile)
-			{
-				fill_infile(&curline[j], line, ((temp_j - j) + 1), i);
-			}
-			if (i - 1 > 0 && line->each_cmd[i - 1].outfile)
-			{
-				fill_outfile(&curline[j], line, ((temp_j - j) + 1), i);
-			}
-		}
+// 	line = all->line;
+// 	temp_j = 0;
+// 	i = 0;
+// 	printf("here \n");
+// 	while (curline[temp_j] != '\0')
+// 	{
+// 		while (curline[temp_j] != '\0' && (curline[temp_j] == ' ' || curline[temp_j] == '\t'))
+// 			temp_j++;
+// 		j = temp_j;
+// 		while (curline[temp_j] != '\0' && !ft_strchr("<>|$", curline[temp_j]))
+// 			temp_j++;
+// 		if (curline[temp_j + 1] == '\0')
+// 		{
+// 			// last part of line
+// 			if (i - 1 > 0 && line->each_cmd[i - 1].cmd)
+// 			{
+// 				fill_cmd(&curline[j], line, ((temp_j - j) + 1), i);
+// 			}
+// 			if (i - 1 > 0 && line->each_cmd[i - 1].infile)
+// 			{
+// 				fill_infile(&curline[j], line, ((temp_j - j) + 1), i);
+// 			}
+// 			if (i - 1 > 0 && line->each_cmd[i - 1].outfile)
+// 			{
+// 				fill_outfile(&curline[j], line, ((temp_j - j) + 1), i);
+// 			}
+// 		}
 		
-		if (curline[temp_j] == '|')
+// 		if (curline[temp_j] == '|')
+// 		{
+// 			fill_cmd(&curline[j], line, ((temp_j - j) + 1), i);
+// 			temp_j++;
+// 		}
+// 		if (curline[temp_j] == '<')
+// 		{
+// 			if (curline[temp_j + 1] != '\0' && curline[temp_j + 1] == '<')
+// 			{
+// 				temp_j = temp_j + 1;
+// 				fill_heredoc(&curline[j], line, ((temp_j - j) + 1), i);
+// 			}
+// 			else
+// 				fill_infile(&curline[j], line, ((temp_j - j) + 1), i);
+// 			temp_j = temp_j + 1;
+// 		}
+// 		if (curline[temp_j] == '>')
+// 		{
+// 			if (curline[temp_j + 1] != '\0' && curline[temp_j + 1] == '>')
+// 			{	// if (curline[temp_j] == '$')
+// 	// {
+// 	// 	if(curline[temp_j + 1] == '?')
+// 	// 		temp_j + 1;
+// 				line->each_cmd[i].is_append = true;
+// 				temp_j = temp_j + 1;
+// 			}
+// 			fill_outfile(&curline[j], line, ((temp_j - j) + 1), i);
+// 			temp_j = temp_j + 1;
+// 		}
+// 		i++;
+// 	}
+// 	printf("end of fill_struct\n");
+// }
+
+
+
+
+
+
+
+
+
+
+void check_quotes(char *curline, t_all *all)
+{
+	int i;
+	char c;
+	
+	i = 0;
+	c = 0;
+	while(curline[i] != '\0')
+	{
+		if (curline[i] == 34 || curline[i] == 39)
 		{
-			fill_cmd(&curline[j], line, ((temp_j - j) + 1), i);
-			temp_j++;
-		}
-		if (curline[temp_j] == '<')
-		{
-			if (curline[temp_j + 1] != '\0' && curline[temp_j + 1] == '<')
+			c = curline[i];
+			i++;
+			if (curline[i] == '\0')
+				break ;
+			while (curline[i] != '\0' && curline[i] != c)
+				i++;
+			if (curline[i] == '\0' && curline[i - 1] == c)
 			{
-				temp_j = temp_j + 1;
-				fill_heredoc(&curline[j], line, ((temp_j - j) + 1), i);
+				c = 0;
+				break ;
 			}
-			else
-				fill_infile(&curline[j], line, ((temp_j - j) + 1), i);
-			temp_j = temp_j + 1;
-		}
-		if (curline[temp_j] == '>')
-		{
-			if (curline[temp_j + 1] != '\0' && curline[temp_j + 1] == '>')
-			{	// if (curline[temp_j] == '$')
-	// {
-	// 	if(curline[temp_j + 1] == '?')
-	// 		temp_j + 1;
-				line->each_cmd[i].is_append = true;
-				temp_j = temp_j + 1;
-			}
-			fill_outfile(&curline[j], line, ((temp_j - j) + 1), i);
-			temp_j = temp_j + 1;
+			else if (curline[i] == c)
+				c = 0;
+			// else
+			// 	break ;	
 		}
 		i++;
 	}
-	printf("end of fill_struct\n");
+	if (c != 0)
+		printf("wrong\n");
+	else
+		printf("good\n");
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 void	check_line(char *curline, t_all *all)
@@ -222,7 +255,214 @@ void	initialize_each_cmd(t_all *all)
 	printf("after initialize_t_all\n\n");
 }
 
+int	count_cmd(char *curline, t_all *all)
+{
+	int i;
+	int	j;
 
+	i = 0;
+	j = 1;
+	if (curline[i] == '\0')
+		return (0);
+	while (curline[i] != '\0')
+	{
+		if (curline[i] == '|')
+			j++;
+		i++;
+	}
+	all->line->total_cmd = j;
+	return (j);
+}
+
+t_cmd	*ft_lstnewcmd(char *templine)
+{
+	t_cmd	*lst1;
+
+	lst1 = (t_cmd *) malloc(sizeof(t_cmd));
+	if (lst1 == NULL)
+		return (NULL);
+	(*lst1).next = NULL;
+	lst1->templine = templine;
+	return (lst1);
+}
+t_cmd	*ft_lstlast_cmd(t_cmd *lst)
+{
+	if (lst == NULL)
+		return (lst);
+	while ((*lst).next != NULL)
+		lst = (*lst).next;
+	return (lst);
+}
+
+void	ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new)
+{
+	t_cmd	*ptr;
+
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	ptr = ft_lstlast_cmd(*lst);
+	if (new)
+		(*ptr).next = new;
+}
+
+void	split_cmds(char *curline, t_all *all)
+{
+	t_line	*line;
+	int		i;
+	int		pos;
+	char	c;
+	char	*str;
+
+	line = all->line;
+	pos = 0;
+	i = 0;
+	while (curline[i] != '\0')
+	{
+		if (curline[i] == 34 || curline[i] == 39)
+		{
+			c = curline[i];
+			i++;
+			while (curline[i] != c)
+				i++;
+		}
+		if (curline[i] == '|' || curline[i + 1] == '\0')
+		{
+			printf("%d\n%d\n%d\n", i, pos, ft_strlen(curline));
+			if (curline[i + 1] == '\0')
+				str = ft_substr(curline, pos, i - pos + 1);
+			else
+				str = ft_substr(curline, pos, i - pos);
+			pos = i + 1;
+			printf("%s\n", str);
+			ft_lstadd_back_cmd(&line->each_cmd, ft_lstnewcmd(str));
+		}
+		i++;
+	}
+	printf("%s\n", line->each_cmd->templine);
+	printf("%s\n", line->each_cmd->next->templine);
+}
+
+
+
+
+void	init_each_command(t_all *all)
+{
+	t_line *line;
+	int i;
+
+	line = all->line;
+	line->each_cmd = ft_calloc(line->total_cmd + 1, sizeof(t_cmd));
+	if (!line->each_cmd)
+		exit(1);
+	i = 0;
+	while (i < line->each_cmd)
+	{
+
+	}
+	
+}
+
+// void	to_fill_struct(int pos, t_all *all)
+// {
+// 	t_line	*line;
+// 	int temp_j;
+// 	int	j;
+// 	int	i;
+
+// 	line = all->line;
+// 	temp_j = 0;
+// 	i = 0;
+
+// 	// while (line->splits[pos][i] != '\0')
+// 	// {
+// 	// 	if (ft_strchr("<>", line->splits[pos][i]))
+// 	// }
+// 	while (curline[temp_j] != '\0')
+// 	{
+// 		while (curline[temp_j] != '\0' && (curline[temp_j] == ' ' || curline[temp_j] == '\t'))
+// 			temp_j++;
+// 		j = temp_j;
+// 		while (curline[temp_j] != '\0' && !ft_strchr("<>|$", curline[temp_j]))
+// 			temp_j++;
+// 		if (curline[temp_j + 1] == '\0')
+// 		{
+// 			// last part of line
+// 			if (i - 1 > 0 && line->each_cmd[i - 1].cmd)
+// 			{
+// 				fill_cmd(&curline[j], line, ((temp_j - j) + 1), i);
+// 			}
+// 			if (i - 1 > 0 && line->each_cmd[i - 1].infile)
+// 			{
+// 				fill_infile(&curline[j], line, ((temp_j - j) + 1), i);
+// 			}
+// 			if (i - 1 > 0 && line->each_cmd[i - 1].outfile)
+// 			{
+// 				fill_outfile(&curline[j], line, ((temp_j - j) + 1), i);
+// 			}
+// 		}
+		
+// 		if (curline[temp_j] == '|')
+// 		{
+// 			fill_cmd(&curline[j], line, ((temp_j - j) + 1), i);
+// 			temp_j++;
+// 		}
+// 		if (curline[temp_j] == '<')
+// 		{
+// 			if (curline[temp_j + 1] != '\0' && curline[temp_j + 1] == '<')
+// 			{
+// 				temp_j = temp_j + 1;
+// 				fill_heredoc(&curline[j], line, ((temp_j - j) + 1), i);
+// 			}
+// 			else
+// 				fill_infile(&curline[j], line, ((temp_j - j) + 1), i);
+// 			temp_j = temp_j + 1;
+// 		}
+// 		if (curline[temp_j] == '>')
+// 		{
+// 			if (curline[temp_j + 1] != '\0' && curline[temp_j + 1] == '>')
+// 			{	// if (curline[temp_j] == '$')
+// 	// {
+// 	// 	if(curline[temp_j + 1] == '?')
+// 	// 		temp_j + 1;
+// 				line->each_cmd[i].is_append = true;
+// 				temp_j = temp_j + 1;
+// 			}
+// 			fill_outfile(&curline[j], line, ((temp_j - j) + 1), i);
+// 			temp_j = temp_j + 1;
+// 		}
+// 		i++;
+// 	}
+// 	printf("end of fill_struct\n");
+// }
+
+static int	words_counter(char const *s, char c)
+{
+	int	count;
+	char q;
+
+	count = 0;
+	while (*s)
+	{
+		while (*s == c)
+			s++;
+		if (*s == 34 || *s == 39)
+		{
+			q = *s;
+			s++;
+			while(*s != q)
+				s++;
+			// count++;
+		}
+		if (*s)
+			count++;
+		while ((*s != c) && (*s))
+			s++;
+	}
+	return (count);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -249,17 +489,28 @@ int	main(int argc, char **argv, char **envp)
 		printf("line is (%s)\n", curline);
 		// printf("line is (%c)\n", curline[4]);
 		//my_array = initializing_3d(argc, &line, envp);
-		
-		check_line(curline, all);
-		amount_cmd = count_cmd(curline, all);
-		printf("totall cmd is %d\n", amount_cmd);
-		initialize_each_cmd(all);
-		to_fill_struct(curline, all);
-		printf("%s\n", all->line->each_cmd[0].cmd[0]);
- 		printf("%s\n", all->line->each_cmd[0].cmd[1]);
-		printf("%s\n", all->line->each_cmd[1].cmd[0]);
-		printf("%s\n", all->line->each_cmd[1].cmd[1]);
-		printf("%s\n", all->line->each_cmd[2].cmd[0]);
+		char **str = ft_split_quotes(curline, ' ');
+		int i = 0;
+		while (str[i])
+		{
+			printf("%s\n", str[i]);
+			i++;
+		}
+		// printf("%s\n", str[4]);
+		printf("%d\n", words_counter(curline, ' '));
+		// check_quotes(curline, all);
+		// split_cmds(curline, all);
+		// check_line(curline, all);
+		// amount_cmd = count_cmd(curline, all);
+		// printf("totall cmd is %d\n", amount_cmd);
+		// init_each_command(all);
+		// // initialize_each_cmd(all);
+		// to_fill_struct(curline, all);
+		// printf("%s\n", all->line->each_cmd[0].cmd[0]);
+ 		// printf("%s\n", all->line->each_cmd[0].cmd[1]);
+		// printf("%s\n", all->line->each_cmd[1].cmd[0]);
+		// printf("%s\n", all->line->each_cmd[1].cmd[1]);
+		// printf("%s\n", all->line->each_cmd[2].cmd[0]);
 		// printf("print element\n\n\n");
 		// print_elements(all);
 		// free(curline);

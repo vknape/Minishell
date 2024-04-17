@@ -1,82 +1,97 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_split.c                                         :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/17 15:07:04 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/03/05 12:09:18 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@student.codam.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:39:20 by vknape            #+#    #+#             */
+/*   Updated: 2024/04/11 08:50:31 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	words_counter(char const *s, char c)
-{
-	int	count;
-
-	count = 0;
-	while (*s)
-	{
-		while (*s == c)
-			s++;
-		if (*s)
-			count++;
-		while ((*s != c) && (*s))
-			s++;
-	}
-	return (count);
-}
-
-static int	len(char const *s, char c)
-{
-	int	len;
-
-	len = 0;
-	while ((*s != c) && (*s != '\0'))
-	{
-		len++;
-		s++;
-	}
-	return (len);
-}
-
-static void	ft_free_s(int index, char **array)
-{
-	while (index >= 0)
-	{
-		free(array[index]);
-		index--;
-	}
-	free(array);
-}
+static int	words(const char *s, char c);
+static int	letters(const char *s, char c);
+static void	rm(int words, char **ptr);
 
 char	**ft_split(char const *s, char c)
 {
-	char	**array_of_s;
-	int		index;
+	int		i;
+	char	**ptr;
 
-	index = 0;
-	array_of_s = malloc(sizeof(char *) * (words_counter(s, c) + 1));
-	if (array_of_s == NULL)
+	ptr = malloc((words(s, c) + 1) * sizeof(char *));
+	if (ptr == NULL)
 		return (NULL);
+	i = 0;
 	while (*s)
 	{
 		if (*s == c)
 			s++;
 		else
 		{
-			array_of_s[index] = malloc(sizeof(char) * (len(s, c) + 1));
-			if (!array_of_s[index])
+			ptr[i] = malloc((letters(s, c) + 1) * sizeof(char));
+			if (ptr[i] == NULL)
 			{
-				ft_free_s(index, &array_of_s[index]);
+				rm(i, ptr);
 				return (NULL);
 			}
-			ft_strlcpy(array_of_s[index++], s, (len(s, c) + 1));
-			s = s + len(s, c);
+			ft_strlcpy(ptr[i++], s, letters(s, c) + 1);
+			s += letters(s, c);
 		}
 	}
-	array_of_s[index] = NULL;
-	return (array_of_s);
+	ptr[i] = NULL;
+	return (ptr);
+}
+
+static int	words(const char *s, char c)
+{
+	int	i;
+	int	words;
+	int	start;
+
+	i = 0;
+	words = 0;
+	start = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			start = 0;
+		if (s[i] != c && start == 0)
+		{
+			start = 1;
+			words++;
+		}
+		i++;
+	}
+	return (words);
+}
+
+static int	letters(const char *s, char c)
+{
+	int	letter;
+
+	letter = 0;
+	while (*s)
+	{
+		if (*s == c)
+			return (letter);
+		letter++;
+		s++;
+	}
+	return (letter);
+}
+
+static void	rm(int words, char **ptr)
+{
+	int	i;
+
+	i = 0;
+	while (i < words)
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr);
 }

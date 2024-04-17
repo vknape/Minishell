@@ -1,80 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_itoa.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/11 13:13:32 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/20 11:22:31 by adakheel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vknape <vknape@codam.student.nl>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/20 09:38:41 by vknape            #+#    #+#             */
+/*   Updated: 2023/10/20 10:04:22 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	nbrlen(long int n)
-{
-	int	len;
-
-	len = 0;
-	if (n < 0)
-	{
-		len = 1;
-		n = n * -1;
-	}
-	if (n == 0)
-	{
-		len = 1;
-	}
-	while (n != 0)
-	{
-		n = n / 10;
-		len++;
-	}
-	return (len);
-}
-
-static void	convert_to_string(char *p, long n, int neg, int l)
-{
-	char		*str;
-	int			len;
-	long		nbr;
-	int			sign;
-
-	str = p;
-	len = l;
-	nbr = n;
-	sign = neg;
-	str[len] = '\0';
-	while (len > 0)
-	{
-		str[len - 1] = nbr % 10 + '0';
-		nbr = nbr / 10;
-		len--;
-	}
-	if (sign == -1)
-		str[0] = '-';
-}
+static int	count(int n);
 
 char	*ft_itoa(int n)
 {
-	long			nbr;
-	int				sign;
-	int				len;
-	char			*str;
+	int			i;
+	const int	neg = (n < 0);
+	char		*s;
 
-	nbr = n;
-	len = nbrlen(nbr);
-	sign = 1;
-	if (nbr < 0)
-	{
-		sign = -1;
-		nbr = nbr * -1;
-	}
-	str = NULL;
-	str = malloc((len + 1) * sizeof(char));
-	if (!str)
+	if (n == INT_MIN)
+		return (ft_strdup("-2147483648"));
+	if (n < 0)
+		n *= -1;
+	i = count(n);
+	i += (n == 0);
+	s = (char *)malloc((i + 1 + neg) * sizeof(char));
+	if (s == NULL)
 		return (NULL);
-	convert_to_string(str, nbr, sign, len);
-	return (str);
+	if (neg != 0)
+		s[0] = '-';
+	s[i + neg] = '\0';
+	while ((i + neg) > (0 + neg))
+	{
+		s[i - 1 + neg] = (n % 10) + '0';
+		n /= 10;
+		i--;
+	}
+	return (s);
+}
+
+static int	count(int n)
+{
+	int	i;
+
+	i = 0;
+	while (n > 0)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
 }

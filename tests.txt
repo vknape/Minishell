@@ -41,3 +41,4 @@ cat < cat < infile | cat //redirect only accepts files
 cat < ls (no permission) | cat //errors no permission, doesn't also check for program ls
 sleep 5 $? @@executes sleep 5 and adds value if available of next input
 """ @@waits for same quote to close, same for single quotes
+cat <> infile @@creates infile ifnotexist with read and write permissions and redirects to input to cat

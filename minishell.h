@@ -15,6 +15,12 @@
 # include "libft/libft.h"
 # include <stdbool.h>
 
+typedef struct s_chunk
+{
+	char	*str;
+	struct s_chunk *next;
+}	t_chunk;
+
 typedef struct s_pipex
 {
 	char	*delimiter;
@@ -37,6 +43,7 @@ typedef struct s_line
 	int		invalid;
 	int		total_cmd;
 	char	**splits;
+	t_chunk	*chunks;
 	t_cmd	*each_cmd;
 }	t_line;
 

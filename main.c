@@ -541,15 +541,8 @@ void	init_each_command(t_all *all)
 // 	int temp_j;
 // 	int	j;
 // 	int	i;
-
-// 	line = all->line;
-// 	temp_j = 0;
-// 	i = 0;
-
-// 	// while (line->splits[pos][i] != '\0')
-// 	// {
-// 	// 	if (ft_strchr("<>", line->splits[pos][i]))
-// 	// }
+free(previous_line);
+	line_joined = ft_strjoin(with_newline, input);
 // 	while (curline[temp_j] != '\0')
 // 	{
 // 		while (curline[temp_j] != '\0' && (curline[temp_j] == ' ' || curline[temp_j] == '\t'))

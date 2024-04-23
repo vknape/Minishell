@@ -6,7 +6,7 @@
 /*   By: vknape <vknape@student.codam.nl>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 09:39:20 by vknape            #+#    #+#             */
-/*   Updated: 2024/04/17 13:43:48 by vknape           ###   ########.fr       */
+/*   Updated: 2024/04/18 08:55:26 by vknape           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ char	**ft_split_quotes(char const *s, char c)
 	{
 		if (*s == c)
 			s++;
-		
 		else if (*s == 34 || *s == 39)
 		{
 			q = *s;

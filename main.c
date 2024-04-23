@@ -438,31 +438,6 @@ void	init_each_command(t_all *all)
 // 	printf("end of fill_struct\n");
 // }
 
-static int	words_counter(char const *s, char c)
-{
-	int	count;
-	char q;
-
-	count = 0;
-	while (*s)
-	{
-		while (*s == c)
-			s++;
-		if (*s == 34 || *s == 39)
-		{
-			q = *s;
-			s++;
-			while(*s != q)
-				s++;
-			// count++;
-		}
-		if (*s)
-			count++;
-		while ((*s != c) && (*s))
-			s++;
-	}
-	return (count);
-}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -471,52 +446,56 @@ int	main(int argc, char **argv, char **envp)
 	int		amount_cmd;
 	t_all	*all;
 	char	*pwd;
+	char	*c;
 
 	//line = NULL;
 	//rl_initialize();
 	// all = initialize_t_all(amount_cmd, curline);
 	all = ft_calloc(1, sizeof(t_all));
 	all->line = ft_calloc(1, sizeof(t_line));
-	if (!all)
-		return (NULL);
+	// if (!all)
+	// 	return (NULL);
 	curline = readline("Minishell >");
+	// printf("%s\n", curline);
+	// printf("(%d)\n", curline[2]);
+	// execve()
 	// pwd = get_current_dir();
 	// change_directory("35 3");
-	while (curline)
-	{
-		if (ft_strlen(curline) > 1)
-			add_history(curline);
-		printf("line is (%s)\n", curline);
-		// printf("line is (%c)\n", curline[4]);
-		//my_array = initializing_3d(argc, &line, envp);
-		char **str = ft_split_quotes(curline, ' ');
-		int i = 0;
-		while (str[i])
-		{
-			printf("%s\n", str[i]);
-			i++;
-		}
-		// printf("%s\n", str[4]);
-		printf("%d\n", words_counter(curline, ' '));
-		// check_quotes(curline, all);
-		// split_cmds(curline, all);
-		// check_line(curline, all);
-		// amount_cmd = count_cmd(curline, all);
-		// printf("totall cmd is %d\n", amount_cmd);
-		// init_each_command(all);
-		// // initialize_each_cmd(all);
-		// to_fill_struct(curline, all);
-		// printf("%s\n", all->line->each_cmd[0].cmd[0]);
- 		// printf("%s\n", all->line->each_cmd[0].cmd[1]);
-		// printf("%s\n", all->line->each_cmd[1].cmd[0]);
-		// printf("%s\n", all->line->each_cmd[1].cmd[1]);
-		// printf("%s\n", all->line->each_cmd[2].cmd[0]);
-		// printf("print element\n\n\n");
-		// print_elements(all);
-		// free(curline);
-		// curline = readline("Minishell >");
-		exit(0);
-	}
-
+	// while (curline)
+	// {
+	// 	if (ft_strlen(curline) > 1)
+	// 		add_history(curline);
+	printf("line is (%s)\n", curline);
+	// 	// printf("line is (%c)\n", curline[4]);
+	// 	//my_array = initializing_3d(argc, &line, envp);
+	// 	// char **str = ft_split_quotes(curline, ' ');
+	// 	// int i = 0;
+	// 	// while (str[i])
+	// 	// {
+	// 	// 	printf("%s\n", str[i]);
+	// 	// 	i++;
+	// 	// }
+	// 	// // printf("%s\n", str[4]);
+	// 	// printf("%d\n", words_counter(curline, ' '));
+	// 	check_quotes(curline, all);
+	// 	check_line(curline, all);
+	// 	split_cmds(curline, all);
+	// 	// amount_cmd = count_cmd(curline, all);
+	// 	// printf("totall cmd is %d\n", amount_cmd);
+	// 	// init_each_command(all);
+	// 	// // initialize_each_cmd(all);
+	// 	// to_fill_struct(curline, all);
+	// 	// printf("%s\n", all->line->each_cmd[0].cmd[0]);
+ 	// 	// printf("%s\n", all->line->each_cmd[0].cmd[1]);
+	// 	// printf("%s\n", all->line->each_cmd[1].cmd[0]);
+	// 	// printf("%s\n", all->line->each_cmd[1].cmd[1]);
+	// 	// printf("%s\n", all->line->each_cmd[2].cmd[0]);
+	// 	// printf("print element\n\n\n");
+	// 	// print_elements(all);
+	// 	// free(curline);
+	// 	// curline = readline("Minishell >");
+	// 	exit(0);
+	// }
+	exit(0);
 	return (0);
 }

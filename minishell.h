@@ -44,6 +44,8 @@ typedef struct s_all
 {
 	t_line	*line;
 	char	*lastwd;
+	char	*curwd;
+	
 }	t_all;
 
 int		main(int argc, char **argv, char **envm);

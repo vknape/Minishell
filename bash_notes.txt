@@ -4,4 +4,4 @@ $? '$?' "$?": returns last exit status
 The return status (see Exit Status) of a simple command is its exit status as provided by the POSIX 1003.1 waitpid function, or 128+n if the command was terminated by signal n.
 
 What if env is changed before minishell, example removing path or changing IFS
-1< here  >out
+2> out

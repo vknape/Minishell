@@ -26,10 +26,10 @@ char	*get_current_dir(void)
 
 void	change_directory(char *dir)
 {
-	if (access(dir, F_OK) == -1)
-		perror("chdir() error");
-	// if (chdir(dir) == -1)
+	// if (access(dir, F_OK) == -1)
 	// 	perror("chdir() error");
+	if (chdir(dir) == -1)
+		perror("chdir() error");
 	else
 		get_current_dir();
 }

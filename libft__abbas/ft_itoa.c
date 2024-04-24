@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/11 13:13:32 by adakheel      #+#    #+#                 */
-/*   Updated: 2023/10/20 11:22:31 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/04/23 12:45:11 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	convert_to_string(char *p, long n, int neg, int l)
 	int			len;
 	long		nbr;
 	int			sign;
+	char *base = "0123456789ABCDEF";
 
 	str = p;
 	len = l;

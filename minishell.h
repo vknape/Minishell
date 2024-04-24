@@ -51,6 +51,9 @@ typedef struct s_all
 {
 	t_line	*line;
 	char	*lastwd;
+	t_chunk	*envp;
+	t_chunk	*export;
+	t_chunk	*set;
 }	t_all;
 
 int		main(int argc, char **argv, char **envm);
@@ -59,6 +62,9 @@ char	*get_current_dir(void);
 void	change_directory(char *dir);
 char	**ft_split_until(char const *s, char c, int max_position);
 char	**ft_split_quotes(char const *s, char c);
+t_chunk	*ft_lstnewchunk(char *str);
+t_chunk	*ft_lstlast_chunk(t_chunk *lst);
+void	ft_lstadd_back_chunk(t_chunk **lst, t_chunk *new);
 
 
 #endif

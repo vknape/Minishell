@@ -18,22 +18,26 @@
 typedef struct s_chunk
 {
 	char	*str;
+	bool	is_heredoc;
+	bool	is_infile;
+	bool	is_outfile;
+	bool	is_append;
+	char	*lim;
 	struct s_chunk *next;
 }	t_chunk;
 
 typedef struct s_pipex
 {
-	char	*delimiter;
-	char	**infile;
-	char	**outfile;
+	t_chunk	*delimiter;
+	t_chunk	*infile;
+	t_chunk	*outfile;
 	char	**cmd;
 	char 	*templine;
-	// char	**flag;
 	bool	is_builtin;
-	bool	is_infile;
-	bool	is_outfile;
-	bool	is_heredoc;
-	bool	is_append;
+	// bool	is_infile;
+	// bool	is_outfile;
+	// bool	is_heredoc;
+	// bool	is_append;
 	struct s_pipex	*next;
 
 }	t_cmd;
@@ -43,6 +47,7 @@ typedef struct s_line
 	int		invalid;
 	int		total_cmd;
 	char	**splits;
+	char	*saved_line;
 	t_chunk	*chunks;
 	t_cmd	*each_cmd;
 }	t_line;
@@ -54,17 +59,40 @@ typedef struct s_all
 	t_chunk	*envp;
 	t_chunk	*export;
 	t_chunk	*set;
+	
 }	t_all;
 
 int		main(int argc, char **argv, char **envm);
+int		check_input(char *curline, t_all *all);
 
-char	*get_current_dir(void);
-void	change_directory(char *dir);
-char	**ft_split_until(char const *s, char c, int max_position);
-char	**ft_split_quotes(char const *s, char c);
+// char	*get_current_dir(void);
+// void	change_directory(char *dir);
+// char	**ft_split_until(char const *s, char c, int max_position);
+// char	**ft_split_quotes(char const *s, char c);
+// t_chunk	*ft_lstnewchunk(char *str);
+// t_chunk	*ft_lstlast_chunk(t_chunk *lst);
+// void	ft_lstadd_back_chunk(t_chunk **lst, t_chunk *new);
+// char	*join_line_after_quotes(char *curline, t_all *all);
+// int		check_meta(t_all *all, char *curline);
+
+// list of link list t_cmd
+t_cmd	*ft_lstnewcmd(void);
+t_cmd	*ft_lstlast_cmd(t_cmd *lst);
+void	ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new);
+void	lstclear_cmd(t_cmd **lst);
+
+// list of link list t_chunk
 t_chunk	*ft_lstnewchunk(char *str);
 t_chunk	*ft_lstlast_chunk(t_chunk *lst);
 void	ft_lstadd_back_chunk(t_chunk **lst, t_chunk *new);
+void	lstclear(t_chunk **lst);
 
+// list of function of fill_each_cmd
+//void	split_cmds(char *curline, t_all *all);
+void	split_cmd_nodes(t_all *all);
+
+//parsing utils
+int	check_space(char *str);
+char	**ft_split_quotes(char const *s, char c);
 
 #endif

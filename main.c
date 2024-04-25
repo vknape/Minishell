@@ -2,7 +2,122 @@
 #include "minishell.h"
 
 
+// void	check_line(char *curline, t_all *all)
+// {
+// 	t_line	*line;
+// 	int temp_j;
 
+// 	line = all->line;
+// 	temp_j = 0;
+// 	printf("here \n");
+// 	while (curline[temp_j] != '\0')
+// 	{
+// 		while (curline[temp_j] != '\0' && (curline[temp_j] == ' ' || curline[temp_j] == '\t' || curline[temp_j] == '\n'))
+// 		{
+// 			temp_j++;
+// 		}
+// 		if (curline[temp_j] == '|')
+// 		{
+// 			line->invalid = skip_spaces((temp_j + 1), curline, line);
+// 		}
+// 		if (curline[temp_j] == '<')
+// 		{
+// 			if (curline[temp_j + 1] != '\0' && curline[temp_j + 1] == '<')
+// 				temp_j = temp_j + 1;
+// 			line->invalid = skip_spaces((temp_j + 1), curline, line);
+// 		}
+// 		if (curline[temp_j] == '>')
+// 		{
+// 			if (curline[temp_j + 1] != '\0' && curline[temp_j + 1] == '>')
+// 				temp_j = temp_j + 1;
+// 			line->invalid = skip_spaces((temp_j + 1), curline, line);
+// 		}
+// 		if (line->invalid)
+// 		{
+// 			printf("here %c\n", curline[temp_j]);
+// 			exit(EXIT_FAILURE);
+// 		}
+// 		else
+// 		{
+// 			//printf("here %c\n", curline[temp_j]);
+// 			temp_j++;
+// 		}
+// 	}
+// 	printf("end of check_line\n");
+// }
+
+
+// int	ft_len_without_spaces(char *str)
+// {
+// 	int	i;
+// 	int	count;
+
+// 	i = 0;
+// 	count = 0;
+// 	while (str[i] != '\0')
+// 	{
+// 		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+// 		{
+// 			count++;
+// 		}
+// 		i++;
+// 	}
+// 	return (count);
+// }
+
+// char	*str_without_spaces(char *str)
+// {
+// 	char	*without_spaces;
+// 	int		len;
+// 	int		i;
+// 	int		j;
+
+// 	i = 0;
+// 	j = 0;
+// 	len = ft_len_without_spaces(str) + 1;
+// 	without_spaces = malloc(len * sizeof(char));
+// 	while (str[i])
+// 	{
+// 		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
+// 		{
+// 			without_spaces[j] = str[i];
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	without_spaces[j] = '\0';
+// 	return (without_spaces);
+// }
+
+
+// int	count_cmd(char *curline, t_all *all)
+// {
+// 	int i;
+// 	int	j;
+// 	char c;
+
+// 	i = 0;
+// 	j = 1;
+// 	if (curline[i] == '\0')
+// 		return (0);
+// 	while (curline[i] != '\0')
+// 	{
+// 		if (curline[i] == 34 || curline[i] == 39)
+// 		{
+// 			c = curline[i];
+// 			i++;
+// 			while (curline[i] != c)
+// 			{
+// 				i++;
+// 			}
+// 		}
+// 		if (curline[i] == '|')
+// 			j++;
+// 		i++;
+// 	}
+// 	all->line->total_cmd = j;
+// 	return (j);
+// }
 
 
 // int	count_cmd(char *curline, t_all *all)
@@ -27,57 +142,23 @@
 
 // }
 
+// int	skip_spaces(int temp_j, char *curline, t_line *line)
+// {
+// 	int	wrong;
 
-
-int	skip_spaces(int temp_j, char *curline, t_line *line)
-{
-	int	wrong;
-
-	wrong = 0;
-	printf("curline[temp_j] is %c\n", curline[temp_j]);
-	while (curline[temp_j] != '\0' && (curline[temp_j] == ' ' || curline[temp_j] == '\t'))
-	{
-		temp_j++;
-	}
-	if (ft_strchr("<>|$", curline[temp_j]))
-	{
-		wrong = 1;
-		printf("found wrong input\n");
-	}
-	return (wrong);
-}
-
-void	fill_cmd(char *curline, t_line *line, int max_p, int i)
-{
-	printf("fill cmd\n");
-	line->each_cmd[i].cmd = ft_split_until(curline, ' ', max_p);
-	printf("cmd in fill_cmd is %s\n", line->each_cmd[i].cmd[0]);
-
-}
-
-void	fill_infile(char *curline, t_line *line, int max_p, int i)
-{
-	printf("fill cmd\n");
-	line->each_cmd[i].infile = ft_split_until(curline, ' ', max_p);
-	line->each_cmd[i].is_infile = true;
-}
-
-void	fill_outfile(char *curline, t_line *line, int max_p, int i)
-{
-	printf("fill cmd\n");
-	line->each_cmd[i].outfile = ft_split_until(curline, ' ', max_p);
-	line->each_cmd[i].is_outfile = true;
-}
-
-void	fill_heredoc(char *curline, t_line *line, int max_p, int i)
-{
-	printf("fill cmd\n");
-	line->each_cmd[i].delimiter = ft_substr(curline, 0, max_p);
-	line->each_cmd[i].is_heredoc = true;
-}
-
-
-
+// 	wrong = 0;
+// 	printf("curline[temp_j] is %c\n", curline[temp_j]);
+// 	while (curline[temp_j] != '\0' && (curline[temp_j] == ' ' || curline[temp_j] == '\t'))
+// 	{
+// 		temp_j++;
+// 	}
+// 	if (ft_strchr("<>|$", curline[temp_j]))
+// 	{
+// 		wrong = 1;
+// 		printf("found wrong input\n");
+// 	}
+// 	return (wrong);
+// }
 
 // void	to_fill_struct(char *curline, t_all *all)
 // {
@@ -147,395 +228,13 @@ void	fill_heredoc(char *curline, t_line *line, int max_p, int i)
 // 	printf("end of fill_struct\n");
 // }
 
+// void	free_line_nodes_request_input(t_all *all, char **curline)
+// {
+// 	join_line_after_quotes(&curline);
+// 	// free all->line->chunks
 
 
-
-
-
-
-
-
-
-int check_quotes(char *curline, t_all *all)
-{
-	int i;
-	char c;
-	
-	i = 0;
-	c = 0;
-	while(curline[i] != '\0')
-	{
-		if (curline[i] == 34 || curline[i] == 39)
-		{
-			c = curline[i];
-			i++;
-			if (curline[i] == '\0')
-				break ;
-			while (curline[i] != '\0' && curline[i] != c)
-				i++;
-			if (curline[i] == '\0' && curline[i - 1] == c)
-			{
-				c = 0;
-				break ;
-			}
-			else if (curline[i] == c)
-				c = 0;
-		}
-		i++;
-	}
-	if (c != 0)
-		return (1);
-	else
-		return (0);
-}
-
-
-void	check_line(char *curline, t_all *all)
-{
-	t_line	*line;
-	int temp_j;
-
-	line = all->line;
-	temp_j = 0;
-	printf("here \n");
-	while (curline[temp_j] != '\0')
-	{
-		while (curline[temp_j] != '\0' && (curline[temp_j] == ' ' || curline[temp_j] == '\t' || curline[temp_j] == '\n'))
-		{
-			temp_j++;
-		}
-		if (curline[temp_j] == '|')
-		{
-			line->invalid = skip_spaces((temp_j + 1), curline, line);
-		}
-		if (curline[temp_j] == '<')
-		{
-			if (curline[temp_j + 1] != '\0' && curline[temp_j + 1] == '<')
-				temp_j = temp_j + 1;
-			line->invalid = skip_spaces((temp_j + 1), curline, line);
-		}
-		if (curline[temp_j] == '>')
-		{
-			if (curline[temp_j + 1] != '\0' && curline[temp_j + 1] == '>')
-				temp_j = temp_j + 1;
-			line->invalid = skip_spaces((temp_j + 1), curline, line);
-		}
-		if (line->invalid)
-		{
-			printf("here %c\n", curline[temp_j]);
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			//printf("here %c\n", curline[temp_j]);
-			temp_j++;
-		}
-	}
-	printf("end of check_line\n");
-}
-
-
-
-void	initialize_each_cmd(t_all *all)
-{
-	int		i;
-
-	i = 0;
-	printf("all->line->total_cmd is %d\n", all->line->total_cmd);
-	all->line->each_cmd = ft_calloc(all->line->total_cmd + 1, sizeof(t_cmd));
-	// while (i < all->line->total_cmd)
-	// {
-	// 	printf("before initialize_t_all\n\n");
-	// 	// all->line->each_cmd[i].cmd = ft_calloc(2, sizeof(chwhile (check_quotes(curline, all) != 0)
-		//check_line(curline, all);ar));
-	// 	// all->line->each_cmd[i].infile = ft_calloc(2, sizeof(char));
-	// 	// all->line->each_cmd[i].outfile = ft_calloc(2, sizeof(char));
-	// 	i++;
-	// }
-	printf("after initialize_t_all\n\n");
-}
-
-int	count_cmd(char *curline, t_all *all)
-{
-	int i;
-	int	j;
-	char c;
-
-	i = 0;
-	j = 1;
-	if (curline[i] == '\0')
-		return (0);
-	while (curline[i] != '\0')
-	{
-		if (curline[i] == 34 || curline[i] == 39)
-		{
-			c = curline[i];
-			i++;
-			while (curline[i] != c)
-			{
-				i++;
-			}
-		}
-		if (curline[i] == '|')
-			j++;
-		i++;
-	}
-	all->line->total_cmd = j;
-	return (j);
-}
-
-t_cmd	*ft_lstnewcmd(char *templine)
-{
-	t_cmd	*lst1;
-
-	lst1 = (t_cmd *) malloc(sizeof(t_cmd));
-	if (lst1 == NULL)
-		return (NULL);
-	(*lst1).next = NULL;
-	lst1->templine = templine;
-	return (lst1);
-}
-t_cmd	*ft_lstlast_cmd(t_cmd *lst)
-{
-	if (lst == NULL)
-		return (lst);
-	while ((*lst).next != NULL)
-		lst = (*lst).next;
-	return (lst);
-}
-
-void	ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new)
-{
-	t_cmd	*ptr;
-
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	ptr = ft_lstlast_cmd(*lst);
-	if (new)
-		(*ptr).next = new;
-}
-
-t_chunk	*ft_lstnewchunk(char *str)
-{
-	t_chunk	*lst1;
-
-	lst1 = (t_chunk *) malloc(sizeof(t_chunk));
-	if (lst1 == NULL)
-		return (NULL);
-	(*lst1).next = NULL;
-	lst1->str = str;
-	return (lst1);
-}
-t_chunk	*ft_lstlast_chunk(t_chunk *lst)
-{
-	if (lst == NULL)
-		return (lst);
-	while ((*lst).next != NULL)
-		lst = (*lst).next;
-	return (lst);
-}
-
-void	ft_lstadd_back_chunk(t_chunk **lst, t_chunk *new)
-{
-	t_chunk	*ptr;
-
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	ptr = ft_lstlast_chunk(*lst);
-	if (new)
-		(*ptr).next = new;
-}
-
-void	split_cmds(char *curline, t_all *all)
-{
-	t_line	*line;
-	int		i;
-	int		pos;
-	char	c;
-	char	*str;
-
-	line = all->line;
-	pos = 0;
-	i = 0;
-	while (curline[i] != '\0')
-	{
-		if (curline[i] == 34 || curline[i] == 39)
-		{
-			c = curline[i];
-			i++;
-			while (curline[i] != c)
-				i++;
-		}
-		if (curline[i] == '|' || curline[i + 1] == '\0')
-		{
-			//printf("%d\n%d\n%d\n", i, pos, ft_strlen(curline));
-			if (curline[i + 1] == '\0')
-				str = ft_substr(curline, pos, i - pos + 1);
-			else
-				str = ft_substr(curline, pos, i - pos);
-			pos = i + 1;
-			//printf("%s\n", str);
-			//split_inside_cmds_piletjes(str, all);
-			ft_lstadd_back_cmd(&line->each_cmd, ft_lstnewcmd(str));
-		}
-		i++;
-	}
-	// printf("%s\n", line->each_cmd->templine);
-	// printf("%s\n", line->each_cmd->next->templine);
-}
-
-void	find_match_quote(char *curline, int *i)
-{
-	char	c;
-
-	c = curline[*i];
-	++*i;
-	while (curline[*i] != c)
-		++*i;
-}
-
-void	split_all_substring(char *curline, t_line *line, int *pos, int *i)
-{
-	char	*str;
-
-	str = ft_substr(curline, *pos, *i - *pos);
-	*pos = *i;
-	if (ft_strlen(str) != 0)
-		ft_lstadd_back_chunk(&line->chunks, ft_lstnewchunk(str));
-	if ((curline[*i] == '<' && curline[*i + 1] == '<') || (curline \
-		[*i] == '>' && curline[*i + 1] == '>'))
-		++*i;
-	if (curline[*i] != '\0')
-	{
-		str = ft_substr(curline, *pos, *i - *pos + 1);
-		*pos = *i + 1;
-		ft_lstadd_back_chunk(&line->chunks, ft_lstnewchunk(str));
-	}
-}
-
-
-void	split_all(char *curline, t_all *all)
-{
-	t_line	*line;
-	int		i;
-	int		pos;
-	char	*str;
-
-	line = all->line;
-	pos = 0;
-	i = 0;
-	while (curline[i] != '\0')
-	{
-		if (curline[i] == 34 || curline[i] == 39)
-			find_match_quote(curline, &i);
-		if (curline[i] == '|' || curline[i] == '<' || curline[i] == '>')
-			split_all_substring(curline, line, &pos, &i);
-		i++;
-	}
-	if (pos < i)
-	{
-		str = ft_substr(curline, pos, i - pos);
-		if (ft_strlen(str) != 0)
-			ft_lstadd_back_chunk(&line->chunks, ft_lstnewchunk(str));
-	}
-}
-
-int		check_space(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
-		i++;
-	if (str[i] == '\0')
-		return (0);
-	else
-		return (str[i]);
-}
-
-int	ft_len_without_spaces(char *str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
-		{
-			count++;
-		}
-		i++;
-	}
-	return (count);
-}
-
-char	*str_without_spaces(char *str)
-{
-	char	*without_spaces;
-	int		len;
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	len = ft_len_without_spaces(str) + 1;
-	without_spaces = malloc(len * sizeof(char));
-	while (str[i])
-	{
-		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n')
-		{
-			without_spaces[j] = str[i];
-			j++;
-		}
-		i++;
-	}
-	without_spaces[j] = '\0';
-	return (without_spaces);
-}
-
-void	check_meta(t_all *all)
-{
-	t_chunk	*prev;
-	t_chunk	*cur;
-
-	cur = all->line->chunks;
-	prev = NULL;
-	while (cur)
-	{
-		if (check_space(cur->str) == '|')
-		{
-			if (prev == NULL || (prev && !check_space(prev->str)))
-				printf("parse error\n");
-			if (cur->next && check_space(cur->next->str) == '|')
-				printf("parse error\n");
-			if (cur->next == NULL || check_space(cur->next->str) == 0)
-				printf("request input");
-			if (cur->next && check_space(cur->next->str) == '<' && ft_len_without_spaces(cur->next->str) < 2)
-				printf("parse error\n");
-			if (cur->next && !ft_strncmp("<<", cur->next->str, ft_len_without_spaces(cur->next->str)))
-				printf("parse error\n");
-			if (cur->next && check_space(cur->next->str) == '>' && ft_len_without_spaces(cur->next->str) < 2)
-				printf("parse error\n");
-			if (cur->next && !ft_strncmp(">>", cur->next->str, ft_len_without_spaces(cur->next->str)))
-				printf("parse error\n");
-		}
-		prev = cur;
-		cur = cur->next;
-	}
-}
-
-
-
-
-
+// }
 
 // void	spite_each_block(t_all *all)
 // {
@@ -610,16 +309,7 @@ void	check_meta(t_all *all)
 // }
 
 
-void	init_each_command(t_all *all)
-{
-	t_line *line;
-	int i;
 
-	line = all->line;
-	line->each_cmd = ft_calloc(line->total_cmd + 1, sizeof(t_cmd));
-	if (!line->each_cmd)
-		exit(1);
-}
 
 // void	to_fill_struct(int pos, t_all *all)
 // {
@@ -682,20 +372,7 @@ void	init_each_command(t_all *all)
 // 		}
 // 		i++;
 // 	}
-// 	printf("end of fill_struct\n");
-// }
-
-// static int	words_counter(char const *s, char c)
-// {
-// 	int	count;
-// 	char q;
-
-// 	count = 0;
-// 	while (*s)
-// 	{
-// 		while (*s == c)
-// 			s++;
-// 		if (*s == 34 || *s == 39)
+// 	printf("end of fill_struct\n");join_line_after_quotes(&curline);
 // 		{
 // 			q = *s;
 // 			s++;
@@ -711,106 +388,129 @@ void	init_each_command(t_all *all)
 // 	return (count);
 // }
 
-void	join_line_after_quotes(char **curline)
-{
-	char	*previous_line;
-	char	*line_joined;
-	char	*input;
-	char	*with_newline;
 
-	previous_line = ft_strdup(*curline);
-	free(*curline);
-	*curline = NULL;
-	input = readline("quotes> ");
-	with_newline = ft_strjoin(previous_line, "\n");
-	free(previous_line);
-	line_joined = ft_strjoin(with_newline, input);
-	free(input);
-	free(with_newline);
-	*curline = ft_strdup(line_joined);
-	free(line_joined);
-	printf("curline is %s\n", *curline);
+
+void	init_each_command(t_all *all)
+{
+	t_line *line;
+	int i;
+
+	line = all->line;
+	line->each_cmd = ft_calloc(line->total_cmd + 1, sizeof(t_cmd));
+	if (!line->each_cmd)
+		exit(1);
 }
 
 
-int main(int argc, char **argv, char **envp)
+void	initialize_each_cmd(t_all *all)
 {
-	get_current_dir();
-	char *dir = "/home/adakheel/Music";
-	change_directory(dir);
+	int		i;
+
+	i = 0;
+	printf("all->line->total_cmd is %d\n", all->line->total_cmd);
+	all->line->each_cmd = ft_calloc(all->line->total_cmd + 1, sizeof(t_cmd));
+	// while (i < all->line->total_cmd)
+	// {
+	// 	printf("before initialize_t_all\n\n");
+	// 	// all->line->each_cmd[i].cmd = ft_calloc(2, sizeof(chwhile (check_quotes(curline, all) != 0)
+		//check_line(curline, all);ar));
+	// 	// all->line->each_cmd[i].infile = ft_calloc(2, sizeof(char));
+	// 	// all->line->each_cmd[i].outfile = ft_calloc(2, sizeof(char));
+	// 	i++;
+	// }
+	printf("after initialize_t_all\n\n");
 }
 
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	char	*curline;
-// 	int		amount_cmd;
-// 	t_all	*all;
-// 	char	*pwd;
-// 	int		i = 0;
+int	main(int argc, char **argv, char **envp)
+{
+	char	*curline;
+	int		amount_cmd;
+	t_all	*all;
+	char	*pwd;
+	int		i = 0;
 
-// 	//line = NULL;
-// 	//rl_initialize();
-// 	// all = initialize_t_all(amount_cmd, curline);
-// 	all = ft_calloc(1, sizeof(t_all));
-// 	all->line = ft_calloc(1, sizeof(t_line));
-// 	if (!all)
-// 		return (1);
-// 	curline = readline("Minishell> ");
-// 	// pwd = get_current_dir();
-// 	// change_directory("35 3");
-// 	while (check_quotes(curline, all) != 0)
-// 		join_line_after_quotes(&curline);
-// 	// printf("curline after while is %s\n", curline);
-// 	add_history(curline);
-// 	// printf("line is (%s)\n", curline);
-// 		//check_line(curline, all);
-// 	// count_cmd(curline, all);
-// 	// init_each_command(all);
-// 	// split_cmds(curline, all);
-// 	// printf("%s\n", all->line->chunks);
-// 	split_all(curline, all);
-// 	// printf("test here %s\n", all->line->each_cmd->templine);
-// 	// printf("test %s\n", all->line->chunks->str);
-// 	t_chunk *chunks = all->line->chunks;
-// 	while (chunks != NULL)
-// 	{
-// 		printf("test (%s)\n", chunks->str);
-// 		chunks = chunks->next;
-// 	}
-// 	while(1)
-// 	{
-// 		curline = readline("Minishell> ");
-// 	}
-	
-// 	// 	// printf("line is (%c)\n", curline[4]);
-// 	// 	//my_array = initializing_3d(argc, &line, envp);
-// 	// 	char **str = ft_split_quotes(curline, ' ');
-// 	// 	int i = 0;
-// 	// 	while (str[i])
-// 	// 	{
-// 	// 		printf("%s\n", str[i]);
-// 	// 		i++;
-// 	// 	}
-// 	// 	// printf("%s\n", str[4]);
-// 	// 	printf("%d\n", words_counter(curline, ' '));
-// 	// 	// check_quotes(curline, all);
-	
-// 	// 	// amount_cmd = count_cmd(curline, all);
-// 	// 	// printf("totall cmd is %d\n", amount_cmd);
-// 	// 	// init_each_command(all);
-// 	// 	// // initialize_each_cmd(all);
-// 	// 	// to_fill_struct(curline, all);
-// 	// 	// printf("%s\n", all->line->each_cmd[0].cmd[0]);
-//  	// 	// printf("%s\n", all->line->each_cmd[0].cmd[1]);
-// 	// 	// printf("%s\n", all->line->each_cmd[1].cmd[0]);
-// 	// 	// printf("%s\n", all->line->each_cmd[1].cmd[1]);
-// 	// 	// printf("%s\n", all->line->each_cmd[2].cmd[0]);
-// 	// 	// printf("print element\n\n\n");
-// 	// 	// print_elements(all);
-// 	// 	// free(curline);
-// 	// 	// curline = readline("Minishell >");
-// 	// 	exit(0);
-// 	// }
+	//line = NULL;
+	//rl_initialize();
+	// all = initialize_t_all(amount_cmd, curline);
+	// pwd = get_current_dir();
+	// change_directory("35 3");
+	all = ft_calloc(1, sizeof(t_all));
+	all->line = ft_calloc(1, sizeof(t_line));
+	if (!all)
+		return (1);
+	curline = readline("Minishell> ");
 
-// 	return (0);
-// }
+	check_input(curline, all);
+	printf("here cur line iss (%s)\n", all->line->saved_line);
+	split_cmd_nodes(all);
+	// split_cmds(all->line->saved_line, all);
+	// t_cmd	*temp_cmd = all->line->each_cmd;
+	// while (temp_cmd != NULL)
+	// {
+	// 	printf("patr of line is (%s)\n", temp_cmd->templine);
+	// 	temp_cmd = temp_cmd->next;
+	// }
+	
+
+	//split_cmds()
+	// 	join_line_after_quotes(&curline);
+	// split_all(curline, all);
+	// check_meta(all, &curline);
+	// 	join_line_after_quotes
+	// 		check_quotes
+	// 			split_all
+	// 				check_meta
+	// printf("curline after while is %s\n", curline);
+	//add_history(curline);
+	// printf("line is (%s)\n", curline);
+		//check_line(curline, all);
+	// count_cmd(curline, all);
+	// init_each_command(all);
+	// split_cmds(curline, all);
+	// printf("%s\n", all->line->chunks);
+	// split_all(curline, all);
+	// printf("test here %s\n", all->line->each_cmd->templine);
+	// printf("test %s\n", all->line->chunks->str);
+	// t_chunk *chunks = all->line->chunks;
+	// while (chunks != NULL)
+	// {
+	// 	printf("test (%s)\n", chunks->str);
+	// 	chunks = chunks->next;
+	// }
+	// while(1)
+	// {
+	// 	curline = readline("Minishell> ");
+	// }
+	
+	// 	// printf("line is (%c)\n", curline[4]);
+	// 	//my_array = initializing_3d(argc, &line, envp);
+	// 	char **str = ft_split_quotes(curline, ' ');
+	// 	int i = 0;
+	// 	while (str[i])
+	// 	{
+	// 		printf("%s\n", str[i]);
+	// 		i++;
+	// 	}
+	// 	// printf("%s\n", str[4]);
+	// 	printf("%d\n", words_counter(curline, ' '));
+	// 	// check_quotes(curline, all);
+	
+	// 	// amount_cmd = count_cmd(curline, all);
+	// 	// printf("totall cmd is %d\n", amount_cmd);
+	// 	// init_each_command(all);
+	// 	// // initialize_each_cmd(all);
+	// 	// to_fill_struct(curline, all);
+	// 	// printf("%s\n", all->line->each_cmd[0].cmd[0]);
+ 	// 	// printf("%s\n", all->line->each_cmd[0].cmd[1]);
+	// 	// printf("%s\n", all->line->each_cmd[1].cmd[0]);
+	// 	// printf("%s\n", all->line->each_cmd[1].cmd[1]);
+	// 	// printf("%s\n", all->line->each_cmd[2].cmd[0]);
+	// 	// printf("print element\n\n\n");
+	// 	// print_elements(all);
+	// 	// free(curline);
+	// 	// curline = readline("Minishell >");
+	// 	exit(0);
+	// }
+
+	return (0);
+}

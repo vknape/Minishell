@@ -6,7 +6,7 @@
 /*   By: vknape <vknape@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/20 09:39:20 by vknape        #+#    #+#                 */
-/*   Updated: 2024/04/22 10:48:51 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/04/25 14:14:50 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	words_counter(char const *s, char c)
 {
-	int	count;
-	char q;
+	int		count;
+	char	q;
 
 	count = 0;
 	while (*s)
@@ -24,10 +24,8 @@ static int	words_counter(char const *s, char c)
 		{
 			q = *s;
 			s++;
-			while(*s && *s != q)
-			{
+			while (*s && *s != q)
 				s++;
-			}
 		}
 		while (*s == c)
 			s++;
@@ -44,7 +42,7 @@ static int	len(char const *s, char c)
 	int	len;
 
 	len = 0;
-	while ((*s != c) && (*s != '\0'))
+	while ((*s != '\0') && (*s != c))
 	{
 		len++;
 		s++;
@@ -76,7 +74,6 @@ char	**ft_split_quotes(char const *s, char c)
 	{
 		if (*s == c)
 			s++;
-		
 		else if (*s == 34 || *s == 39)
 		{
 			q = *s;

@@ -438,6 +438,8 @@ int	main(int argc, char **argv, char **envp)
 	all->line = ft_calloc(1, sizeof(t_line));
 	if (!all)
 		return (1);
+	make_envp_and_set(all, envp);
+	make_export(all, envp);
 	curline = readline("Minishell> ");
 
 	check_input(curline, all);

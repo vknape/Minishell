@@ -64,6 +64,8 @@ typedef struct s_all
 
 int		main(int argc, char **argv, char **envm);
 int		check_input(char *curline, t_all *all);
+void	make_envp_and_set(t_all *all, char *envp[]);
+void	make_export(t_all *all, char *envp[]);
 
 // char	*get_current_dir(void);
 // void	change_directory(char *dir);
@@ -94,5 +96,9 @@ void	split_cmd_nodes(t_all *all);
 //parsing utils
 int	check_space(char *str);
 char	**ft_split_quotes(char const *s, char c);
+
+// bultins function
+//void	ft_echo(t_all *all, char **str);
+void	ft_echo_quotes(t_all *all, char **array_str);
 
 #endif

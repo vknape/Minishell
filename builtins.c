@@ -20,19 +20,12 @@ char	*get_current_dir(void)
 		 perror("getcwd failed");
 		exit(EXIT_FAILURE);
 	}
-	printf("path is (%s)\n", buf);
+	// printf("%s\n", buf);
+	printf("%s\n", ptr);
 	return (ptr);
 }
 
-void	change_directory(char *dir)
-{
-	// if (access(dir, F_OK) == -1)
-	// 	perror("chdir() error");
-	if (chdir(dir) == -1)
-		perror("chdir() error");
-	else
-		get_current_dir();
-}
+
 
 
 char	*value_of_dollar_sign(t_all *all, char *str, int len)
@@ -40,33 +33,40 @@ char	*value_of_dollar_sign(t_all *all, char *str, int len)
 	int		i;
 	char	*copy_str;
 	char	*copy_value;
+	t_chunk	*temp;
+
 
 	i = 1;
+	temp = all->envp;
 	copy_value = NULL;
+	printf("str here is (%s)\n", str);
 	copy_str = ft_substr(str, 0, len);
 	if (str[0] == '$' && ft_strlen(copy_str) == 1)
 		return (copy_str);
-	while (all->envp != NULL)
+	while (temp != NULL)
 	{
-		if (!strncmp(copy_str, all->envp->str, ft_strlen(copy_str)))
+		if (!strncmp(copy_str, temp->str, ft_strlen(copy_str)))
 		{
-			copy_value = ft_substr(all->envp->str, ft_strlen(copy_str) + 1, ft_strlen(all->envp->str) - ft_strlen(copy_str));
+			copy_value = ft_substr(temp->str, ft_strlen(copy_str) + 1, ft_strlen(temp->str) - ft_strlen(copy_str));
+			printf("do we het here (%s)\n", copy_value);
 			break ;
 		}
-		all->envp = all->envp->next;
+		temp = temp->next;
 	}
 	if (copy_value == NULL)
 	{
-		while (all->export != NULL)
+		temp = all->export;
+		while (temp != NULL)
 		{
-			if (!strncmp(copy_str, all->export->str, ft_strlen(copy_str)))
+			if (!strncmp(copy_str, temp->str, ft_strlen(copy_str)))
 			{
-				copy_value = ft_substr(all->export->str, ft_strlen(copy_str) + 1, ft_strlen(all->export->str) - ft_strlen(copy_str));
+				copy_value = ft_substr(temp->str, ft_strlen(copy_str) + 1, ft_strlen(temp->str) - ft_strlen(copy_str));
 				break ;
 			}
-			all->export = all->export->next;
+			temp = temp->next;
 		}
 	}
+	printf("copy str (%s)\n", copy_value);
 	return (copy_value);
 }
 
@@ -367,3 +367,257 @@ void	ft_echo_quotes(t_all *all, char **array_str)
 // 	}
 // 	join_all_indexes_of_array(array_str);
 // }
+
+void	ft_env(t_all *all)
+{
+	while (all->envp)
+	{
+		printf("%s\n", all->envp->str);
+		all->envp = all->envp->next;
+	}
+	while (all->export)
+	{
+		printf("%s\n", all->export->str);
+		all->export = all->export->next;
+	}
+	// while (all->set)
+	// {
+	// 	printf("%s\n", all->set->str);
+	// 	all->set = all->set->next;
+	// }
+}
+
+void	ft_pwd(void)
+{
+	char	*current_dir;
+
+	current_dir = get_current_dir();
+	printf("%s\n", current_dir);
+}
+
+void	ft_remove_var(t_chunk *chunk, char *str)
+{
+	t_chunk	*temp;
+	t_chunk	*temp2;
+
+	temp = chunk;
+	printf("str is (%s)\n", str);
+	if (!ft_strncmp(temp->str, str, ft_strlen(temp->str)))
+	{
+		// printf("first chunk = (%s)\n", temp->str);
+		chunk = temp->next;
+		free(temp);
+		return ;
+	}
+	while (temp->next)
+	{
+		// printf("next chunk = (%s)\n", temp->next->str);
+		if (!ft_strncmp(temp->next->str, str, ft_strlen(str)))
+		{
+			// printf("do free\n");
+			temp2 = temp->next;
+			temp->next = temp->next->next;
+			// printf("temp2 is (%s)\n", temp2->str);
+			// if (temp2->str)
+			free(temp2->str);
+			free(temp2);
+			return ;
+		}
+		temp = temp->next;
+	}
+}
+
+void	ft_unset(t_all *all, char *str)
+{
+	char	*c;
+
+	c = ft_strjoin("declare -x ", str);
+	ft_remove_var(all->envp, str);
+	ft_remove_var(all->export, c);
+	free(c);
+	ft_remove_var(all->set, str);
+}
+
+
+int	number_of_char_until_first_slash(char *s)
+{
+	int	len;
+
+	len = ft_strlen(s) - 1;
+	printf("len is %d\n", len);
+	while (s[len] && len >= 0)
+	{
+		if (s[len] == 47)
+		{
+			printf("len is %d\n", len);
+			return (len);
+		}
+		len--;
+	}
+	printf("len is %d\n", len);
+	return (0);
+}
+
+char *create_new_path(t_all *all, char **array)
+{
+	int		i;
+	char	*dir;
+	char	*new_dir;
+
+	i = 0;
+	dir = get_current_dir();
+	printf("dir = (%s)\n", dir);
+	while (array && array[i])
+	{
+		if (!ft_strncmp(array[i], ".", 2))
+		{
+			i++;
+			continue ;
+		}
+		else if (!ft_strncmp(array[i], "..", 3))
+		{
+			new_dir = ft_substr(dir, 0, number_of_char_until_first_slash(dir));
+			if (new_dir[0] == '\0')
+			{
+				free(new_dir);
+				new_dir = ft_substr(dir, 0, 1);
+			}
+			free(dir);
+			dir = new_dir;
+			printf("new_dir = (%s)\n", new_dir);
+		}
+		else if (!ft_strncmp(array[i], "~", 2) && i == 0)
+		{
+			new_dir = value_of_dollar_sign(all, "HOME", 4);
+			dir = ft_strjoin_free(dir, "/");
+			dir = ft_strjoin_free(dir, new_dir);
+		}
+		else if (!ft_strncmp(array[i], "-", 2) && i == 0)
+		{
+			new_dir = value_of_dollar_sign(all, "OLDPWD", 7);
+			dir = ft_strjoin_free(dir, "/");
+			dir = ft_strjoin_free(dir, new_dir);
+		}
+		else
+		{
+			dir = ft_strjoin_free(dir, "/");
+			dir = ft_strjoin_free(dir, array[i]);
+		}
+		i++;
+	}
+	return (dir);
+}
+
+void	ft_cd(t_all *all)
+{
+	char	*current_dir;
+	char	*new_dir;
+	char	**array;
+	int		total_indexes;
+
+	current_dir = get_current_dir();
+	total_indexes = 0;
+	while (all->line->each_cmd->cmd && all->line->each_cmd->cmd[total_indexes])
+		total_indexes++;
+	printf("here (%s)\n", current_dir);
+	if (total_indexes > 2)
+	{
+		printf("error bash: cd: too many arguments\n");
+		return ;
+	}
+	if (!ft_strncmp(all->line->each_cmd->cmd[1], "/", 2))
+	{
+		new_dir = ft_substr(current_dir, 0, 1);
+	}
+	else
+	{
+		array = ft_split(all->line->each_cmd->cmd[1], '/');
+		if (total_indexes == 2)
+		{
+			new_dir = create_new_path(all, array);
+		}
+	}
+	printf("new dir is (%s)\n", new_dir);
+	if (chdir(new_dir) == -1)
+	{
+		printf("error invalid dir\n");
+	}
+	current_dir = get_current_dir();
+}
+
+char	*ft_joined_for_export(char *str, int start)
+{
+	char	*temp1;
+	char	*temp2;
+
+	temp1 = ft_substr(str, 0, start + 1);
+	temp2 = ft_strjoin("declare -x ", temp1);
+	free(temp1);
+	temp1 = ft_strjoin(temp2, "\"");
+	free(temp2);
+	temp2 = ft_substr(str, start + 1, ft_strlen(str) - (start + 1));
+	temp1 = ft_strjoin_free(temp1, temp2);
+	free(temp2);
+	temp2 = ft_strjoin_free(temp1, "\"");
+	printf("str for export is (%s)\n", temp2);
+	return (temp2);
+}
+
+void	ft_export(t_all	*all)
+{
+	int		i;
+	int		i_char;
+	t_chunk	*chuncks;
+	char	*joined_for_export;
+
+	i = 0;
+	chuncks = all->export;
+	while (all->line->each_cmd->cmd[i] != NULL)
+		i++;
+	// if i == 1 there are no arguments so just print all export list.
+	if (i == 1)
+	{
+		while (chuncks)
+		{
+			printf("%s\n", chuncks->str);
+			chuncks = chuncks->next;
+		}
+	}
+	else
+	{
+		// there are some arguments
+		i = 1;
+		while (all->line->each_cmd->cmd[i] != NULL)
+		{
+			i_char = 0;
+			if (ft_strchr("1234567890~!@#$&*()_-+=", all->line->each_cmd->cmd[1][i_char]))
+			{
+				printf("bash: export: %s: not a valid identifier\n", all->line->each_cmd->cmd[i]);
+			}
+			else
+			{
+				while (all->line->each_cmd->cmd[i][i_char] && all->line->each_cmd->cmd[i][i_char] != '=')
+					i_char++;
+				if (all->line->each_cmd->cmd[i][i_char])
+				{
+					ft_lstadd_back_chunk(&all->envp, ft_lstnewchunk(ft_strdup(all->line->each_cmd->cmd[i])));
+					ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(ft_joined_for_export(all->line->each_cmd->cmd[i], i_char)));
+				}
+				else
+				{
+					ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(ft_strjoin("declare -x ", all->line->each_cmd->cmd[i])));
+				}
+			}
+			i++;
+		}
+	}
+	sorter_export(all);
+	// just to test the out put
+	printf("test\n\n\n");
+	chuncks = all->export;
+	while (chuncks)
+	{
+		printf("%s\n", chuncks->str);
+		chuncks = chuncks->next;
+	}
+}

@@ -100,5 +100,11 @@ char	**ft_split_quotes(char const *s, char c);
 // bultins function
 //void	ft_echo(t_all *all, char **str);
 void	ft_echo_quotes(t_all *all, char **array_str);
+char	*get_current_dir(void);
+void	ft_env(t_all *all);
+void	ft_cd(t_all *all);
+void	ft_unset(t_all *all, char *str);
+void	ft_export(t_all	*all);
+void	sorter_export(t_all *all);
 
 #endif

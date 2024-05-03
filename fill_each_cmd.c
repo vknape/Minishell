@@ -34,6 +34,26 @@
 // 	}
 // }
 
+int	is_one_of_builtins(char *str)
+{
+	if (!ft_strncmp("echo", str, 5))
+		return (1);
+	if (!ft_strncmp("cd", str, 3))
+		return (1);
+	if (!ft_strncmp("pwd", str, 4))
+		return (1);
+	if (!ft_strncmp("export", str, 7))
+		return (1);
+	if (!ft_strncmp("unset", str, 6))
+		return (1);
+	if (!ft_strncmp("env", str, 4))
+		return (1);
+	if (!ft_strncmp("exit", str, 5))
+		return (1);
+	else
+		return (0);
+}
+
 void	fill_cmd_nodes(t_all *all, t_chunk *chunks)
 {
 	t_cmd	*each_cmd;
@@ -62,6 +82,8 @@ void	fill_cmd_nodes(t_all *all, t_chunk *chunks)
 	else
 	{
 		each_cmd->cmd = ft_split_quotes(chunks->str, ' ');
+		if (is_one_of_builtins(each_cmd->cmd[0]))
+			each_cmd->is_builtin = true;
 	}
 }
 
@@ -85,9 +107,16 @@ void	split_cmd_nodes(t_all *all)
 	}
 	while (all->line->each_cmd)
 	{
+		// if (all->line->each_cmd->is_builtin == true)
+		// 	printf("is builtins true\n");
 		if (all->line->each_cmd->cmd)
 		{
-			ft_echo_quotes(all, all->line->each_cmd->cmd);
+			//ft_unset(all, all->line->each_cmd->cmd[1]);
+			//ft_cd(all);
+			printf("\n\n\n\n");
+			//ft_env(all);
+			ft_export(all);
+			//ft_echo_quotes(all, all->line->each_cmd->cmd);
 		}
 		// while (all->line->each_cmd->cmd[i])
 		// {

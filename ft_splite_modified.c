@@ -78,3 +78,4 @@ char	**ft_split_until(char const *s, char c, int max_position)
 	array_of_s[index] = NULL;
 	return (array_of_s);
 }
+

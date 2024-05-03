@@ -12,3 +12,5 @@
 	-split commands and flags
 
 5.
+
+test fails   echo hello $OLDPWD    and ".        "$USER"   .. "

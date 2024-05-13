@@ -5,7 +5,7 @@ t_cmd	*ft_lstnewcmd(void)
 {
 	t_cmd	*lst1;
 
-	lst1 = (t_cmd *) malloc(sizeof(t_cmd));
+	lst1 = ft_calloc(1, sizeof(t_cmd));
 	if (lst1 == NULL)
 		return (NULL);
 	(*lst1).next = NULL;

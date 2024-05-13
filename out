@@ -7,6 +7,8 @@ cats
 check_input.c
 check_input.o
 envp.c
+envp.o
+exec.c
 fill_each_cmd.c
 fill_each_cmd.o
 ft_splite_modified.c
@@ -22,7 +24,6 @@ link_list_chunk.c
 link_list_chunk.o
 link_list_cmd.c
 link_list_cmd.o
-ls
 main.c
 main.o
 Makefile
@@ -35,5 +36,6 @@ outfile
 out_new
 outs
 README.md
+tester
 tests
 tests.txt

@@ -1,0 +1,47 @@
+==78351== Memcheck, a memory error detector
+==78351== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==78351== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==78351== Command: ./tester/Minishell
+==78351== Parent PID: 78275
+==78351== 
+==78351== Syscall param wait4(pid) contains uninitialised byte(s)
+==78351==    at 0x49B23EA: wait4 (wait4.c:30)
+==78351==    by 0x404CD6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78351==    by 0x4013E2: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78351== 
+==78351== 
+==78351== HEAP SUMMARY:
+==78351==     in use at exit: 225,706 bytes in 726 blocks
+==78351==   total heap usage: 937 allocs, 211 frees, 249,626 bytes allocated
+==78351== 
+==78351== 3 bytes in 1 blocks are definitely lost in loss record 4 of 75
+==78351==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==78351==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==78351==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==78351==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==78351==    by 0x40138C: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78351== 
+==78351== 75 (56 direct, 19 indirect) bytes in 1 blocks are definitely lost in loss record 22 of 75
+==78351==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==78351==    by 0x405CE8: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78351==    by 0x402C76: ft_lstnewcmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78351==    by 0x403ABE: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78351==    by 0x4013A6: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78351== 
+==78351== 21,607 (56 direct, 21,551 indirect) bytes in 1 blocks are definitely lost in loss record 74 of 75
+==78351==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==78351==    by 0x405CE8: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78351==    by 0x40132F: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78351== 
+==78351== LEAK SUMMARY:
+==78351==    definitely lost: 115 bytes in 3 blocks
+==78351==    indirectly lost: 21,570 bytes in 504 blocks
+==78351==      possibly lost: 0 bytes in 0 blocks
+==78351==    still reachable: 204,021 bytes in 219 blocks
+==78351==         suppressed: 0 bytes in 0 blocks
+==78351== Reachable blocks (those to which a pointer was found) are not shown.
+==78351== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==78351== 
+==78351== Use --track-origins=yes to see where uninitialised values come from
+==78351== For lists of detected and suppressed errors, rerun with: -s
+==78351== ERROR SUMMARY: 76 errors from 76 contexts (suppressed: 0 from 0)

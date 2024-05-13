@@ -1,7 +1,7 @@
 source ./utils.sh
 
-OUTFILE1=vmini
-OUTFILE2=vbash
+OUTFILE1=tester/vbash
+OUTFILE2=tester/vmini
 
 RESET="\033[0m"
 BLACK="\033[30m"
@@ -26,16 +26,16 @@ i=0
 es1=0
 es2=0
 
-LOG=error_log
+LOG=tester/error_log
 LEAK_LOG="leaks/leak_log$i"
 
 
 error_log()
 {
 	if [ $@ -eq 1 ]; then
-		echo -n "Bash output is:	" >> $LOG
+		echo "Bash output is:	" >> $LOG
 		cat $OUTFILE1 >> $LOG
-		echo -n "Your output is:	" >> $LOG
+		echo "Your output is:	" >> $LOG
 		cat $OUTFILE2 >> $LOG
 	fi
 	if [ $@ -eq 2 ]; then
@@ -57,7 +57,7 @@ tester()
 	# echo $@ "; exit" | bash >$OUTFILE2
 	echo $@ | bash >$OUTFILE1
 	es1=$?
-	echo $@ | ./../Minishell >$OUTFILE2
+	echo $@ | ./tester/Minishell >$OUTFILE2
 	es2=$?
 	sed -i '1d' $OUTFILE2
 	echo "$i." >> $LOG
@@ -75,7 +75,7 @@ tester()
 		printf "$BOLDRED exit"
 		error_log 2
 	fi
-	echo $@ | valgrind --log-file="leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --error-exitcode=42 ./../Minishell >$OUTFILE2
+	echo $@ | valgrind --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --error-exitcode=42 ./tester/Minishell >$OUTFILE2
 	es2=$?
 	if [ $es2 -ne 42 ]; then
 		printf "$BOLDGREEN MOK\n"
@@ -85,35 +85,61 @@ tester()
 
 }
 
+rm ./tester/Minishell
+cp ./Minishell ./tester
 rm $LOG
 rm leaks/*.txt
 # clear_logs $i
 printf "\033[1m\033[36mECHO TESTS\n"
-
 tester 'echo hello'
 tester 'echo hello hello'
 tester 'echo hello "hello hello"'
 tester 'echo hello "hello hello" hello'
 
-
 printf "\n\033[1m\033[36mCD TESTS\n"
 
 
-
-
 printf "\n\033[1m\033[36mPWD TESTS\n"
-
+tester 'pwd'
 
 printf "\n\033[1m\033[36mEXPORT TESTS\n"
-
+tester 'export var=5'
 
 printf "\n\033[1m\033[36mUNSET TESTS\n"
 
-
 printf "\n\033[1m\033[36mENV TESTS\n"
-
+# tester 'env'
 
 printf "\n\033[1m\033[36mEXIT TESTS\n"
 
-rm vmini
-rm vbash
+printf "\n\033[1m\033[36mCMD TESTS\n"
+tester 'ls'
+tester 'sleep'
+
+printf "\n\033[1m\033[36mCMD with flags TESTS\n"
+tester 'ls -l'
+tester 'sleep 1'
+tester 'cat infile.txt'
+
+printf "\n\033[1m\033[36mCMD with pipe TESTS\n"
+tester 'ls | echo'
+tester 'ls | cat'
+tester 'sleep 1 | ls -l'
+tester 'ls -l | sleep 1'
+
+printf "\n\033[1m\033[36mCMD with infile TESTS\n"
+tester 'cat < infile.txt'
+tester 'ls < infile.txt'
+
+printf "\n\033[1m\033[36mCMD with outfile TESTS\n"
+# tester ''
+
+printf "\n\033[1m\033[36mCMD with infile outfile and pipe TESTS\n"
+tester 'cat < infile.txt | cat -e'
+tester 'cat < infile.txt | ls'
+tester 'ls < infile.txt | cat -e'
+
+# rm $OUTFILE1
+# rm $OUTFILE2
+
+printf $WHITE

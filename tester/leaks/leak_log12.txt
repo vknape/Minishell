@@ -1,0 +1,70 @@
+==78410== Memcheck, a memory error detector
+==78410== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==78410== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==78410== Command: ./tester/Minishell
+==78410== Parent PID: 78275
+==78410== 
+==78410== Syscall param wait4(pid) contains uninitialised byte(s)
+==78410==    at 0x49B23EA: wait4 (wait4.c:30)
+==78410==    by 0x404CD6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78410==    by 0x4013E2: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78410== 
+==78412== 
+==78412== HEAP SUMMARY:
+==78412==     in use at exit: 226,014 bytes in 735 blocks
+==78412==   total heap usage: 948 allocs, 213 frees, 249,820 bytes allocated
+==78412== 
+==78412== 75 (56 direct, 19 indirect) bytes in 1 blocks are definitely lost in loss record 31 of 84
+==78412==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==78412==    by 0x405CE8: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78412==    by 0x402C76: ft_lstnewcmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78412==    by 0x403ABE: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78412==    by 0x4013A6: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78412== 
+==78412== LEAK SUMMARY:
+==78412==    definitely lost: 56 bytes in 1 blocks
+==78412==    indirectly lost: 19 bytes in 2 blocks
+==78412==      possibly lost: 0 bytes in 0 blocks
+==78412==    still reachable: 225,939 bytes in 732 blocks
+==78412==         suppressed: 0 bytes in 0 blocks
+==78412== Reachable blocks (those to which a pointer was found) are not shown.
+==78412== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==78412== 
+==78412== For lists of detected and suppressed errors, rerun with: -s
+==78412== ERROR SUMMARY: 84 errors from 84 contexts (suppressed: 0 from 0)
+==78410== 
+==78410== HEAP SUMMARY:
+==78410==     in use at exit: 226,014 bytes in 735 blocks
+==78410==   total heap usage: 948 allocs, 213 frees, 249,820 bytes allocated
+==78410== 
+==78410== 10 bytes in 1 blocks are definitely lost in loss record 8 of 82
+==78410==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==78410==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==78410==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==78410==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==78410==    by 0x40138C: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78410== 
+==78410== 152 (56 direct, 96 indirect) bytes in 1 blocks are definitely lost in loss record 32 of 82
+==78410==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==78410==    by 0x405CE8: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78410==    by 0x402C76: ft_lstnewcmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78410==    by 0x403ABE: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78410==    by 0x4013A6: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78410== 
+==78410== 21,687 (56 direct, 21,631 indirect) bytes in 1 blocks are definitely lost in loss record 81 of 82
+==78410==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==78410==    by 0x405CE8: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78410==    by 0x40132F: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78410== 
+==78410== LEAK SUMMARY:
+==78410==    definitely lost: 122 bytes in 3 blocks
+==78410==    indirectly lost: 21,727 bytes in 511 blocks
+==78410==      possibly lost: 0 bytes in 0 blocks
+==78410==    still reachable: 204,165 bytes in 221 blocks
+==78410==         suppressed: 0 bytes in 0 blocks
+==78410== Reachable blocks (those to which a pointer was found) are not shown.
+==78410== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==78410== 
+==78410== Use --track-origins=yes to see where uninitialised values come from
+==78410== For lists of detected and suppressed errors, rerun with: -s
+==78410== ERROR SUMMARY: 83 errors from 83 contexts (suppressed: 0 from 0)

@@ -407,7 +407,7 @@ void	initialize_each_cmd(t_all *all)
 	int		i;
 
 	i = 0;
-	printf("all->line->total_cmd is %d\n", all->line->total_cmd);
+	// printf("all->line->total_cmd is %d\n", all->line->total_cmd);
 	all->line->each_cmd = ft_calloc(all->line->total_cmd + 1, sizeof(t_cmd));
 	// while (i < all->line->total_cmd)
 	// {
@@ -418,7 +418,7 @@ void	initialize_each_cmd(t_all *all)
 	// 	// all->line->each_cmd[i].outfile = ft_calloc(2, sizeof(char));
 	// 	i++;
 	// }
-	printf("after initialize_t_all\n\n");
+	// printf("after initialize_t_all\n\n");
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -429,6 +429,12 @@ int	main(int argc, char **argv, char **envp)
 	char	*pwd;
 	int		i = 0;
 
+	// while (envp[i])
+	// {
+	// 	printf("%s\n", envp[i]);
+	// 	i++;
+	// }
+
 	//line = NULL;
 	//rl_initialize();
 	// all = initialize_t_all(amount_cmd, curline);
@@ -436,6 +442,7 @@ int	main(int argc, char **argv, char **envp)
 	// change_directory("35 3");
 	all = ft_calloc(1, sizeof(t_all));
 	all->line = ft_calloc(1, sizeof(t_line));
+	// printf("address = %s", all->line->each_cmd->infile->str);
 	if (!all)
 		return (1);
 	make_envp_and_set(all, envp);
@@ -443,8 +450,22 @@ int	main(int argc, char **argv, char **envp)
 	curline = readline("Minishell> ");
 
 	check_input(curline, all);
-	printf("here cur line iss (%s)\n", all->line->saved_line);
+	// printf("here cur line iss (%s)\n", all->line->saved_line);
 	split_cmd_nodes(all);
+	expanded(all, all->line->each_cmd);
+
+	all->envpcpy = envp;
+	all->stdoutfd = dup(STDOUT_FILENO);
+	// printf("here\n");
+	start_exec(all);
+	// while (all->envp)
+	// {
+	// 	printf("%s\n", all->envp->str);
+	// 	all->envp = all->envp->next;
+	// }
+
+
+
 	// split_cmds(all->line->saved_line, all);
 	// t_cmd	*temp_cmd = all->line->each_cmd;
 	// while (temp_cmd != NULL)

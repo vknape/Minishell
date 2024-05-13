@@ -48,6 +48,8 @@ typedef struct s_line
 	int		total_cmd;
 	char	**splits;
 	char	*saved_line;
+	int		pipe[2];
+	int		heredoc_pipe[2];
 	t_chunk	*chunks;
 	t_cmd	*each_cmd;
 }	t_line;
@@ -57,8 +59,10 @@ typedef struct s_all
 	t_line	*line;
 	char	*lastwd;
 	t_chunk	*envp;
+	char	**envpcpy;
 	t_chunk	*export;
 	t_chunk	*set;
+	int		stdoutfd;
 	
 }	t_all;
 
@@ -66,6 +70,9 @@ int		main(int argc, char **argv, char **envm);
 int		check_input(char *curline, t_all *all);
 void	make_envp_and_set(t_all *all, char *envp[]);
 void	make_export(t_all *all, char *envp[]);
+void	start_exec(t_all *all);
+void	get_path(t_all *all);
+void	expanded(t_all *all, t_cmd *cmd);
 
 // char	*get_current_dir(void);
 // void	change_directory(char *dir);
@@ -76,6 +83,11 @@ void	make_export(t_all *all, char *envp[]);
 // void	ft_lstadd_back_chunk(t_chunk **lst, t_chunk *new);
 // char	*join_line_after_quotes(char *curline, t_all *all);
 // int		check_meta(t_all *all, char *curline);
+
+
+int	is_white_space(char c);
+char	*value_of_dollar_sign(t_all *all, char *str, int len);
+char	*ft_strjoin_free(char *s1, char *s2);
 
 // list of link list t_cmd
 t_cmd	*ft_lstnewcmd(void);
@@ -101,9 +113,10 @@ char	**ft_split_quotes(char const *s, char c);
 //void	ft_echo(t_all *all, char **str);
 void	ft_echo_quotes(t_all *all, char **array_str);
 char	*get_current_dir(void);
+void	ft_pwd(void);
 void	ft_env(t_all *all);
 void	ft_cd(t_all *all);
-void	ft_unset(t_all *all, char *str);
+void	ft_unset(t_all *all, char **str);
 void	ft_export(t_all	*all);
 void	sorter_export(t_all *all);
 

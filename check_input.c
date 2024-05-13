@@ -19,7 +19,7 @@ char	*join_line_after_quotes(char *curline, t_all *all)
 	free(with_newline);
 	curline = ft_strdup(line_joined);
 	free(line_joined);
-	printf("\n\n");
+	// printf("\n\n");
 	return (curline);
 }
 
@@ -77,12 +77,12 @@ int	check_meta(t_all *all, char *curline)
 	prev = NULL;
 
 	t_chunk *test_chunks = all->line->chunks;
-	while (test_chunks != NULL)
-	{
-		printf("test (%s)\n", test_chunks->str);
-		test_chunks = test_chunks->next;
-	}
-	printf("after print nodes\n");
+	// while (test_chunks != NULL)
+	// {
+	// 	printf("test (%s)\n", test_chunks->str);
+	// 	test_chunks = test_chunks->next;
+	// }
+	// printf("after print nodes\n");
 	while (cur)
 	{
 		if (cur->str[0] == '|')
@@ -108,7 +108,7 @@ int	check_meta(t_all *all, char *curline)
 		cur = cur->next;
 	}
 	all->line->saved_line = ft_strdup(curline);
-	printf("curline = %s\n", curline);
+	// printf("curline = %s\n", curline);
 	return (0);
 }
 

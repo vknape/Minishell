@@ -6,7 +6,7 @@
 /*   By: vknape <vknape@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/20 09:39:20 by vknape        #+#    #+#                 */
-/*   Updated: 2024/04/30 12:56:19 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/09 09:15:48 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	words_counter(char const *s, char c)
 		if (*s == 34 || *s == 39)
 			s++;
 	}
-	// printf("WC = (%d)\n", count);
+	//printf("WC = (%d)\n", count);
 	return (count);
 }
 
@@ -95,12 +95,15 @@ char	**ft_split_quotes(char const *s, char c)
 
 	index = 0;
 	array_of_s = malloc(sizeof(char *) * (words_counter(s, c) + 1));
+
 	if (array_of_s == NULL)
 		return (NULL);
 	while (*s)
 	{
 		while (*s && *s == c)
 			s++;
+		if (!*s)
+			break ;
 		if (*s == 34 || *s == 39)
 		{
 			q = *s;
@@ -127,6 +130,7 @@ char	**ft_split_quotes(char const *s, char c)
 		}
 	}
 	array_of_s[index] = NULL;
+	// printf("array_of_s is (%s)\n", array_of_s[3]);
 	// int i = 0;
 	// while (array_of_s[i])
 	// {

@@ -92,9 +92,13 @@ void	split_cmd_nodes(t_all *all)
 	t_chunk	*chunks;
 
 	chunks = all->line->chunks;
+	// printf("here\n");
+	// printf("address = %s\n", all->line->each_cmd->infile->str);
 	ft_lstadd_back_cmd(&all->line->each_cmd, ft_lstnewcmd());
+	// printf("address = %s\n", all->line->each_cmd->infile->str);
 	while (chunks)
 	{
+		// printf("chunk = %s\n", chunks->str);
 		if (chunks->str[0] == '|')
 			ft_lstadd_back_cmd(&all->line->each_cmd, ft_lstnewcmd());
 		else
@@ -104,45 +108,49 @@ void	split_cmd_nodes(t_all *all)
 				chunks = chunks->next;
 		}
 		chunks = chunks->next;
+		// dprintf(2, "here\n");
 	}
-	while (all->line->each_cmd)
-	{
-		// if (all->line->each_cmd->is_builtin == true)
-		// 	printf("is builtins true\n");
-		if (all->line->each_cmd->cmd)
-		{
-			//ft_unset(all, all->line->each_cmd->cmd[1]);
-			//ft_cd(all);
-			printf("\n\n\n\n");
-			//ft_env(all);
-			ft_export(all);
-			//ft_echo_quotes(all, all->line->each_cmd->cmd);
-		}
-		// while (all->line->each_cmd->cmd[i])
-		// {
-		// 	printf("cmd = %s\n", all->line->each_cmd->cmd[i]);
-		// 	i++;
-		// }
-		// i = 0;
-		// while (all->line->each_cmd->infile)
-		// {
-		// 	printf("str = %s\n", all->line->each_cmd->infile->str);
-		// 	printf("infile = %d\n", all->line->each_cmd->infile->is_infile);
-		// 	printf("outfile = %d\n", all->line->each_cmd->infile->is_outfile);
-		// 	printf("heredoc = %d\n", all->line->each_cmd->infile->is_heredoc);
-		// 	printf("append = %d\n", all->line->each_cmd->infile->is_append);
-		// 	all->line->each_cmd->infile = all->line->each_cmd->infile->next;
-		// }
-		// while (all->line->each_cmd->outfile)
-		// {
-		// 	printf("str = %s\n", all->line->each_cmd->outfile->str);
-		// 	printf("infile = %d\n", all->line->each_cmd->outfile->is_infile);
-		// 	printf("outfile = %d\n", all->line->each_cmd->outfile->is_outfile);
-		// 	printf("heredoc = %d\n", all->line->each_cmd->outfile->is_heredoc);
-		// 	printf("append = %d\n", all->line->each_cmd->outfile->is_append);
-		// 	all->line->each_cmd->outfile = all->line->each_cmd->outfile->next;
-		// }
-		// printf("\n");
-		all->line->each_cmd = all->line->each_cmd->next;
-	}
+	
+	// printf("here\n");
+	// ft_echo_quotes(all, all->line->each_cmd->cmd);
+	// while (all->line->each_cmd)
+	// {
+	// 	// if (all->line->each_cmd->is_builtin == true)
+	// 	// 	printf("is builtins true\n");
+	// 	if (all->line->each_cmd->cmd)
+	// 	{
+	// 		//ft_unset(all, all->line->each_cmd->cmd[1]);
+	// 		//ft_cd(all);
+	// 		printf("\n\n\n\n");
+	// 		//ft_env(all);
+	// 		ft_export(all);
+	// 		ft_echo_quotes(all, all->line->each_cmd->cmd);
+	// 	}
+	// 	// while (all->line->each_cmd->cmd[i])
+	// 	// {
+	// 	// 	printf("cmd = %s\n", all->line->each_cmd->cmd[i]);
+	// 	// 	i++;
+	// 	// }
+	// 	// i = 0;
+	// 	// while (all->line->each_cmd->infile)
+	// 	// {
+	// 	// 	printf("str = %s\n", all->line->each_cmd->infile->str);
+	// 	// 	printf("infile = %d\n", all->line->each_cmd->infile->is_infile);
+	// 	// 	printf("outfile = %d\n", all->line->each_cmd->infile->is_outfile);
+	// 	// 	printf("heredoc = %d\n", all->line->each_cmd->infile->is_heredoc);
+	// 	// 	printf("append = %d\n", all->line->each_cmd->infile->is_append);
+	// 	// 	all->line->each_cmd->infile = all->line->each_cmd->infile->next;
+	// 	// }
+	// 	// while (all->line->each_cmd->outfile)
+	// 	// {
+	// 	// 	printf("str = %s\n", all->line->each_cmd->outfile->str);
+	// 	// 	printf("infile = %d\n", all->line->each_cmd->outfile->is_infile);
+	// 	// 	printf("outfile = %d\n", all->line->each_cmd->outfile->is_outfile);
+	// 	// 	printf("heredoc = %d\n", all->line->each_cmd->outfile->is_heredoc);
+	// 	// 	printf("append = %d\n", all->line->each_cmd->outfile->is_append);
+	// 	// 	all->line->each_cmd->outfile = all->line->each_cmd->outfile->next;
+	// 	// }
+	// 	// printf("\n");
+	// 	all->line->each_cmd = all->line->each_cmd->next;
+	// }
 }

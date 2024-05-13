@@ -1,0 +1,74 @@
+==78298== Memcheck, a memory error detector
+==78298== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==78298== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==78298== Command: ./tester/Minishell
+==78298== Parent PID: 78275
+==78298== 
+==78298== Syscall param wait4(pid) contains uninitialised byte(s)
+==78298==    at 0x49B23EA: wait4 (wait4.c:30)
+==78298==    by 0x404CD6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78298==    by 0x4013E2: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78298== 
+==78299== 
+==78299== HEAP SUMMARY:
+==78299==     in use at exit: 225,934 bytes in 731 blocks
+==78299==   total heap usage: 955 allocs, 224 frees, 249,816 bytes allocated
+==78299== 
+==78299== 12 bytes in 1 blocks are definitely lost in loss record 7 of 79
+==78299==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==78299==    by 0x406169: ft_strjoin (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78299==    by 0x401737: join_all_indexes_of_array (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78299==    by 0x401FEF: ft_echo_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78299==    by 0x404972: exec_builtin (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78299==    by 0x404B61: check_scenario (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78299==    by 0x404C56: start_fork (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78299==    by 0x404CA6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78299==    by 0x4013E2: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78299== 
+==78299== LEAK SUMMARY:
+==78299==    definitely lost: 12 bytes in 1 blocks
+==78299==    indirectly lost: 0 bytes in 0 blocks
+==78299==      possibly lost: 0 bytes in 0 blocks
+==78299==    still reachable: 225,922 bytes in 730 blocks
+==78299==         suppressed: 0 bytes in 0 blocks
+==78299== Reachable blocks (those to which a pointer was found) are not shown.
+==78299== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==78299== 
+==78299== For lists of detected and suppressed errors, rerun with: -s
+==78299== ERROR SUMMARY: 79 errors from 79 contexts (suppressed: 0 from 0)
+==78298== 
+==78298== HEAP SUMMARY:
+==78298==     in use at exit: 225,922 bytes in 730 blocks
+==78298==   total heap usage: 946 allocs, 216 frees, 249,755 bytes allocated
+==78298== 
+==78298== 17 bytes in 1 blocks are definitely lost in loss record 13 of 77
+==78298==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==78298==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==78298==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==78298==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==78298==    by 0x40138C: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78298== 
+==78298== 105 (56 direct, 49 indirect) bytes in 1 blocks are definitely lost in loss record 27 of 77
+==78298==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==78298==    by 0x405CE8: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78298==    by 0x402C76: ft_lstnewcmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78298==    by 0x403ABE: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78298==    by 0x4013A6: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78298== 
+==78298== 21,635 (56 direct, 21,579 indirect) bytes in 1 blocks are definitely lost in loss record 76 of 77
+==78298==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==78298==    by 0x405CE8: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78298==    by 0x40132F: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==78298== 
+==78298== LEAK SUMMARY:
+==78298==    definitely lost: 129 bytes in 3 blocks
+==78298==    indirectly lost: 21,628 bytes in 506 blocks
+==78298==      possibly lost: 0 bytes in 0 blocks
+==78298==    still reachable: 204,165 bytes in 221 blocks
+==78298==         suppressed: 0 bytes in 0 blocks
+==78298== Reachable blocks (those to which a pointer was found) are not shown.
+==78298== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==78298== 
+==78298== Use --track-origins=yes to see where uninitialised values come from
+==78298== For lists of detected and suppressed errors, rerun with: -s
+==78298== ERROR SUMMARY: 78 errors from 78 contexts (suppressed: 0 from 0)

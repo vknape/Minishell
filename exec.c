@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/08 09:40:42 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/13 14:40:22 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/14 15:12:43 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,16 @@ void	handle_outfiles(t_chunk *outfile)
 {
 	int fd;
 
+	// dprintf(2, "outfile not okay\n");
 	while (outfile)
 	{
 		if (outfile->is_outfile)
 		{
+			// dprintf(2, "outfile not okay\n");
+			// dprintf(2, "outfile not okay %d\n", outfile->is_outfile);
 			fd = open(outfile->str, O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			// if (fd == -1)
+				// dprintf(2, "outfile not okay %s\n", outfile->str);
 			if (!outfile->next)
 				dup2(fd, STDOUT_FILENO);
 			close(fd);
@@ -92,6 +97,7 @@ void	handle_outfiles(t_chunk *outfile)
 				dup2(fd, STDOUT_FILENO);
 			close(fd);
 		}
+		outfile = outfile->next;
 	}
 	
 }
@@ -131,14 +137,17 @@ void	check_scenario(t_all *all)
 	// printf("%d\n", all->line->each_cmd->is_builtin);
 	// dup2(all->line->pipe[1], STDOUT_FILENO);
 	// printf("%d\n", all->line->each_cmd->infile);
+	// dprintf(2, "outfile not okay\n");
 	if (all->line->each_cmd->infile)
 	{
 		// printf("%s\n", all->line->each_cmd->infile->str);
+		// dprintf(2, "outfile not okay\n");
 		handle_infiles(all, all->line->each_cmd->infile);
 	}
 	// printf("%d\n", all->line->each_cmd->is_builtin);
 	if (all->line->each_cmd->outfile)
 	{
+		// dprintf(2, "outfile not okay\n");
 		handle_outfiles(all->line->each_cmd->outfile);
 	}
 	// printf("%d\n", all->line->each_cmd->is_builtin);
@@ -151,6 +160,7 @@ void	check_scenario(t_all *all)
 pid_t	start_fork(t_all *all)
 {
 	pid_t p;
+	// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
 	p = fork();
 	if(p == -1)
 		exit(1);
@@ -170,6 +180,7 @@ pid_t	start_fork(t_all *all)
 		else
 			dup2(all->stdoutfd, STDOUT_FILENO);
 		close(all->line->pipe[1]);
+		// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
 		check_scenario(all);
 		
 	}
@@ -180,7 +191,7 @@ void	start_exec(t_all *all)
 	pid_t	p;
 	pid_t	wpid;
 	int		status;
-
+	// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
 	// dprintf(2, "cmd here is%s\n", all->line->each_cmd->cmd[0]);
 	// dprintf(2, "cmd here is%s\n", all->line->each_cmd->next->cmd[0]);
 	while (all->line->each_cmd)

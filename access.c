@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/08 11:52:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/08 13:33:11 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/14 10:54:30 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	get_path(t_all *all)
 	int		i;
 
 	i = 0;
-	while (ft_strncmp("PATH", all->envp2[i], 4))
+	while (ft_strncmp("PATH", all->envpcpy[i], 4))
 		i++;
-	all_paths = ft_split((all->envp2[i] + 5), ':');
+	all_paths = ft_split((all->envpcpy[i] + 5), ':');
 	path = check_access(all_paths, all->line->each_cmd->cmd[0]);
 	// free(all->line->each_cmd->cmd[0]);
 	if (path)

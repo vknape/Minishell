@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/09 07:40:37 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/13 11:41:42 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/14 11:26:37 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	search_in_cmd(t_all *all, char **array_str)
 					}
 					else if (!dvalue)
 					{
-						dvalue = ft_substr(&array_str[index][start - 1], 0, (i - start) + 1);
+						dvalue = ft_substr(&array_str[index][i], 0, 1);
 						str = ft_strjoin_free(str, dvalue);
 						free(dvalue);
 					}
@@ -106,7 +106,7 @@ void	search_in_cmd(t_all *all, char **array_str)
 							i++;
 						dvalue = value_of_dollar_sign(all, &array_str[index][start], i - start);
 						if (!dvalue)
-							dvalue = ft_substr(&array_str[index][start - 1], 0, (i - start) + 1);
+							dvalue = ft_substr(&array_str[index][i], 0, 1);
 					}
 					if (!str)
 						str = ft_strdup(dvalue);
@@ -169,18 +169,21 @@ void	search_in_nodes(t_all *all, t_chunk *chunks)
 						i++;
 					t_str = value_of_dollar_sign(all, &temp->str[start], i - start);
 					if (!t_str)
-						t_str = ft_substr(&temp->str[start - 1], 0, (i - start) + 1);
+					{
+						//t_str = ft_substr(&temp->str[start - 1], 0, (i - start) + 1);
+						t_str = ft_substr(&temp->str[i], 0, 1);
+					}
 				}
 				else if (temp->str[i] == '"')
 				{
 					while (temp->str[i])
 					{
-						i++;
+						if (temp->str[i] == '"')
+							i++;
 						start = i;
 						while (temp->str[i] && temp->str[i] != '$' && temp->str[i] != '"')
 							i++;
 						t_str = ft_substr(&temp->str[start], 0, i - start);
-						// printf("here str is (%s)\n", t_str);
 						if (temp->str[i] && temp->str[i] == '$')
 						{
 							start = i + 1;
@@ -189,13 +192,12 @@ void	search_in_nodes(t_all *all, t_chunk *chunks)
 							dvalue = value_of_dollar_sign(all, &temp->str[start], i - start);
 							if (!dvalue)
 							{
-								dvalue = ft_substr(&temp->str[start - 1], 0, (i - start) + 1);
+								//dvalue = ft_substr(&temp->str[start - 1], 0, (i - start) + 1);
+								dvalue = ft_substr(&temp->str[i], 0, 1);
 							}
-						}
-						if (dvalue)
-						{
 							t_str = ft_strjoin_free(t_str, dvalue);
 							free(dvalue);
+							dvalue = NULL;
 						}
 						if (temp->str[i] == '"')
 							i++;
@@ -213,7 +215,7 @@ void	search_in_nodes(t_all *all, t_chunk *chunks)
 		}
 		free(temp->str);
 		temp->str = ft_strdup(t_str);
-		// printf("new str is (%s)\n", temp->str);
+		printf("new str is (%s)\n", temp->str);
 		free(t_str);
 		temp = temp->next;
 	}

@@ -61,6 +61,7 @@ void	fill_cmd_nodes(t_all *all, t_chunk *chunks)
 	each_cmd = ft_lstlast_cmd(all->line->each_cmd);
 	if (!ft_strncmp(">", chunks->str, 2))
 	{
+		// dprintf(2, "outfile not okay\n");
 		ft_lstadd_back_chunk(&each_cmd->outfile, ft_lstnewchunk(ft_strdup(chunks->next->str)));
 		ft_lstlast_chunk(each_cmd->outfile)->is_outfile = true;
 	}
@@ -110,7 +111,7 @@ void	split_cmd_nodes(t_all *all)
 		chunks = chunks->next;
 		// dprintf(2, "here\n");
 	}
-	
+	// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
 	// printf("here\n");
 	// ft_echo_quotes(all, all->line->each_cmd->cmd);
 	// while (all->line->each_cmd)

@@ -1,7 +1,18 @@
 1.
 2.
+Bash output is:	
+hello hello
+Your output is:	
 3.
+Bash output is:	
+hello hello hello
+Your output is:	
+hello hellohello
 4.
+Bash output is:	
+hello hello hello hello
+Your output is:	
+hello hellohello hello
 5.
 6.
 Bash output is:	
@@ -23,23 +34,5 @@ Your output is:
 14.
 15.
 16.
-Bash output is:	
-infile file is here  .
-second line.
-
-
-
-here 			h								tab.		
-Your output is:	
 17.
 18.
-Bash output is:	
-infile file is here  .$
-second line.$
-$
-$
-$
-here 			h								tab.		$
-Your output is:	
-19.
-20.

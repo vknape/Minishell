@@ -447,12 +447,14 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	make_envp_and_set(all, envp);
 	make_export(all, envp);
-	curline = readline("Minishell> ");
+	curline = readline(get_current_dir());
 
 	check_input(curline, all);
 	// printf("here cur line iss (%s)\n", all->line->saved_line);
 	split_cmd_nodes(all);
-	expanded(all, all->line->each_cmd);
+	// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
+	// expanded(all, all->line->each_cmd);
+	remove_whitespace_quotes(all, all->line->each_cmd);
 
 	all->envpcpy = envp;
 	all->stdoutfd = dup(STDOUT_FILENO);

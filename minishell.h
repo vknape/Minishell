@@ -88,6 +88,7 @@ void	expanded(t_all *all, t_cmd *cmd);
 int	is_white_space(char c);
 char	*value_of_dollar_sign(t_all *all, char *str, int len);
 char	*ft_strjoin_free(char *s1, char *s2);
+void	remove_whitespace_quotes(t_all *all, t_cmd *cmd);
 
 // list of link list t_cmd
 t_cmd	*ft_lstnewcmd(void);

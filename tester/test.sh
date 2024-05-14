@@ -1,3 +1,4 @@
+#!/bin/sh
 # source ./tester/utils.sh
 
 OUTFILE1=tester/vbash
@@ -64,11 +65,13 @@ tester()
 	fi
 	echo $@ | ./tester/Minishell >$OUTFILE2
 	es2=$?
-	sed -i '1d' $OUTFILE2
 	echo "$i." >> $LOG
+	sed -i '1d' $OUTFILE2
 	if test -f $OUTPUT1 ; then
 		mv $OUTPUT1 $OUTFILE2
 	fi
+	# sed -i '1d' $OUTFILE2
+	# gawk -i inplace 'NR>1' $OUTFILE2
 	if diff $OUTFILE1 $OUTFILE2 >/dev/null; then
 		printf "$BOLDGREEN output"
 	else
@@ -146,7 +149,8 @@ tester 'cat < infile.txt'
 tester 'ls < infile.txt'
 
 printf "\n\033[1m\033[36mCMD with outfile TESTS\n"
-# tester 'ls > tester/bredir'
+tester 'ls > tester/bredir'
+exit
 
 printf "\n\033[1m\033[36mCMD with infile outfile and pipe TESTS\n"
 tester 'cat < infile.txt | cat -e'

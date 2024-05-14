@@ -7,7 +7,8 @@ LIBS = -lreadline
 #HEADERS   := -I ./include -I $(LIBFTDIR)
 
 SRCS	= main.c builtins.c link_list_chunk.c link_list_cmd.c check_input.c \
-		fill_each_cmd.c ft_splite_modified.c ft_split_skip.c envp.c exec.c access.c expaneded.c
+		fill_each_cmd.c ft_splite_modified.c ft_split_skip.c envp.c exec.c access.c expaneded.c\
+		remove_whitespace_quotes.c
 objects	= $(SRCS:.c=.o)
 
 all: $(NAME)

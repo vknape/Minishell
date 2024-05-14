@@ -1,7 +1,9 @@
-source ./utils.sh
+# source ./tester/utils.sh
 
 OUTFILE1=tester/vbash
 OUTFILE2=tester/vmini
+OUTPUT1=tester/bredir
+OUTPUT2=tester/vredir
 
 RESET="\033[0m"
 BLACK="\033[30m"
@@ -57,10 +59,16 @@ tester()
 	# echo $@ "; exit" | bash >$OUTFILE2
 	echo $@ | bash >$OUTFILE1
 	es1=$?
+	if test -f $OUTPUT1 ; then
+		mv $OUTPUT1 $OUTFILE1
+	fi
 	echo $@ | ./tester/Minishell >$OUTFILE2
 	es2=$?
 	sed -i '1d' $OUTFILE2
 	echo "$i." >> $LOG
+	if test -f $OUTPUT1 ; then
+		mv $OUTPUT1 $OUTFILE2
+	fi
 	if diff $OUTFILE1 $OUTFILE2 >/dev/null; then
 		printf "$BOLDGREEN output"
 	else
@@ -84,11 +92,17 @@ tester()
 	fi
 
 }
-
-rm ./tester/Minishell
+if test -f "tester/Minishell"  ; then
+	rm tester/Minishell
+fi
+# rm ./tester/Minishell
 cp ./Minishell ./tester
-rm $LOG
-rm leaks/*.txt
+if test -f $LOG ; then
+	rm $LOG
+fi
+# exit
+rm tester/leaks/*.txt
+# exit
 # clear_logs $i
 printf "\033[1m\033[36mECHO TESTS\n"
 tester 'echo hello'
@@ -132,7 +146,7 @@ tester 'cat < infile.txt'
 tester 'ls < infile.txt'
 
 printf "\n\033[1m\033[36mCMD with outfile TESTS\n"
-# tester ''
+# tester 'ls > tester/bredir'
 
 printf "\n\033[1m\033[36mCMD with infile outfile and pipe TESTS\n"
 tester 'cat < infile.txt | cat -e'

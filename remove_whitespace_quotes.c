@@ -6,13 +6,13 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/14 11:16:06 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/14 14:47:13 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/15 13:20:17 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	remove_whitespace_cmd(char *str)
+char	*remove_whitespace_cmd(char *str)
 {
 	int		index;
 	int		i;
@@ -22,6 +22,12 @@ void	remove_whitespace_cmd(char *str)
 	index = 0;
 	i = 0;
 	j = 0;
+	if (str[i] && (str[i] == 34 || str[i] == 39))
+	{
+		des = ft_strdup(str);
+		free(str);
+		return (des);
+	}
 	des = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	while (str[i])
 	{
@@ -34,8 +40,10 @@ void	remove_whitespace_cmd(char *str)
 	}
 	des[j] = '\0';
 	free(str);
-	str = ft_strdup(des);
-	free(des);
+	return (des);
+	// str = ft_strdup(des);
+	// printf("str here = (%s)\n", str);
+	// free(des);
 }
 
 // void	remove_whitespace_cmd(t_all *all, char **cmd_array)
@@ -90,19 +98,25 @@ void	remove_whitespace_cmd(char *str)
 // 	}
 // }
 
-void	remove_quotes_cmd(char *str)
+char	*remove_quotes_cmd(char *str)
 {
 	char	*des;
 	int		i;
 
+	// printf("%s\n", str);
 	if (str && (str[0] == 34 || str[0] == 39))
 	{
 		i = ft_strlen(str);
 		des = ft_substr(str, 1, i - 2);
 		free(str);
-		str = ft_strdup(des);
-		free(des);
+		// printf("des = %s\n", des);
+		return (des);
+		// str = ft_strdup(des);
+		// free(des);
+		
 	}
+	else
+		return (str);
 }
 
 // void	remove_whitespace_nodes(t_all *all, t_chunk *nodes)
@@ -145,32 +159,36 @@ void	remove_whitespace_quotes(t_all *all, t_cmd *cmd)
 	{
 		while (temp->cmd[i])
 		{
-			remove_whitespace_cmd(temp->cmd[i]);
-			remove_quotes_cmd(temp->cmd[i]);
+			temp->cmd[i] = remove_whitespace_cmd(temp->cmd[i]);
+			temp->cmd[i] = remove_quotes_cmd(temp->cmd[i]);
+			// temp->cmd[i] = search_dollar_signe(all, temp->cmd[i]);
 			// dprintf(2, "str here is (%s)\n", temp->cmd[i]);
 			i++;
 		}
 		node = temp->delimiter;
 		while (node)
 		{
-			remove_whitespace_cmd(node->str);
-			remove_quotes_cmd(node->str);
+			node->str = remove_whitespace_cmd(node->str);
+			node->str = remove_quotes_cmd(node->str);
+			// node->str = search_dollar_signe(all, node->str);
 			// dprintf(2, "str here is (%s)\n", node->str);
 			node = node->next;
 		}
 		node = temp->infile;
 		while (node)
 		{
-			remove_whitespace_cmd(node->str);
-			remove_quotes_cmd(node->str);
+			node->str = remove_whitespace_cmd(node->str);
+			node->str = remove_quotes_cmd(node->str);
+			// node->str = search_dollar_signe(all, node->str);
 			// dprintf(2, "str here is (%s)\n", node->str);
 			node = node->next;
 		}
 		node = temp->outfile;
 		while (node)
 		{
-			remove_whitespace_cmd(node->str);
-			remove_quotes_cmd(node->str);
+			node->str = remove_whitespace_cmd(node->str);
+			node->str = remove_quotes_cmd(node->str);
+			// node->str = search_dollar_signe(all, node->str);
 			// dprintf(2, "str here is (%s)\n", node->str);
 			node = node->next;
 		}

@@ -89,6 +89,8 @@ int	is_white_space(char c);
 char	*value_of_dollar_sign(t_all *all, char *str, int len);
 char	*ft_strjoin_free(char *s1, char *s2);
 void	remove_whitespace_quotes(t_all *all, t_cmd *cmd);
+char	*remove_quotes_cmd(char *str);
+char	*search_dollar_signe(t_all *all, char *str);
 
 // list of link list t_cmd
 t_cmd	*ft_lstnewcmd(void);
@@ -120,5 +122,6 @@ void	ft_cd(t_all *all);
 void	ft_unset(t_all *all, char **str);
 void	ft_export(t_all	*all);
 void	sorter_export(t_all *all);
+char	*ft_joined_for_export(char *str, int start);
 
 #endif

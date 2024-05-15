@@ -1,248 +1,83 @@
-==117264== Memcheck, a memory error detector
-==117264== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==117264== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==117264== Command: ./tester/Minishell
-==117264== Parent PID: 117135
-==117264== 
-==117264== Invalid read of size 1
-==117264==    at 0x405D6B: remove_quotes_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x405E4F: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==  Address 0x4b716c0 is 0 bytes inside a block of size 6 free'd
-==117264==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117264==    by 0x405D2B: remove_whitespace_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x405E3A: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==  Block was alloc'd at
-==117264==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117264==    by 0x4040E5: ft_split_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x403A3C: fill_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x403B1A: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264== 
-==117264== Invalid read of size 1
-==117264==    at 0x405D7B: remove_quotes_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x405E4F: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==  Address 0x4b716c0 is 0 bytes inside a block of size 6 free'd
-==117264==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117264==    by 0x405D2B: remove_whitespace_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x405E3A: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==  Block was alloc'd at
-==117264==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117264==    by 0x4040E5: ft_split_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x403A3C: fill_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x403B1A: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264== 
-==117264== Syscall param wait4(pid) contains uninitialised byte(s)
-==117264==    at 0x49B23EA: wait4 (wait4.c:30)
-==117264==    by 0x404CE6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264== 
-==117268== Invalid read of size 1
-==117268==    at 0x4065F4: ft_strlen (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x406415: ft_strjoin (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404D6E: combine_str (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404DF8: check_access (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404F3A: get_path (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4048F4: exec_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404B7F: check_scenario (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404C66: start_fork (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404CB6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Address 0x4b716c0 is 0 bytes inside a block of size 6 free'd
-==117268==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x405D2B: remove_whitespace_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x405E3A: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Block was alloc'd at
-==117268==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x4040E5: ft_split_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403A3C: fill_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403B1A: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268== 
-==117268== Invalid read of size 1
-==117268==    at 0x4065F4: ft_strlen (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4064A2: ft_strjoin (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404D6E: combine_str (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404DF8: check_access (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404F3A: get_path (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4048F4: exec_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404B7F: check_scenario (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404C66: start_fork (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404CB6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Address 0x4b716c0 is 0 bytes inside a block of size 6 free'd
-==117268==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x405D2B: remove_whitespace_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x405E3A: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Block was alloc'd at
-==117268==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x4040E5: ft_split_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403A3C: fill_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403B1A: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268== 
-==117268== Invalid read of size 1
-==117268==    at 0x4064EF: ft_strlcpy (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4064B6: ft_strjoin (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404D6E: combine_str (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404DF8: check_access (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404F3A: get_path (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4048F4: exec_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404B7F: check_scenario (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404C66: start_fork (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404CB6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Address 0x4b716c0 is 0 bytes inside a block of size 6 free'd
-==117268==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x405D2B: remove_whitespace_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x405E3A: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Block was alloc'd at
-==117268==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x4040E5: ft_split_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403A3C: fill_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403B1A: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268== 
-==117268== Invalid read of size 1
-==117268==    at 0x40650B: ft_strlcpy (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4064B6: ft_strjoin (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404D6E: combine_str (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404DF8: check_access (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404F3A: get_path (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4048F4: exec_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404B7F: check_scenario (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404C66: start_fork (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404CB6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Address 0x4b716c0 is 0 bytes inside a block of size 6 free'd
-==117268==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x405D2B: remove_whitespace_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x405E3A: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Block was alloc'd at
-==117268==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x4040E5: ft_split_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403A3C: fill_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403B1A: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268== 
-==117268== Invalid read of size 1
-==117268==    at 0x406549: ft_strlcpy (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4064B6: ft_strjoin (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404D6E: combine_str (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404DF8: check_access (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404F3A: get_path (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4048F4: exec_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404B7F: check_scenario (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404C66: start_fork (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404CB6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Address 0x4b716c0 is 0 bytes inside a block of size 6 free'd
-==117268==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x405D2B: remove_whitespace_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x405E3A: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Block was alloc'd at
-==117268==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x4040E5: ft_split_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403A3C: fill_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403B1A: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268== 
-==117268== Invalid read of size 1
-==117268==    at 0x406579: ft_strlcpy (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4064B6: ft_strjoin (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404D6E: combine_str (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404DF8: check_access (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404F3A: get_path (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4048F4: exec_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404B7F: check_scenario (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404C66: start_fork (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404CB6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Address 0x4b716c0 is 0 bytes inside a block of size 6 free'd
-==117268==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x405D2B: remove_whitespace_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x405E3A: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Block was alloc'd at
-==117268==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x4040E5: ft_split_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403A3C: fill_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403B1A: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268== 
-==117268== Syscall param execve(argv[i]) points to unaddressable byte(s)
-==117268==    at 0x49B308B: execve (syscall-template.S:120)
-==117268==    by 0x404922: exec_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404B7F: check_scenario (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404C66: start_fork (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x404CB6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Address 0x4b71710 is 0 bytes inside a block of size 2 free'd
-==117268==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x405D2B: remove_whitespace_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x405E3A: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==  Block was alloc'd at
-==117268==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117268==    by 0x4040E5: ft_split_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403A3C: fill_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x403B1A: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117268== 
-==117264== 
-==117264== HEAP SUMMARY:
-==117264==     in use at exit: 226,623 bytes in 718 blocks
-==117264==   total heap usage: 929 allocs, 211 frees, 250,389 bytes allocated
-==117264== 
-==117264== 8 bytes in 1 blocks are definitely lost in loss record 5 of 78
-==117264==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117264==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==117264==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==117264==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==117264==    by 0x40138A: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264== 
-==117264== 8 bytes in 2 blocks are definitely lost in loss record 6 of 78
-==117264==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117264==    by 0x40635F: ft_strdup (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x405D34: remove_whitespace_cmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x405E3A: remove_whitespace_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x4013B8: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264== 
-==117264== 80 (56 direct, 24 indirect) bytes in 1 blocks are definitely lost in loss record 24 of 78
-==117264==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117264==    by 0x405FA8: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x402C76: ft_lstnewcmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x403ABE: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264== 
-==117264== 1,024 bytes in 1 blocks are definitely lost in loss record 43 of 78
-==117264==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117264==    by 0x401418: get_current_dir (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x401382: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264== 
-==117264== 21,304 (56 direct, 21,248 indirect) bytes in 1 blocks are definitely lost in loss record 77 of 78
-==117264==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==117264==    by 0x405FA8: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264==    by 0x40132F: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==117264== 
-==117264== LEAK SUMMARY:
-==117264==    definitely lost: 1,152 bytes in 6 blocks
-==117264==    indirectly lost: 21,272 bytes in 491 blocks
-==117264==      possibly lost: 0 bytes in 0 blocks
-==117264==    still reachable: 204,199 bytes in 221 blocks
-==117264==         suppressed: 0 bytes in 0 blocks
-==117264== Reachable blocks (those to which a pointer was found) are not shown.
-==117264== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==117264== 
-==117264== Use --track-origins=yes to see where uninitialised values come from
-==117264== For lists of detected and suppressed errors, rerun with: -s
-==117264== ERROR SUMMARY: 83 errors from 81 contexts (suppressed: 0 from 0)
+==62100== Memcheck, a memory error detector
+==62100== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==62100== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==62100== Command: ./tester/Minishell
+==62100== Parent PID: 61984
+==62100== 
+==62100== Syscall param wait4(pid) contains uninitialised byte(s)
+==62100==    at 0x49B23EA: wait4 (wait4.c:30)
+==62100==    by 0x4047C6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62100==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62100== 
+==62101== 
+==62101== HEAP SUMMARY:
+==62101==     in use at exit: 228,296 bytes in 724 blocks
+==62101==   total heap usage: 1,343 allocs, 619 frees, 265,804 bytes allocated
+==62101== 
+==62101== 1,024 bytes in 1 blocks are definitely lost in loss record 44 of 79
+==62101==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==62101==    by 0x401418: get_current_dir (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62101==    by 0x401382: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62101== 
+==62101== 1,024 bytes in 1 blocks are definitely lost in loss record 45 of 79
+==62101==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==62101==    by 0x401418: get_current_dir (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62101==    by 0x401488: ft_pwd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62101==    by 0x4044CE: exec_builtin (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62101==    by 0x404651: check_scenario (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62101==    by 0x404746: start_fork (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62101==    by 0x404796: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62101==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62101== 
+==62101== LEAK SUMMARY:
+==62101==    definitely lost: 2,048 bytes in 2 blocks
+==62101==    indirectly lost: 0 bytes in 0 blocks
+==62101==      possibly lost: 0 bytes in 0 blocks
+==62101==    still reachable: 226,248 bytes in 722 blocks
+==62101==         suppressed: 0 bytes in 0 blocks
+==62101== Reachable blocks (those to which a pointer was found) are not shown.
+==62101== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==62101== 
+==62101== For lists of detected and suppressed errors, rerun with: -s
+==62101== ERROR SUMMARY: 79 errors from 79 contexts (suppressed: 0 from 0)
+==62100== 
+==62100== HEAP SUMMARY:
+==62100==     in use at exit: 227,272 bytes in 723 blocks
+==62100==   total heap usage: 1,342 allocs, 619 frees, 264,780 bytes allocated
+==62100== 
+==62100== 4 bytes in 1 blocks are definitely lost in loss record 4 of 78
+==62100==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==62100==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==62100==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==62100==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==62100==    by 0x40138A: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62100== 
+==62100== 76 (56 direct, 20 indirect) bytes in 1 blocks are definitely lost in loss record 23 of 78
+==62100==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==62100==    by 0x405D38: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62100==    by 0x402666: ft_lstnewcmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62100==    by 0x40354E: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62100==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62100== 
+==62100== 1,024 bytes in 1 blocks are definitely lost in loss record 43 of 78
+==62100==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==62100==    by 0x401418: get_current_dir (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62100==    by 0x401382: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62100== 
+==62100== 21,969 (56 direct, 21,913 indirect) bytes in 1 blocks are definitely lost in loss record 77 of 78
+==62100==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==62100==    by 0x405D38: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62100==    by 0x40132F: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62100== 
+==62100== LEAK SUMMARY:
+==62100==    definitely lost: 1,140 bytes in 4 blocks
+==62100==    indirectly lost: 21,933 bytes in 498 blocks
+==62100==      possibly lost: 0 bytes in 0 blocks
+==62100==    still reachable: 204,199 bytes in 221 blocks
+==62100==         suppressed: 0 bytes in 0 blocks
+==62100== Reachable blocks (those to which a pointer was found) are not shown.
+==62100== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==62100== 
+==62100== Use --track-origins=yes to see where uninitialised values come from
+==62100== For lists of detected and suppressed errors, rerun with: -s
+==62100== ERROR SUMMARY: 79 errors from 79 contexts (suppressed: 0 from 0)

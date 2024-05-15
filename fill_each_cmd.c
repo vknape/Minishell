@@ -62,26 +62,31 @@ void	fill_cmd_nodes(t_all *all, t_chunk *chunks)
 	if (!ft_strncmp(">", chunks->str, 2))
 	{
 		// dprintf(2, "outfile not okay\n");
+		chunks->next->str = search_dollar_signe(all, chunks->next->str);
 		ft_lstadd_back_chunk(&each_cmd->outfile, ft_lstnewchunk(ft_strdup(chunks->next->str)));
 		ft_lstlast_chunk(each_cmd->outfile)->is_outfile = true;
 	}
 	else if (!ft_strncmp(">>", chunks->str, 3))
 	{
+		chunks->next->str = search_dollar_signe(all, chunks->next->str);
 		ft_lstadd_back_chunk(&each_cmd->outfile, ft_lstnewchunk(ft_strdup(chunks->next->str)));
 		ft_lstlast_chunk(each_cmd->outfile)->is_append = true;
 	}
 	else if (!ft_strncmp("<", chunks->str, 2))
 	{
+		chunks->next->str = search_dollar_signe(all, chunks->next->str);
 		ft_lstadd_back_chunk(&each_cmd->infile, ft_lstnewchunk(ft_strdup(chunks->next->str)));
 		ft_lstlast_chunk(each_cmd->infile)->is_infile = true;
 	}
 	else if (!ft_strncmp("<<", chunks->str, 2))
 	{
+		chunks->next->str = search_dollar_signe(all, chunks->next->str);
 		ft_lstadd_back_chunk(&each_cmd->infile, ft_lstnewchunk(ft_strdup(chunks->next->str)));
 		ft_lstlast_chunk(each_cmd->infile)->is_heredoc = true;
 	}
 	else
 	{
+		chunks->str = search_dollar_signe(all, chunks->str);
 		each_cmd->cmd = ft_split_quotes(chunks->str, ' ');
 		if (is_one_of_builtins(each_cmd->cmd[0]))
 			each_cmd->is_builtin = true;

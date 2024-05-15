@@ -455,7 +455,6 @@ int	main(int argc, char **argv, char **envp)
 	// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
 	// expanded(all, all->line->each_cmd);
 	remove_whitespace_quotes(all, all->line->each_cmd);
-
 	all->envpcpy = envp;
 	all->stdoutfd = dup(STDOUT_FILENO);
 	// printf("here\n");

@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/08 09:40:42 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/14 15:12:43 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/15 10:03:41 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	exec_cmd(t_all *all)
 
 void	exec_builtin(t_all *all)
 {
+	// printf("we got here %s\n", all->line->each_cmd->cmd[0]);
 	if (!ft_strncmp("echo", all->line->each_cmd->cmd[0], 5))
 		ft_echo_quotes(all, all->line->each_cmd->cmd);
 	if (!ft_strncmp("cd", all->line->each_cmd->cmd[0], 3))

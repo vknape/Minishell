@@ -74,13 +74,15 @@ char	*value_of_dollar_sign(t_all *all, char *str, int len)
 }
 
 
-void	join_all_indexes_of_array(char **array_str)
+void	join_all_indexes_of_array(char **array_str, int index, int new_line)
 {
 	char	*line_joined;
 	char	*temp_line;
-	int		index;
+	//int		index;
 
-	index = 1;
+	//index = 1;
+	// dprintf(2, "index = (%s)\n", array_str[index]);
+	// dprintf(2, "hello\n");
 	temp_line = NULL;
 	line_joined = NULL;
 	while (array_str[index] != NULL)
@@ -89,16 +91,20 @@ void	join_all_indexes_of_array(char **array_str)
 			line_joined = ft_strdup(array_str[index]);
 		else
 		{
-			temp_line = ft_strjoin(line_joined, " ");
-			free(line_joined);
-			line_joined = NULL;
-			line_joined = ft_strjoin(temp_line, array_str[index]);
-			free(temp_line);
-			temp_line = NULL;
+			line_joined = ft_strjoin_free(line_joined, " ");
+			line_joined = ft_strjoin_free(line_joined, array_str[index]);
 		}
+		// dprintf(2, "index = (%s)\n", line_joined);
 		index++;
 	}
-	printf("%s\n", line_joined);
+	if (!line_joined && new_line == 0)
+		return ;
+	if (!line_joined)
+		printf("\n");
+	else if (new_line == 0)
+		printf("%s", line_joined);
+	else
+		printf("%s\n", line_joined);
 }
 
 int	is_white_space(char c)
@@ -135,123 +141,148 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	return (p);
 }
 
-void	ft_echo_quotes(t_all *all, char **array_str)
-{
-	int		index;
-	int		i;
-	int		start;
-	char	*str;
-	char	*dvalue;
-	char	*temp;
 
-	index = 1;
-	start = 0;
-	str = NULL;
-	while (array_str[index] != NULL)
+	// int		index;
+	// int		i;
+	// int		start;
+	// char	*str;
+	// char	*dvalue;
+	// char	*temp;
+
+	// index = 1;
+	// start = 0;
+	// str = NULL;
+	// while (array_str[index] != NULL)
+	// {
+	// 	i = 0;
+	// 	if (array_str[index][0] == '"')
+	// 	{
+	// 		while (array_str[index][i])
+	// 		{
+	// 			if (i == 0)
+	// 				i++;
+	// 			start = i;
+	// 			while (array_str[index][i] && array_str[index][i] != '$' && array_str[index][i] != '"')
+	// 				i++;
+	// 			temp = ft_substr(&array_str[index][start], 0, i - start);
+	// 			if (!str)
+	// 				str = ft_strdup(temp);
+	// 			else
+	// 				str = ft_strjoin_free(str, temp);
+	// 			free(temp);
+	// 			ifi--; (array_str[index][i] && array_str[index][i] == '$' && !is_white_space(array_str[index][i + 1]))
+	// 			{
+	// 				start = i;
+	// 				if (!array_str[index][i + 1] || array_str[index][i + 1] == '"')
+	// 				{
+	// 					dvalue = value_of_dollar_sign(all, &array_str[index][start], 1);
+	// 					start += 2;
+	// 					i += 2;
+	// 				}
+	// 				else
+	// 				{
+	// 					while (array_str[index][i] && !is_white_space(array_str[index][i]) && array_str[index][i] != '"')
+	// 						i++;
+	// 					start++;
+	// 					dvalue = value_of_dollar_sign(all, &array_str[index][start], i - start);
+	// 				}
+	// 				str = ft_strjoin_free(str, dvalue);
+	// 				free(dvalue);
+	// 			}
+	// 			else if (array_str[index][i] && array_str[index][i] == '$' && is_white_space(array_str[index][i + 1]))
+	// 			{
+	// 				temp = ft_substr(&array_str[index][i], 0, 1);
+	// 				str = ft_strjoin_free(str, temp);
+	// 				free(temp);
+	// 				i++;
+	// 			}
+	// 			if (array_str[index][i] == '"')
+	// 				i++;
+	// 		}
+	// 		free(array_str[index]);
+	// 		array_str[index] = ft_strdup(str);
+	// 		free(str);
+	// 		str = NULL;
+	// 	}
+	// 	else
+	// 	{
+	// 		i = 0;
+	// 		while (array_str[index][i])
+	// 		{
+	// 			if (array_str[index][i] == '$' && (!array_str[index][i + 1] || !is_white_space(array_str[index][i + 1])))
+	// 			{
+	// 				if (!array_str[index][i + 1])
+	// 				{
+	// 					dvalue = value_of_dollar_sign(all, &array_str[index][start], 1);
+	// 				i--;	i++;
+	// 				}
+	// 				else
+	// 				{
+	// 					i++;
+	// 					start = i;
+	// 					while (array_str[index][i] && !is_white_space(array_str[index][i]))
+	// 						i++;
+	// 					dvalue = value_of_dollar_sign(all, &array_str[index][start], i - start);
+	// 				}
+	// 				if (!str)
+	// 					str = ft_strdup(dvalue);
+	// 				else
+	// 				{
+	// 					str = ft_strjoin_free(str, " ");
+	// 					str = ft_strjoin_free(str, dvalue);
+	// 				}
+	// 				free(dvalue);
+	// 			}
+	// 			elsei--;
+	// 			{
+	// 				start = i;
+	// 				while (array_str[index][i] && array_str[index][i] != '$')
+	// 					i++;
+	// 				temp = ft_substr(&array_str[index][start], 0, i - start);
+	// 				if (!str)
+	// 					str = ft_strdup(temp);
+	// 				else
+	// 				{
+	// 					str = ft_strjoin_free(str, " ");
+	// 					str = ft_strjoin_free(str, temp);
+	// 				}
+	// 				free(temp);
+	// 			}
+	// 		}
+	// 		free(array_str[index]);
+	// 		array_str[index] = ft_strdup(str);
+	// 		free(str);
+	// 		str = NULL;
+	// 	}
+	// 	index++;
+	// }
+	void	ft_echo_quotes(t_all *all, char **array_str)
+{
+
+	int	i;
+	int	c;
+	int	new_line;
+
+	i = 1;
+	new_line = 1;
+	// printf("hello\n");
+	while (array_str[i] && !ft_strncmp("-n", array_str[i], 2))
 	{
-		i = 0;
-		if (array_str[index][0] == '"')
+		c = 2;
+		while (array_str[i][c] == 'n')
 		{
-			while (array_str[index][i])
-			{
-				if (i == 0)
-					i++;
-				start = i;
-				while (array_str[index][i] && array_str[index][i] != '$' && array_str[index][i] != '"')
-					i++;
-				temp = ft_substr(&array_str[index][start], 0, i - start);
-				if (!str)
-					str = ft_strdup(temp);
-				else
-					str = ft_strjoin_free(str, temp);
-				free(temp);
-				if (array_str[index][i] && array_str[index][i] == '$' && !is_white_space(array_str[index][i + 1]))
-				{
-					start = i;
-					if (!array_str[index][i + 1] || array_str[index][i + 1] == '"')
-					{
-						dvalue = value_of_dollar_sign(all, &array_str[index][start], 1);
-						start += 2;
-						i += 2;
-					}
-					else
-					{
-						while (array_str[index][i] && !is_white_space(array_str[index][i]) && array_str[index][i] != '"')
-							i++;
-						start++;
-						dvalue = value_of_dollar_sign(all, &array_str[index][start], i - start);
-					}
-					str = ft_strjoin_free(str, dvalue);
-					free(dvalue);
-				}
-				else if (array_str[index][i] && array_str[index][i] == '$' && is_white_space(array_str[index][i + 1]))
-				{
-					temp = ft_substr(&array_str[index][i], 0, 1);
-					str = ft_strjoin_free(str, temp);
-					free(temp);
-					i++;
-				}
-				if (array_str[index][i] == '"')
-					i++;
-			}
-			free(array_str[index]);
-			array_str[index] = ft_strdup(str);
-			free(str);
-			str = NULL;
+			c++;
 		}
+		if (i == 1 && array_str[i][c] == '\0')
+			new_line = 0;
+		if (array_str[i][c] == '\0')
+			i++;
 		else
-		{
-			i = 0;
-			while (array_str[index][i])
-			{
-				if (array_str[index][i] == '$' && (!array_str[index][i + 1] || !is_white_space(array_str[index][i + 1])))
-				{
-					if (!array_str[index][i + 1])
-					{
-						dvalue = value_of_dollar_sign(all, &array_str[index][start], 1);
-						i++;
-					}
-					else
-					{
-						i++;
-						start = i;
-						while (array_str[index][i] && !is_white_space(array_str[index][i]))
-							i++;
-						dvalue = value_of_dollar_sign(all, &array_str[index][start], i - start);
-					}
-					if (!str)
-						str = ft_strdup(dvalue);
-					else
-					{
-						str = ft_strjoin_free(str, " ");
-						str = ft_strjoin_free(str, dvalue);
-					}
-					free(dvalue);
-				}
-				else
-				{
-					start = i;
-					while (array_str[index][i] && array_str[index][i] != '$')
-						i++;
-					temp = ft_substr(&array_str[index][start], 0, i - start);
-					if (!str)
-						str = ft_strdup(temp);
-					else
-					{
-						str = ft_strjoin_free(str, " ");
-						str = ft_strjoin_free(str, temp);
-					}
-					free(temp);
-				}
-			}
-			free(array_str[index]);
-			array_str[index] = ft_strdup(str);
-			free(str);
-			str = NULL;
-		}
-		index++;
+			break ;
 	}
-	join_all_indexes_of_array(array_str);
+
+
+	join_all_indexes_of_array(array_str, i, new_line);
 }
 
 // void	ft_echo_quotes(t_all *all, char **array_str)
@@ -601,16 +632,16 @@ void	ft_export(t_all	*all)
 		while (all->line->each_cmd->cmd[i] != NULL)
 		{
 			i_char = 0;
-			while (all->line->each_cmd->cmd[1][i_char] && !ft_strchr("~!@#$&*(){}\\\%_-+=", all->line->each_cmd->cmd[1][i_char]))
+			while (all->line->each_cmd->cmd[1][i_char] && !ft_strchr("~!@#$&*(){}\\\%_-+", all->line->each_cmd->cmd[1][i_char]))
 			{
 				i_char++;
 			}
 			if (all->line->each_cmd->cmd[1][i_char])
 				printf("bash: export: %s: not a valid identifier\n", all->line->each_cmd->cmd[i]);
 			i_char = 0;
-			if (ft_strchr("1234567890", all->line->each_cmd->cmd[1][0]))
+			if (ft_strchr("1234567890=", all->line->each_cmd->cmd[1][0]))
 			{
-				printf("bash: export: %s: not a valid identifier\n", all->line->each_cmd->cmd[i]);
+				printf("bashs: export: %s: not a valid identifier\n", all->line->each_cmd->cmd[i]);
 			}
 			else
 			{
@@ -618,7 +649,6 @@ void	ft_export(t_all	*all)
 					i_char++;
 				if (all->line->each_cmd->cmd[i][i_char])
 				{
-					ft_lstadd_back_chunk(&all->envp, ft_lstnewchunk(ft_strdup(all->line->each_cmd->cmd[i])));
 					ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(ft_joined_for_export(all->line->each_cmd->cmd[i], i_char)));
 				}
 				else

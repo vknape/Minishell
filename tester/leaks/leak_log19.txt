@@ -1,0 +1,52 @@
+==62212== Memcheck, a memory error detector
+==62212== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==62212== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==62212== Command: ./tester/Minishell
+==62212== Parent PID: 61984
+==62212== 
+==62212== Syscall param wait4(pid) contains uninitialised byte(s)
+==62212==    at 0x49B23EA: wait4 (wait4.c:30)
+==62212==    by 0x4047C6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62212==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62212== 
+==62212== 
+==62212== HEAP SUMMARY:
+==62212==     in use at exit: 227,327 bytes in 724 blocks
+==62212==   total heap usage: 1,344 allocs, 620 frees, 264,859 bytes allocated
+==62212== 
+==62212== 15 bytes in 1 blocks are definitely lost in loss record 10 of 78
+==62212==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==62212==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==62212==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==62212==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==62212==    by 0x40138A: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62212== 
+==62212== 95 (56 direct, 39 indirect) bytes in 1 blocks are definitely lost in loss record 26 of 78
+==62212==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==62212==    by 0x405D38: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62212==    by 0x402666: ft_lstnewcmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62212==    by 0x40354E: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62212==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62212== 
+==62212== 1,024 bytes in 1 blocks are definitely lost in loss record 43 of 78
+==62212==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==62212==    by 0x401418: get_current_dir (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62212==    by 0x401382: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62212== 
+==62212== 21,994 (56 direct, 21,938 indirect) bytes in 1 blocks are definitely lost in loss record 77 of 78
+==62212==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==62212==    by 0x405D38: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62212==    by 0x40132F: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
+==62212== 
+==62212== LEAK SUMMARY:
+==62212==    definitely lost: 1,151 bytes in 4 blocks
+==62212==    indirectly lost: 21,977 bytes in 499 blocks
+==62212==      possibly lost: 0 bytes in 0 blocks
+==62212==    still reachable: 204,199 bytes in 221 blocks
+==62212==         suppressed: 0 bytes in 0 blocks
+==62212== Reachable blocks (those to which a pointer was found) are not shown.
+==62212== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==62212== 
+==62212== Use --track-origins=yes to see where uninitialised values come from
+==62212== For lists of detected and suppressed errors, rerun with: -s
+==62212== ERROR SUMMARY: 79 errors from 79 contexts (suppressed: 0 from 0)

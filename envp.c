@@ -6,7 +6,7 @@
 /*   By: vknape <vknape@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/24 11:45:42 by vknape        #+#    #+#                 */
-/*   Updated: 2024/05/03 13:09:09 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/15 12:53:53 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,15 @@ void	sorter_export(t_all *all)
 void	make_export(t_all *all, char *envp[])
 {
 	int		i;
+	int		j;
 
 	i = 0;
 	while (envp[i])
 	{
-		ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(ft_strjoin("declare -x ", envp[i])));
+		j = 0;
+		while (envp[i][j] && envp[i][j] != '=')
+			j++;
+		ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(ft_joined_for_export(envp[i], j)));
 		i++;
 	}
 	sorter_export(all);

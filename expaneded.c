@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/09 07:40:37 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/14 11:26:37 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/15 10:02:54 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,39 +221,115 @@ void	search_in_nodes(t_all *all, t_chunk *chunks)
 	}
 }
 
-void	expanded(t_all *all, t_cmd *cmd)
+char	*search_dollar_signe(t_all *all, char *str)
 {
-	t_cmd	*temp;
+	int		i;
+	int		start;
+	char	*dvalue;
+	char	*temp;
+	char	*whole;
 
-	temp = cmd;
-	while (temp)
+	i = 0;
+	whole = NULL;
+	while (str[i])
 	{
-		if (temp->cmd)
+		if (str[0] == 39)
 		{
-			// printf("before temp->cmd(%s)\n", temp->cmd[0]);
-			// printf("before temp->cmd[1](%s)\n", temp->cmd[1]);
-			search_in_cmd(all, temp->cmd);
-			// printf("aftre temp->cmd(%s)\n", temp->cmd[0]);
-			// printf("aftre temp->cmd[1](%s)\n", temp->cmd[1]);
+			whole = ft_strdup(str);
+			free(str);
+			remove_quotes_cmd(whole);
+			// dprintf(2, "str = (%s)\n", whole);
+			return (whole);
 		}
-		if (temp->delimiter)
+		start = i;
+		while (str[i] && str[i] != '$')
+			i++;
+		if (!str[i])
 		{
-			// printf("before temp->del(%s)\n", temp->delimiter->str);
-			search_in_nodes(all, temp->delimiter);
-			// printf("after temp->del(%s)\n", temp->delimiter->str);
+			whole = ft_strdup(str);
+			free(str);
+			remove_quotes_cmd(whole);
+			// dprintf(2, "str = (%s)\n", whole);
+			return (whole);
 		}
-		if (temp->infile)
+		if (str[i] && !is_white_space(str[i + 1]))
 		{
-			// printf("before temp->infile(%s)\n", temp->infile->str);
-			search_in_nodes(all, temp->infile);
-			// printf("after temp->infile(%s)\n", temp->infile->str);
+			if (!whole)
+				whole = ft_substr(str, start, i - start);
+			else
+			{
+				temp = ft_substr(str, start, i - start);
+				whole = ft_strjoin_free(whole, temp);
+			}
+			// dprintf(2, "whole = (%s)\n", whole);
+			start = i;
+			while (str[i] && !is_white_space(str[i])
+			)
+				i++;
+			if (!whole)
+			{
+				// dprintf(2, "char = (%c)\n", str[start]);
+				whole = value_of_dollar_sign(all, &str[start + 1], i - start);
+				if (!whole)
+					whole = ft_substr(str, i, 1);
+			}
+			else
+			{
+				// dprintf(2, "char = (%c)\n", str[start]);
+				dvalue = value_of_dollar_sign(all, &str[start + 1], i - start);
+				if (!dvalue)
+					dvalue = ft_substr(str, i, 1);
+				whole = ft_strjoin_free(whole, dvalue);
+			}
+			// dprintf(2, "whole = (%s)\n", whole);
 		}
-		if (temp->outfile)
-		{
-			// printf("before temp->outfile(%s)\n", temp->outfile->str);
-			search_in_nodes(all, temp->outfile);
-			// printf("after temp->outfile(%s)\n", temp->outfile->str);
-		}
-		temp = temp->next;
 	}
+	// dprintf(2, "str = (%s)\n", str);
+	free(str);
+	remove_quotes_cmd(whole);
+	// dprintf(2, "str = (%s)\n", whole);
+	return (whole);
 }
+
+
+
+// void	expanded(t_all *all, t_cmd *cmd)
+// {
+// 	t_cmd	*temp;
+// 	t_chunk	*node;
+// 	int		i;
+
+// 	temp = cmd;
+// 	while (temp)
+// 	{
+// 		i = 0;
+// 		while (temp->cmd[i])
+// 		{
+// 			//search_in_cmd(all, temp->cmd);
+// 			temp->cmd[i] = search_dollar_signe(all, temp->cmd[i]);
+// 			i++;
+// 		}
+// 		node = temp->delimiter;
+// 		while (node)
+// 		{
+// 			//search_in_nodes(all, temp->delimiter);
+// 			node->strsearch_dollar_signe(all, node->str);
+// 			node = node->next;
+// 		}
+// 		node = temp->infile;
+// 		while (node)
+// 		{
+// 			//search_in_nodes(all, temp->infile);
+// 			search_dollar_signe(all, node->str);
+// 			node = node->next;
+// 		}
+// 		node = temp->outfile;
+// 		while (node)
+// 		{
+// 			//search_in_nodes(all, temp->outfile);
+// 			search_dollar_signe(all, node->str);
+// 			node = temp->next;
+// 		}
+// 		temp = temp->next;
+// 	}
+// }

@@ -1,10 +1,11 @@
-#!/bin/sh
 # source ./tester/utils.sh
 
-OUTFILE1=tester/vbash
-OUTFILE2=tester/vmini
-OUTPUT1=tester/bredir
-OUTPUT2=tester/vredir
+OUTFILE1=tester/vbash.txt
+OUTFILE2=tester/vmini.txt
+ERROR1=tester/berror.txt
+ERROR2=tester/verror.txt
+OUTPUT1=tester/bredir.txt
+OUTPUT2=tester/vredir.txt
 
 RESET="\033[0m"
 BLACK="\033[30m"
@@ -29,8 +30,9 @@ i=0
 es1=0
 es2=0
 
-LOG=tester/error_log
-LEAK_LOG="leaks/leak_log$i"
+LOG=tester/output_log.txt
+ERROR_LOG=tester/error_log.txt
+# LEAK_LOG="tester/leaks/leak_log$i.txt"
 
 
 error_log()
@@ -45,6 +47,13 @@ error_log()
 		echo "Bash exit status is: $es1" >> $LOG
 		echo "Your exit status is: $es2" >> $LOG
 	fi
+	if [ $@ -eq 3 ]; then
+		echo "Bash error is:	" >> $ERROR_LOG
+		cat $ERROR1 >> $ERROR_LOG
+		echo "Your error is:	" >> $ERROR_LOG
+		cat $ERROR2 >> $ERROR_LOG
+	fi
+	
 }
 
 # exit_status()
@@ -58,20 +67,19 @@ tester()
 	echo -e "\033[1m\033[37mtest $i: $@"
 	# echo $@ "; exit" | ./Minishell >$OUTFILE1
 	# echo $@ "; exit" | bash >$OUTFILE2
-	echo $@ | bash >$OUTFILE1
+	echo $@ | bash >$OUTFILE1 2>$ERROR1
 	es1=$?
 	if test -f $OUTPUT1 ; then
 		mv $OUTPUT1 $OUTFILE1
 	fi
-	echo $@ | ./tester/Minishell >$OUTFILE2
+	echo $@ | ./tester/Minishell >$OUTFILE2 2>$ERROR2
 	es2=$?
-	echo "$i." >> $LOG
 	sed -i '1d' $OUTFILE2
+	echo "$i." >> $LOG
+	echo "$i." >> $ERROR_LOG
 	if test -f $OUTPUT1 ; then
 		mv $OUTPUT1 $OUTFILE2
 	fi
-	# sed -i '1d' $OUTFILE2
-	# gawk -i inplace 'NR>1' $OUTFILE2
 	if diff $OUTFILE1 $OUTFILE2 >/dev/null; then
 		printf "$BOLDGREEN output"
 	else
@@ -86,7 +94,13 @@ tester()
 		printf "$BOLDRED exit"
 		error_log 2
 	fi
-	echo $@ | valgrind --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --error-exitcode=42 ./tester/Minishell >$OUTFILE2
+	if diff $ERROR1 $ERROR2 >/dev/null; then
+		printf "$BOLDGREEN error"
+	else
+		printf "$BOLDRED error"
+		error_log 3
+	fi
+	echo $@ | valgrind --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --error-exitcode=42 ./tester/Minishell &>/dev/null
 	es2=$?
 	if [ $es2 -ne 42 ]; then
 		printf "$BOLDGREEN MOK\n"
@@ -103,15 +117,24 @@ cp ./Minishell ./tester
 if test -f $LOG ; then
 	rm $LOG
 fi
+if test -f $ERROR_LOG ; then
+	rm $ERROR_LOG
+fi
 # exit
 rm tester/leaks/*.txt
 # exit
 # clear_logs $i
+
 printf "\033[1m\033[36mECHO TESTS\n"
 tester 'echo hello'
 tester 'echo hello hello'
 tester 'echo hello "hello hello"'
 tester 'echo hello "hello hello" hello'
+tester 'echo -n hello "hello hello" hello'
+tester 'echo -n -n hello "hello hello" hello'
+tester 'echo -n -nm -n hello "hello hello" hello'
+tester 'echo -n -mn -n hello "hello hello" hello'
+tester 'echo -nnnnnnnnnnnn -n hello "hello hello" hello'
 
 printf "\n\033[1m\033[36mCD TESTS\n"
 
@@ -126,6 +149,13 @@ printf "\n\033[1m\033[36mUNSET TESTS\n"
 
 printf "\n\033[1m\033[36mENV TESTS\n"
 # tester 'env'
+
+printf "\n\033[1m\033[36m$ TESTS\n"
+export var="ls"
+tester '$var'
+export var="ls "
+tester '$var'
+tester '$USER'
 
 printf "\n\033[1m\033[36mEXIT TESTS\n"
 
@@ -144,18 +174,32 @@ tester 'ls | cat'
 tester 'sleep 1 | ls -l'
 tester 'ls -l | sleep 1'
 
+printf "\n\033[1m\033[36mCMD with multiple pipe TESTS\n"
+tester 'ls | cat -e | cat -e | cat -e'
+
 printf "\n\033[1m\033[36mCMD with infile TESTS\n"
 tester 'cat < infile.txt'
 tester 'ls < infile.txt'
 
+printf "\n\033[1m\033[36mCMD with multiple infile TESTS\n"
+tester 'cat < infile.txt < out_new'
+tester 'cat <out_new < infile.txt'
+
 printf "\n\033[1m\033[36mCMD with outfile TESTS\n"
 tester 'ls > tester/bredir'
-exit
+
+printf "\n\033[1m\033[36mCMD with multiple outfile TESTS\n"
+tester 'ls > outfile > tester/bredir'
 
 printf "\n\033[1m\033[36mCMD with infile outfile and pipe TESTS\n"
 tester 'cat < infile.txt | cat -e'
 tester 'cat < infile.txt | ls'
 tester 'ls < infile.txt | cat -e'
+
+printf "\n\033[1m\033[36mCMD with multiple infiles outfiles and pipes TESTS\n"
+tester 'cat < infile.txt < out_new | cat -e | cat -e >outfile >tester/bredir'
+tester 'cat < infile.txt < out_new | ls | cat -e >outfile >tester/bredir'
+tester 'cat < out_new > tester/bredir'
 
 # rm $OUTFILE1
 # rm $OUTFILE2

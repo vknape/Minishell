@@ -75,7 +75,7 @@ int		check_input(char *curline, t_all *all);
 void	make_envp_and_set(t_all *all, char *envp[]);
 void	make_export(t_all *all, char *envp[]);
 void	start_exec(t_all *all);
-void	get_path(t_all *all);
+void	get_path(t_all *all, t_cmd *cmd);
 void	expanded(t_all *all, t_cmd *cmd);
 void	sighandler(int sig);
 
@@ -133,6 +133,7 @@ char	*ft_joined_for_export(char *str, int start);
 //free
 void	free_line(t_line **line);
 void	free_all(t_all **all);
+void	free2d(char **str);
 
 
 #endif

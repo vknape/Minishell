@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/08 09:40:42 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/21 09:03:24 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/21 09:38:30 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,61 +100,61 @@ void	handle_outfiles(t_chunk *outfile)
 	}
 }
 
-void	exec_cmd(t_all *all)
+void	exec_cmd(t_all *all, t_cmd *cmd)
 {
 	// printf("here\n");
-	get_path(all);
+	get_path(all, cmd);
 	// printf("here\n");
 	// printf("%s\n", all->line->each_cmd->cmd[0]);
 	// printf("%s\n", all->line->each_cmd->cmd[1]);
-	execve(all->line->each_cmd->cmd[0], all->line->each_cmd->cmd, all->envpcpy);
+	execve(cmd->cmd[0], cmd->cmd, all->envpcpy);
 	exit(1);
 }
 
-void	exec_builtin(t_all *all)
+void	exec_builtin(t_all *all, t_cmd *cmd)
 {
 	// printf("we got here %s\n", all->line->each_cmd->cmd[0]);
-	if (!ft_strncmp("echo", all->line->each_cmd->cmd[0], 5))
-		ft_echo_quotes(all, all->line->each_cmd->cmd);
-	// if (!ft_strncmp("cd", all->line->each_cmd->cmd[0], 3))
+	if (!ft_strncmp("echo", cmd->cmd[0], 5))
+		ft_echo_quotes(all, cmd->cmd);
+	// if (!ft_strncmp("cd", cmd->cmd[0], 3))
 	// 	ft_cd(all);
-	if (!ft_strncmp("pwd", all->line->each_cmd->cmd[0], 4))
+	if (!ft_strncmp("pwd", cmd->cmd[0], 4))
 		ft_pwd();
-	if (!ft_strncmp("export", all->line->each_cmd->cmd[0], 7))
+	if (!ft_strncmp("export", cmd->cmd[0], 7))
 		ft_export(all);
-	if (!ft_strncmp("unset", all->line->each_cmd->cmd[0], 6))
-		ft_unset(all, all->line->each_cmd->cmd);
-	if (!ft_strncmp("env", all->line->each_cmd->cmd[0], 4))
+	if (!ft_strncmp("unset", cmd->cmd[0], 6))
+		ft_unset(all, cmd->cmd);
+	if (!ft_strncmp("env", cmd->cmd[0], 4))
 		ft_env(all);
 	exit(1);
 }
 
-void	check_scenario(t_all *all)
+void	check_scenario(t_all *all, t_cmd *cmd)
 {
 	// printf("%d\n", all->line->each_cmd->is_builtin);
 	// dup2(all->line->pipe[1], STDOUT_FILENO);
 	// printf("%d\n", all->line->each_cmd->infile);
 	// dprintf(2, "outfile not okay\n");
-	if (all->line->each_cmd->infile)
+	if (cmd->infile)
 	{
-		// printf("%s\n", all->line->each_cmd->infile->str);
+		// printf("%s\n", cmd->infile->str);
 		// dprintf(2, "outfile not okay\n");
-		handle_infiles(all, all->line->each_cmd->infile);
+		handle_infiles(all, cmd->infile);
 	}
-	// printf("%d\n", all->line->each_cmd->is_builtin);
-	if (all->line->each_cmd->outfile)
+	// printf("%d\n", cmd->is_builtin);
+	if (cmd->outfile)
 	{
 		// dprintf(2, "outfile not okay\n");
-		handle_outfiles(all->line->each_cmd->outfile);
+		handle_outfiles(cmd->outfile);
 	}
-	// printf("%d\n", all->line->each_cmd->is_builtin);
-	if (all->line->each_cmd->is_builtin)
-		exec_builtin(all);
+	// printf("%d\n", cmd->is_builtin);
+	if (cmd->is_builtin)
+		exec_builtin(all, cmd);
 	else
-		exec_cmd(all);
+		exec_cmd(all, cmd);
 }
 
-pid_t	start_fork(t_all *all)
+pid_t	start_fork(t_all *all, t_cmd *cmd)
 {
 	pid_t	p;
 	// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
@@ -171,13 +171,13 @@ pid_t	start_fork(t_all *all)
 	{
 		// dprintf(2, "cmd here is %s\n", all->line->each_cmd->cmd[0]);
 		close(all->line->pipe[0]);
-		if (all->line->each_cmd->next)
+		if (cmd->next)
 			dup2(all->line->pipe[1], STDOUT_FILENO);
 		else
 			dup2(all->stdoutfd, STDOUT_FILENO);
 		close(all->line->pipe[1]);
 		// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
-		check_scenario(all);
+		check_scenario(all, cmd);
 	}
 }
 
@@ -212,7 +212,7 @@ void	start_exec(t_all *all)
 		// else
 		// {
 		pipe(all->line->pipe);
-		p = start_fork(all);
+		p = start_fork(all, temp);
 		// }
 		temp = temp->next;
 	}

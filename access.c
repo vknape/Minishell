@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/08 11:52:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/14 10:54:30 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/21 09:45:21 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*check_access(char **all_paths, char *cmd)
 	return (NULL);
 }
 
-void	get_path(t_all *all)
+void	get_path(t_all *all, t_cmd *cmd)
 {
 	char	*path;
 	char	**all_paths;
@@ -67,10 +67,15 @@ void	get_path(t_all *all)
 	while (ft_strncmp("PATH", all->envpcpy[i], 4))
 		i++;
 	all_paths = ft_split((all->envpcpy[i] + 5), ':');
-	path = check_access(all_paths, all->line->each_cmd->cmd[0]);
-	// free(all->line->each_cmd->cmd[0]);
+	path = check_access(all_paths, cmd->cmd[0]);
+	// free(cmd->cmd[0]);
 	if (path)
-		all->line->each_cmd->cmd[0] = path;
+		cmd->cmd[0] = path;
 	else
-		all->line->each_cmd->cmd[0] = NULL;
+	{
+		// free2d(cmd->cmd);
+		// cmd->cmd = NULL;
+		cmd->cmd[0] = NULL;
+	}
+		// cmd->cmd[0] = NULL;
 }

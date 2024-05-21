@@ -408,10 +408,13 @@ char	*ft_strjoin_free(char *s1, char *s2)
 
 void	ft_env(t_all *all)
 {
-	while (all->envp)
+	t_chunk *temp;
+
+	temp = all->envp;
+	while (temp)
 	{
-		printf("%s\n", all->envp->str);
-		all->envp = all->envp->next;
+		printf("%s\n", temp->str);
+		temp = temp->next;
 	}
 	// while (all->export)
 	// {

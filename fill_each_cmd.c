@@ -96,11 +96,13 @@ void	fill_cmd_nodes(t_all *all, t_chunk *chunks)
 void	split_cmd_nodes(t_all *all)
 {
 	t_chunk	*chunks;
+	t_cmd	*temp;
 
 	chunks = all->line->chunks;
 	// printf("here\n");
 	// printf("address = %s\n", all->line->each_cmd->infile->str);
 	ft_lstadd_back_cmd(&all->line->each_cmd, ft_lstnewcmd());
+	temp = all->line->each_cmd;
 	// printf("address = %s\n", all->line->each_cmd->infile->str);
 	while (chunks)
 	{
@@ -116,6 +118,13 @@ void	split_cmd_nodes(t_all *all)
 		chunks = chunks->next;
 		// dprintf(2, "here\n");
 	}
+	while (temp)
+	{
+		all->line->total_cmd++;
+		temp = temp->next;
+		/* code */
+	}
+	
 	// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
 	// printf("here\n");
 	// ft_echo_quotes(all, all->line->each_cmd->cmd);

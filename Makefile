@@ -1,6 +1,6 @@
 NAME	= Minishell
-FLAGS	=
-#FLAGS	= -Wall -Wextra -Werror #-g -fsanitize=address
+FLAGS	= -g #-fsanitize=address
+# FLAGS	= -Wall -Wextra -Werror -g -fsanitize=address
 LIBFTDIR  = ./libft/libft.a
 LIBS = -lreadline
 
@@ -8,7 +8,7 @@ LIBS = -lreadline
 
 SRCS	= main.c builtins.c link_list_chunk.c link_list_cmd.c check_input.c \
 		fill_each_cmd.c ft_splite_modified.c ft_split_skip.c envp.c exec.c access.c expaneded.c\
-		remove_whitespace_quotes.c
+		remove_whitespace_quotes.c get_line.c ft_signal.c free.c
 objects	= $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -20,7 +20,7 @@ $(NAME): 	$(objects) $(LIBFTDIR)
 	@cc $(FLAGS) -o $(NAME) $(objects) $(LIBFTDIR) $(LIBS)
 
 %.o: %.c	
-	cc -c $< -o $@
+	cc $(FLAGS) -c $< -o $@
 
 clean:
 	rm -f $(objects) $(LIBFTDIR)/*.o

@@ -21,13 +21,17 @@ char	*get_current_dir(void)
 		exit(EXIT_FAILURE);
 	}
 	// printf("%s\n", buf);
-	// printf("%s\n", ptr);
+	// printf("ptr  %s\n", ptr);
 	return (ptr);
 }
 
 void	ft_pwd(void)
 {
-	printf("%s\n", get_current_dir());
+	char	*current;
+
+	current = get_current_dir();
+	printf("%s\n", current);
+	free(current);
 }
 
 
@@ -265,7 +269,7 @@ char	*ft_strjoin_free(char *s1, char *s2)
 
 	i = 1;
 	new_line = 1;
-	// printf("hello\n");
+	// dprintf(2, "hello\n");
 	while (array_str[i] && !ft_strncmp("-n", array_str[i], 2))
 	{
 		c = 2;
@@ -508,9 +512,10 @@ char *create_new_path(t_all *all, char **array)
 
 	i = 0;
 	dir = get_current_dir();
-	// printf("dir = (%s)\n", dir);
+	// printf("array[i] (%s)\n", array[i]);
 	while (array && array[i])
 	{
+		// printf("array[i] (%s)\n", array[i]);
 		if (!ft_strncmp(array[i], ".", 2))
 		{
 			i++;
@@ -530,9 +535,11 @@ char *create_new_path(t_all *all, char **array)
 		}
 		else if (!ft_strncmp(array[i], "~", 2) && i == 0)
 		{
-			new_dir = value_of_dollar_sign(all, "HOME", 4);
-			dir = ft_strjoin_free(dir, "/");
-			dir = ft_strjoin_free(dir, new_dir);
+			dir = value_of_dollar_sign(all, "HOME", 4);
+			// printf("value $ HOME (%s)\n", new_dir);
+			// dir = ft_strjoin_free(dir, "/");
+			// dir = ft_strjoin_free(dir, new_dir);
+			// printf("new dir (%s)\n", dir);
 		}
 		else if (!ft_strncmp(array[i], "-", 2) && i == 0)
 		{
@@ -542,11 +549,13 @@ char *create_new_path(t_all *all, char **array)
 		}
 		else
 		{
+			// printf("new dir (%s)\n", dir);
 			dir = ft_strjoin_free(dir, "/");
 			dir = ft_strjoin_free(dir, array[i]);
 		}
 		i++;
 	}
+	// printf("new dir (%s)\n", dir);
 	return (dir);
 }
 
@@ -558,6 +567,7 @@ void	ft_cd(t_all *all)
 	int		total_indexes;
 
 	current_dir = get_current_dir();
+	// dprintf(2, "(%s)\n", current_dir);
 	total_indexes = 0;
 	while (all->line->each_cmd->cmd && all->line->each_cmd->cmd[total_indexes])
 		total_indexes++;
@@ -584,7 +594,8 @@ void	ft_cd(t_all *all)
 	{
 		printf("error invalid dir\n");
 	}
-	current_dir = get_current_dir();
+	// current_dir = get_current_dir();
+	// dprintf(2, "here %s\n", current_dir);
 }
 
 char	*ft_joined_for_export(char *str, int start)
@@ -668,4 +679,9 @@ void	ft_export(t_all	*all)
 	// 	printf("%s\n", chuncks->str);
 	// 	chuncks = chuncks->next;
 	// }
+}
+
+void	ft_exit(int status)
+{
+	exit(status);
 }

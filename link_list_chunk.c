@@ -5,7 +5,7 @@ t_chunk	*ft_lstnewchunk(char *str)
 {
 	t_chunk	*lst1;
 
-	lst1 = (t_chunk *) malloc(sizeof(t_chunk));
+	lst1 = calloc(1, sizeof(t_chunk));
 	if (lst1 == NULL)
 		return (NULL);
 	(*lst1).next = NULL;

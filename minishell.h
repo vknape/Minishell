@@ -1,6 +1,9 @@
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -22,7 +25,7 @@ typedef struct s_chunk
 	bool	is_infile;
 	bool	is_outfile;
 	bool	is_append;
-	char	*lim;
+	// char	*lim;
 	struct s_chunk *next;
 }	t_chunk;
 
@@ -62,6 +65,7 @@ typedef struct s_all
 	char	**envpcpy;
 	t_chunk	*export;
 	t_chunk	*set;
+	int		stdinfd;
 	int		stdoutfd;
 	
 }	t_all;
@@ -73,6 +77,7 @@ void	make_export(t_all *all, char *envp[]);
 void	start_exec(t_all *all);
 void	get_path(t_all *all);
 void	expanded(t_all *all, t_cmd *cmd);
+void	sighandler(int sig);
 
 // char	*get_current_dir(void);
 // void	change_directory(char *dir);
@@ -111,6 +116,7 @@ void	split_cmd_nodes(t_all *all);
 //parsing utils
 int	check_space(char *str);
 char	**ft_split_quotes(char const *s, char c);
+char	*get_next_line(int fd);
 
 // bultins function
 //void	ft_echo(t_all *all, char **str);
@@ -123,5 +129,10 @@ void	ft_unset(t_all *all, char **str);
 void	ft_export(t_all	*all);
 void	sorter_export(t_all *all);
 char	*ft_joined_for_export(char *str, int start);
+
+//free
+void	free_line(t_line **line);
+void	free_all(t_all **all);
+
 
 #endif

@@ -1,84 +1,29 @@
-==62078== Memcheck, a memory error detector
-==62078== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==62078== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==62078== Command: ./tester/Minishell
-==62078== Parent PID: 61984
-==62078== 
-==62078== Syscall param wait4(pid) contains uninitialised byte(s)
-==62078==    at 0x49B23EA: wait4 (wait4.c:30)
-==62078==    by 0x4047C6: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62078==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62078== 
-==62079== 
-==62079== HEAP SUMMARY:
-==62079==     in use at exit: 227,497 bytes in 730 blocks
-==62079==   total heap usage: 1,365 allocs, 635 frees, 265,227 bytes allocated
-==62079== 
-==62079== 31 bytes in 1 blocks are definitely lost in loss record 15 of 80
-==62079==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==62079==    by 0x401836: ft_strjoin_free (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62079==    by 0x401725: join_all_indexes_of_array (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62079==    by 0x401A14: ft_echo_quotes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62079==    by 0x404462: exec_builtin (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62079==    by 0x404651: check_scenario (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62079==    by 0x404746: start_fork (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62079==    by 0x404796: start_exec (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62079==    by 0x4013E0: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62079== 
-==62079== 1,024 bytes in 1 blocks are definitely lost in loss record 46 of 80
-==62079==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==62079==    by 0x401418: get_current_dir (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62079==    by 0x401382: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62079== 
-==62079== LEAK SUMMARY:
-==62079==    definitely lost: 1,055 bytes in 2 blocks
-==62079==    indirectly lost: 0 bytes in 0 blocks
-==62079==      possibly lost: 0 bytes in 0 blocks
-==62079==    still reachable: 226,442 bytes in 728 blocks
-==62079==         suppressed: 0 bytes in 0 blocks
-==62079== Reachable blocks (those to which a pointer was found) are not shown.
-==62079== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==62079== 
-==62079== For lists of detected and suppressed errors, rerun with: -s
-==62079== ERROR SUMMARY: 80 errors from 80 contexts (suppressed: 0 from 0)
-==62078== 
-==62078== HEAP SUMMARY:
-==62078==     in use at exit: 227,466 bytes in 729 blocks
-==62078==   total heap usage: 1,356 allocs, 627 frees, 265,094 bytes allocated
-==62078== 
-==62078== 41 bytes in 1 blocks are definitely lost in loss record 18 of 79
-==62078==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==62078==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==62078==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==62078==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
-==62078==    by 0x40138A: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62078== 
-==62078== 159 (56 direct, 103 indirect) bytes in 1 blocks are definitely lost in loss record 29 of 79
-==62078==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==62078==    by 0x405D38: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62078==    by 0x402666: ft_lstnewcmd (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62078==    by 0x40354E: split_cmd_nodes (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62078==    by 0x4013A4: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62078== 
-==62078== 1,024 bytes in 1 blocks are definitely lost in loss record 44 of 79
-==62078==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==62078==    by 0x401418: get_current_dir (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62078==    by 0x401382: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62078== 
-==62078== 22,043 (56 direct, 21,987 indirect) bytes in 1 blocks are definitely lost in loss record 78 of 79
-==62078==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==62078==    by 0x405D38: ft_calloc (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62078==    by 0x40132F: main (in /home/adakheel/Desktop/Abbas/tester/Minishell)
-==62078== 
-==62078== LEAK SUMMARY:
-==62078==    definitely lost: 1,177 bytes in 4 blocks
-==62078==    indirectly lost: 22,090 bytes in 504 blocks
-==62078==      possibly lost: 0 bytes in 0 blocks
-==62078==    still reachable: 204,199 bytes in 221 blocks
-==62078==         suppressed: 0 bytes in 0 blocks
-==62078== Reachable blocks (those to which a pointer was found) are not shown.
-==62078== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==62078== 
-==62078== Use --track-origins=yes to see where uninitialised values come from
-==62078== For lists of detected and suppressed errors, rerun with: -s
-==62078== ERROR SUMMARY: 80 errors from 80 contexts (suppressed: 0 from 0)
+==699256== Memcheck, a memory error detector
+==699256== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==699256== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==699256== Command: ./tester/Minishell
+==699256== Parent PID: 699149
+==699256== 
+==699256== 
+==699256== Process terminating with default action of signal 2 (SIGINT)
+==699256==    at 0x4026B16: __open_nocancel (open64_nocancel.c:39)
+==699256==    by 0x4006978: open_verify.constprop.0 (dl-load.c:1626)
+==699256==    by 0x4007107: open_path (dl-load.c:1922)
+==699256==    by 0x400A6B0: _dl_map_object (dl-load.c:2158)
+==699256==    by 0x4003494: openaux (dl-deps.c:64)
+==699256==    by 0x401D349: _dl_catch_exception (dl-error-skeleton.c:208)
+==699256==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==699256==    by 0x402339F: dl_main (rtld.c:1970)
+==699256==    by 0x401F83B: _dl_sysdep_start (dl-sysdep.c:256)
+==699256==    by 0x4021597: _dl_start_final (rtld.c:507)
+==699256==    by 0x4021597: _dl_start (rtld.c:596)
+==699256==    by 0x4020297: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==699256== 
+==699256== HEAP SUMMARY:
+==699256==     in use at exit: 0 bytes in 0 blocks
+==699256==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==699256== 
+==699256== All heap blocks were freed -- no leaks are possible
+==699256== 
+==699256== For lists of detected and suppressed errors, rerun with: -s
+==699256== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

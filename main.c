@@ -421,6 +421,7 @@ void	initialize_each_cmd(t_all *all)
 	// printf("after initialize_t_all\n\n");
 }
 
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*curline;
@@ -428,6 +429,8 @@ int	main(int argc, char **argv, char **envp)
 	t_all	*all;
 	char	*pwd;
 	int		i = 0;
+	char	*prompt;
+	char	*current_path;
 
 	// while (envp[i])
 	// {
@@ -440,25 +443,69 @@ int	main(int argc, char **argv, char **envp)
 	// all = initialize_t_all(amount_cmd, curline);
 	// pwd = get_current_dir();
 	// change_directory("35 3");
+	if (signal(SIGINT, sighandler) == SIG_ERR)
+	{
+		perror("signal failed");
+		exit(1);
+	}
+	if (signal(SIGQUIT, sighandler) == SIG_ERR)
+	{
+		perror("signal failed");
+		exit(1);
+	}
 	all = ft_calloc(1, sizeof(t_all));
-	all->line = ft_calloc(1, sizeof(t_line));
+	
+	all->envpcpy = envp;
+	all->stdinfd = dup(STDIN_FILENO);
+	all->stdoutfd = dup(STDOUT_FILENO);
 	// printf("address = %s", all->line->each_cmd->infile->str);
 	if (!all)
 		return (1);
 	make_envp_and_set(all, envp);
 	make_export(all, envp);
-	curline = readline(get_current_dir());
-
-	check_input(curline, all);
-	// printf("here cur line iss (%s)\n", all->line->saved_line);
-	split_cmd_nodes(all);
-	// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
-	// expanded(all, all->line->each_cmd);
-	remove_whitespace_quotes(all, all->line->each_cmd);
-	all->envpcpy = envp;
-	all->stdoutfd = dup(STDOUT_FILENO);
-	// printf("here\n");
-	start_exec(all);
+	while (1)
+	{
+		all->line = ft_calloc(1, sizeof(t_line));
+		current_path = get_current_dir();
+		prompt = ft_strjoin(current_path, "$ ");
+		free(current_path);
+		current_path = NULL;
+		// dprintf(2, "hello1\n");
+		// dprintf(2, "line = (%s)\n", curline);
+		curline = readline(prompt);
+		free(prompt);
+		prompt = NULL;
+		// dprintf(2, "line = (%s)\n", curline);
+		if (!curline)
+		{
+			// dprintf(2, "    exit\n");
+			free_all(&all);
+			exit(0);
+		}
+		if (curline[0] != '\0')
+		{
+			// dprintf(2, "hello3\n");
+			check_input(curline, all);
+			free(curline);
+			
+			// printf("here cur line iss (%s)\n", all->line->saved_line);
+			split_cmd_nodes(all);
+			// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
+			// expanded(all, all->line->each_cmd);
+			remove_whitespace_quotes(all, all->line->each_cmd);
+			// all->envpcpy = envp;
+			// all->stdoutfd = dup(STDOUT_FILENO);
+			// printf("here\n");
+			// free_line(&all->line);
+			start_exec(all);
+			// dprintf(2, "hello2\n");
+			dup2(all->stdinfd, 0);
+			// current_path = get_current_dir();
+			// dprintf(2, "path = (%s)\n", current_path);
+		}
+		free_line(&all->line);
+	}
+	free_all(&all);
 	// while (all->envp)
 	// {
 	// 	printf("%s\n", all->envp->str);

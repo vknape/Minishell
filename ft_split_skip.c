@@ -6,7 +6,7 @@
 /*   By: vknape <vknape@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/20 09:39:20 by vknape        #+#    #+#                 */
-/*   Updated: 2024/05/09 09:15:48 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/21 09:09:04 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static int	words_counter(char const *s, char c)
 		if (*s == 34 || *s == 39)
 			s++;
 	}
-	//printf("WC = (%d)\n", count);
 	return (count);
 }
 
@@ -62,7 +61,6 @@ static int	len(char const *s, char c)
 			s++;
 		}
 		len = len + 2;
-		// printf("len = (%d)\n", len);
 		return (len);
 	}
 	else
@@ -72,7 +70,6 @@ static int	len(char const *s, char c)
 			len++;
 			s++;
 		}
-		// printf("len = (%d)\n", len);
 		return (len);
 	}
 }

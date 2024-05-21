@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/09 07:40:37 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/15 10:02:54 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/20 16:11:49 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,10 +284,8 @@ char	*search_dollar_signe(t_all *all, char *str)
 			// dprintf(2, "whole = (%s)\n", whole);
 		}
 	}
-	// dprintf(2, "str = (%s)\n", str);
 	free(str);
 	remove_quotes_cmd(whole);
-	// dprintf(2, "str = (%s)\n", whole);
 	return (whole);
 }
 

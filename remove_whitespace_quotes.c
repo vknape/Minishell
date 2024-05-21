@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/14 11:16:06 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/15 13:20:17 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/20 16:09:29 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ void	remove_whitespace_quotes(t_all *all, t_cmd *cmd)
 		{
 			temp->cmd[i] = remove_whitespace_cmd(temp->cmd[i]);
 			temp->cmd[i] = remove_quotes_cmd(temp->cmd[i]);
-			// temp->cmd[i] = search_dollar_signe(all, temp->cmd[i]);
+			temp->cmd[i] = search_dollar_signe(all, temp->cmd[i]);
 			// dprintf(2, "str here is (%s)\n", temp->cmd[i]);
 			i++;
 		}
@@ -170,7 +170,7 @@ void	remove_whitespace_quotes(t_all *all, t_cmd *cmd)
 		{
 			node->str = remove_whitespace_cmd(node->str);
 			node->str = remove_quotes_cmd(node->str);
-			// node->str = search_dollar_signe(all, node->str);
+			node->str = search_dollar_signe(all, node->str);
 			// dprintf(2, "str here is (%s)\n", node->str);
 			node = node->next;
 		}
@@ -179,7 +179,7 @@ void	remove_whitespace_quotes(t_all *all, t_cmd *cmd)
 		{
 			node->str = remove_whitespace_cmd(node->str);
 			node->str = remove_quotes_cmd(node->str);
-			// node->str = search_dollar_signe(all, node->str);
+			node->str = search_dollar_signe(all, node->str);
 			// dprintf(2, "str here is (%s)\n", node->str);
 			node = node->next;
 		}
@@ -188,7 +188,7 @@ void	remove_whitespace_quotes(t_all *all, t_cmd *cmd)
 		{
 			node->str = remove_whitespace_cmd(node->str);
 			node->str = remove_quotes_cmd(node->str);
-			// node->str = search_dollar_signe(all, node->str);
+			node->str = search_dollar_signe(all, node->str);
 			// dprintf(2, "str here is (%s)\n", node->str);
 			node = node->next;
 		}

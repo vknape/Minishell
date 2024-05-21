@@ -6,7 +6,7 @@
 /*   By: vknape <vknape@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/24 11:45:42 by vknape        #+#    #+#                 */
-/*   Updated: 2024/05/15 12:53:53 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/20 13:31:35 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	make_envp_and_set(t_all *all, char *envp[])
 	while (envp[i])
 	{
 		ft_lstadd_back_chunk(&all->envp, ft_lstnewchunk(ft_substr(envp[i], 0, ft_strlen(envp[i]))));
-		ft_lstadd_back_chunk(&all->set, ft_lstnewchunk(ft_substr(envp[i], 0, ft_strlen(envp[i]))));
+		// ft_lstadd_back_chunk(&all->set, ft_lstnewchunk(ft_substr(envp[i], 0, ft_strlen(envp[i]))));
 		i++;
 	}
 }

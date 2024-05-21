@@ -6,40 +6,40 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/08 09:40:42 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/15 10:03:41 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/21 09:03:24 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// char	*heredoc_text(t_chunk *infile)
-// {
-// 	char	*line;
-// 	char	*temp;
+char	*heredoc_text(t_chunk *infile)
+{
+	char	*line;
+	char	*temp;
 
-// 	line = NULL;
-// 	temp = NULL;
-// 	line = get_next_line(0);
-// 	if (!line)
-// 		return (NULL);
-// 	while (1)
-// 	{
-// 		if (!ft_strncmp(line, infile->lim, ft_strlen(infile->lim)) && \
-// 			ft_strlen(line) - 1 == ft_strlen(infile->lim))
-// 		{
-// 			free(line);
-// 			return (temp);
-// 		}
-// 		if (!temp)
-// 			temp = ft_strdup(line);
-// 		else
-// 		{
-// 			temp = ft_strjoin_free(temp, line);
-// 			free(line);
-// 		}
-// 		line = get_next_line(0);
-// 	}
-// }
+	line = NULL;
+	temp = NULL;
+	line = readline("> ");
+	if (!line)
+		return (NULL);
+	while (1)
+	{
+		if (!ft_strncmp(line, infile->str, ft_strlen(infile->str)) && \
+			ft_strlen(line) == ft_strlen(infile->str))
+		{
+			free(line);
+			return (temp);
+		}
+		if (!temp)
+			temp = ft_strdup(line);
+		else
+		{
+			temp = ft_strjoin_free(temp, line);
+			free(line);
+		}
+		line = readline("> ");
+	}
+}
 
 void	handle_infiles(t_all *all, t_chunk *infile)
 {
@@ -57,16 +57,16 @@ void	handle_infiles(t_all *all, t_chunk *infile)
 		}
 		if (infile->is_heredoc)
 		{
-			// text = heredoc_text(infile);
-			// if (!infile->next)
-			// {
-			// 	pipe(all->line->heredoc_pipe);
-			// 	write(all->line->heredoc_pipe[1], text, ft_strlen(text));
-			// 	close(all->line->heredoc_pipe[1]);
-			// 	dup2(all->line->heredoc_pipe[0], STDIN_FILENO);
-			// }
-			// free(text);
-			exit(1);
+			text = heredoc_text(infile);
+			if (!infile->next)
+			{
+				pipe(all->line->heredoc_pipe);
+				write(all->line->heredoc_pipe[1], text, ft_strlen(text));
+				close(all->line->heredoc_pipe[1]);
+				dup2(all->line->heredoc_pipe[0], STDIN_FILENO);
+				close(all->line->heredoc_pipe[0]);
+			}
+			free(text);
 		}
 		infile = infile->next;
 	}
@@ -74,9 +74,8 @@ void	handle_infiles(t_all *all, t_chunk *infile)
 
 void	handle_outfiles(t_chunk *outfile)
 {
-	int fd;
+	int	fd;
 
-	// dprintf(2, "outfile not okay\n");
 	while (outfile)
 	{
 		if (outfile->is_outfile)
@@ -99,7 +98,6 @@ void	handle_outfiles(t_chunk *outfile)
 		}
 		outfile = outfile->next;
 	}
-	
 }
 
 void	exec_cmd(t_all *all)
@@ -118,8 +116,8 @@ void	exec_builtin(t_all *all)
 	// printf("we got here %s\n", all->line->each_cmd->cmd[0]);
 	if (!ft_strncmp("echo", all->line->each_cmd->cmd[0], 5))
 		ft_echo_quotes(all, all->line->each_cmd->cmd);
-	if (!ft_strncmp("cd", all->line->each_cmd->cmd[0], 3))
-		ft_cd(all);
+	// if (!ft_strncmp("cd", all->line->each_cmd->cmd[0], 3))
+	// 	ft_cd(all);
 	if (!ft_strncmp("pwd", all->line->each_cmd->cmd[0], 4))
 		ft_pwd();
 	if (!ft_strncmp("export", all->line->each_cmd->cmd[0], 7))
@@ -128,8 +126,6 @@ void	exec_builtin(t_all *all)
 		ft_unset(all, all->line->each_cmd->cmd);
 	if (!ft_strncmp("env", all->line->each_cmd->cmd[0], 4))
 		ft_env(all);
-	if (!ft_strncmp("exit", all->line->each_cmd->cmd[0], 5))
-		exit(1);
 	exit(1);
 }
 
@@ -160,7 +156,7 @@ void	check_scenario(t_all *all)
 
 pid_t	start_fork(t_all *all)
 {
-	pid_t p;
+	pid_t	p;
 	// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
 	p = fork();
 	if(p == -1)
@@ -170,7 +166,6 @@ pid_t	start_fork(t_all *all)
 		close(all->line->pipe[1]);
 		dup2(all->line->pipe[0], STDIN_FILENO);
 		close(all->line->pipe[0]);
-		
 	}
 	else if (p == 0)
 	{
@@ -183,26 +178,48 @@ pid_t	start_fork(t_all *all)
 		close(all->line->pipe[1]);
 		// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
 		check_scenario(all);
-		
 	}
 }
 
 void	start_exec(t_all *all)
 {
+	t_cmd	*temp;
 	pid_t	p;
 	pid_t	wpid;
 	int		status;
 	// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
 	// dprintf(2, "cmd here is%s\n", all->line->each_cmd->cmd[0]);
 	// dprintf(2, "cmd here is%s\n", all->line->each_cmd->next->cmd[0]);
-	while (all->line->each_cmd)
+	p = 0;
+	temp = all->line->each_cmd;
+	while (temp)
 	{
-		// dprintf(2, "heregdgfdg\n");
+		if (all->line->total_cmd == 1)
+		{
+			// dprintf(2, "here\n");
+			if (!ft_strncmp("exit", temp->cmd[0], 5))
+			{
+				free_all(&all);
+				exit(1);
+			}
+			if (!ft_strncmp("cd", temp->cmd[0], 3))
+				ft_cd(all);
+			if (!ft_strncmp("export", temp->cmd[0], 7) && !temp->cmd[1])
+				ft_export(all);
+			if (!ft_strncmp("unset", temp->cmd[0], 6))
+				ft_unset(all, temp->cmd);
+		}
+		// else
+		// {
 		pipe(all->line->pipe);
 		p = start_fork(all);
-		all->line->each_cmd = all->line->each_cmd->next;
+		// }
+		temp = temp->next;
 	}
-	wpid = waitpid(p, &status, 0);
-	while (wait(NULL) != -1)
-		;
+	if (p)
+	{
+		wpid = waitpid(p, &status, 0);
+		while (wait(NULL) != -1)
+			;
+	}
 }

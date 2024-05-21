@@ -45,7 +45,7 @@ BONUS 		= 	ft_lstnew.c\
 OBJ 		= 	$(FILES:.c=.o)
 BOBJ 		= 	$(BONUS:.c=.o)
 CC 			= 	cc
-CFLAGS 		= 	-Wall -Werror -Wextra
+CFLAGS 		= 	-Wall -Werror -Wextra -g
 $(NAME): 	$(OBJ)
 				@ar rcs $(NAME) $(OBJ)
 %.o: %.c

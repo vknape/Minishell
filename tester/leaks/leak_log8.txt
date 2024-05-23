@@ -1,29 +1,54 @@
-==699256== Memcheck, a memory error detector
-==699256== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==699256== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==699256== Command: ./tester/Minishell
-==699256== Parent PID: 699149
-==699256== 
-==699256== 
-==699256== Process terminating with default action of signal 2 (SIGINT)
-==699256==    at 0x4026B16: __open_nocancel (open64_nocancel.c:39)
-==699256==    by 0x4006978: open_verify.constprop.0 (dl-load.c:1626)
-==699256==    by 0x4007107: open_path (dl-load.c:1922)
-==699256==    by 0x400A6B0: _dl_map_object (dl-load.c:2158)
-==699256==    by 0x4003494: openaux (dl-deps.c:64)
-==699256==    by 0x401D349: _dl_catch_exception (dl-error-skeleton.c:208)
-==699256==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
-==699256==    by 0x402339F: dl_main (rtld.c:1970)
-==699256==    by 0x401F83B: _dl_sysdep_start (dl-sysdep.c:256)
-==699256==    by 0x4021597: _dl_start_final (rtld.c:507)
-==699256==    by 0x4021597: _dl_start (rtld.c:596)
-==699256==    by 0x4020297: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
-==699256== 
-==699256== HEAP SUMMARY:
-==699256==     in use at exit: 0 bytes in 0 blocks
-==699256==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
-==699256== 
-==699256== All heap blocks were freed -- no leaks are possible
-==699256== 
-==699256== For lists of detected and suppressed errors, rerun with: -s
-==699256== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==1053844== Memcheck, a memory error detector
+==1053844== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1053844== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1053844== Command: ./tester/Minishell
+==1053844== Parent PID: 1053719
+==1053844== 
+==1053844== Conditional jump or move depends on uninitialised value(s)
+==1053844==    at 0x404AF1: start_exec (exec.c:219)
+==1053844==    by 0x40151B: main (main.c:500)
+==1053844== 
+==1053857== 
+==1053857== HEAP SUMMARY:
+==1053857==     in use at exit: 216,758 bytes in 608 blocks
+==1053857==   total heap usage: 1,308 allocs, 700 frees, 254,662 bytes allocated
+==1053857== 
+==1053857== 31 bytes in 1 blocks are definitely lost in loss record 12 of 75
+==1053857==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1053857==    by 0x401996: ft_strjoin_free (builtins.c:135)
+==1053857==    by 0x401885: join_all_indexes_of_array (builtins.c:99)
+==1053857==    by 0x401B74: ft_echo_quotes (builtins.c:289)
+==1053857==    by 0x404748: exec_builtin (exec.c:118)
+==1053857==    by 0x404886: check_scenario (exec.c:152)
+==1053857==    by 0x404977: start_fork (exec.c:180)
+==1053857==    by 0x404AD8: start_exec (exec.c:215)
+==1053857==    by 0x40151B: main (main.c:500)
+==1053857== 
+==1053857== LEAK SUMMARY:
+==1053857==    definitely lost: 31 bytes in 1 blocks
+==1053857==    indirectly lost: 0 bytes in 0 blocks
+==1053857==      possibly lost: 0 bytes in 0 blocks
+==1053857==    still reachable: 216,727 bytes in 607 blocks
+==1053857==         suppressed: 0 bytes in 0 blocks
+==1053857== Reachable blocks (those to which a pointer was found) are not shown.
+==1053857== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==1053857== 
+==1053857== For lists of detected and suppressed errors, rerun with: -s
+==1053857== ERROR SUMMARY: 75 errors from 75 contexts (suppressed: 0 from 0)
+==1053844== 
+==1053844== HEAP SUMMARY:
+==1053844==     in use at exit: 204,215 bytes in 221 blocks
+==1053844==   total heap usage: 1,305 allocs, 1,084 frees, 255,737 bytes allocated
+==1053844== 
+==1053844== LEAK SUMMARY:
+==1053844==    definitely lost: 0 bytes in 0 blocks
+==1053844==    indirectly lost: 0 bytes in 0 blocks
+==1053844==      possibly lost: 0 bytes in 0 blocks
+==1053844==    still reachable: 204,215 bytes in 221 blocks
+==1053844==         suppressed: 0 bytes in 0 blocks
+==1053844== Reachable blocks (those to which a pointer was found) are not shown.
+==1053844== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==1053844== 
+==1053844== Use --track-origins=yes to see where uninitialised values come from
+==1053844== For lists of detected and suppressed errors, rerun with: -s
+==1053844== ERROR SUMMARY: 63 errors from 63 contexts (suppressed: 0 from 0)

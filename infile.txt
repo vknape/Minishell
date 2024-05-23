@@ -1,6 +1,0 @@
-infile file is here  .
-second line.
-
-
-
-here 			h								tab.

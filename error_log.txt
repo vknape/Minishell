@@ -1,0 +1,37 @@
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+11.
+12.
+13.
+Bash error is:	
+bash: line 1: vknape: command not found
+Your error is:	
+14.
+15.
+Bash error is:	
+sleep: missing operand
+Try 'sleep --help' for more information.
+Your error is:	
+/usr/bin/sleep: missing operand
+Try '/usr/bin/sleep --help' for more information.
+16.
+17.
+18.
+19.
+20.
+21.
+22.
+23.
+24.
+25.
+26.
+27.
+28.

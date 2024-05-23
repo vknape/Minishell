@@ -113,7 +113,7 @@ tester()
 		printf "$BOLDRED error"
 		error_log 3
 	fi
-	echo $@ | valgrind --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --error-exitcode=42 ./tester/Minishell &>/dev/null
+	echo $@ | valgrind --suppressions="read.supp" --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --error-exitcode=42 ./tester/Minishell &>/dev/null
 	es2=$?
 	if [ $es2 -ne 42 ]; then
 		printf "$BOLDGREEN MOK\n"
@@ -131,6 +131,7 @@ cp ./Minishell ./tester
 if test -f $LOG ; then
 	rm $LOG
 fi
+cp tester/read.supp ./
 if test -f $ERROR_LOG ; then
 	rm $ERROR_LOG
 fi
@@ -148,7 +149,6 @@ rm tester/*.txt
 # exit
 printf "\033[1m\033[36mECHO TESTS\n"
 tester 'echo hello \n echo hello'
-# exit
 tester 'echo hello hello'
 tester 'echo hello "hello hello"'
 tester 'echo hello "hello hello" hello'
@@ -228,5 +228,5 @@ tester 'cat < out_new > tester/bredir.txt'
 
 # rm $OUTFILE1
 # rm $OUTFILE2
-
+rm read.supp
 printf $WHITE

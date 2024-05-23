@@ -1,27 +1,25 @@
-==1053982== Memcheck, a memory error detector
-==1053982== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1053982== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1053982== Command: ./tester/Minishell
-==1053982== Parent PID: 1053719
-==1053982== 
-==1053982== Conditional jump or move depends on uninitialised value(s)
-==1053982==    at 0x404AF1: start_exec (exec.c:219)
-==1053982==    by 0x40151B: main (main.c:500)
-==1053982== 
-==1053982== 
-==1053982== HEAP SUMMARY:
-==1053982==     in use at exit: 204,215 bytes in 221 blocks
-==1053982==   total heap usage: 1,297 allocs, 1,076 frees, 255,565 bytes allocated
-==1053982== 
-==1053982== LEAK SUMMARY:
-==1053982==    definitely lost: 0 bytes in 0 blocks
-==1053982==    indirectly lost: 0 bytes in 0 blocks
-==1053982==      possibly lost: 0 bytes in 0 blocks
-==1053982==    still reachable: 204,215 bytes in 221 blocks
-==1053982==         suppressed: 0 bytes in 0 blocks
-==1053982== Reachable blocks (those to which a pointer was found) are not shown.
-==1053982== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==1053982== 
-==1053982== Use --track-origins=yes to see where uninitialised values come from
-==1053982== For lists of detected and suppressed errors, rerun with: -s
-==1053982== ERROR SUMMARY: 63 errors from 63 contexts (suppressed: 0 from 0)
+==1059616== Memcheck, a memory error detector
+==1059616== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1059616== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1059616== Command: ./tester/Minishell
+==1059616== Parent PID: 1059352
+==1059616== 
+==1059616== Conditional jump or move depends on uninitialised value(s)
+==1059616==    at 0x404AF1: start_exec (exec.c:219)
+==1059616==    by 0x40151B: main (main.c:500)
+==1059616== 
+==1059616== 
+==1059616== HEAP SUMMARY:
+==1059616==     in use at exit: 204,215 bytes in 221 blocks
+==1059616==   total heap usage: 1,288 allocs, 1,067 frees, 255,384 bytes allocated
+==1059616== 
+==1059616== LEAK SUMMARY:
+==1059616==    definitely lost: 0 bytes in 0 blocks
+==1059616==    indirectly lost: 0 bytes in 0 blocks
+==1059616==      possibly lost: 0 bytes in 0 blocks
+==1059616==    still reachable: 0 bytes in 0 blocks
+==1059616==         suppressed: 204,215 bytes in 221 blocks
+==1059616== 
+==1059616== Use --track-origins=yes to see where uninitialised values come from
+==1059616== For lists of detected and suppressed errors, rerun with: -s
+==1059616== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 62 from 62)

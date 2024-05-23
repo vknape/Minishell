@@ -1,0 +1,25 @@
+==1059981== Memcheck, a memory error detector
+==1059981== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1059981== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1059981== Command: ./tester/Minishell
+==1059981== Parent PID: 1059352
+==1059981== 
+==1059981== Conditional jump or move depends on uninitialised value(s)
+==1059981==    at 0x404AF1: start_exec (exec.c:219)
+==1059981==    by 0x40151B: main (main.c:500)
+==1059981== 
+==1059981== 
+==1059981== HEAP SUMMARY:
+==1059981==     in use at exit: 204,215 bytes in 221 blocks
+==1059981==   total heap usage: 1,343 allocs, 1,122 frees, 256,427 bytes allocated
+==1059981== 
+==1059981== LEAK SUMMARY:
+==1059981==    definitely lost: 0 bytes in 0 blocks
+==1059981==    indirectly lost: 0 bytes in 0 blocks
+==1059981==      possibly lost: 0 bytes in 0 blocks
+==1059981==    still reachable: 0 bytes in 0 blocks
+==1059981==         suppressed: 204,215 bytes in 221 blocks
+==1059981== 
+==1059981== Use --track-origins=yes to see where uninitialised values come from
+==1059981== For lists of detected and suppressed errors, rerun with: -s
+==1059981== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 62 from 62)

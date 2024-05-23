@@ -1,45 +1,43 @@
-==1053914== Memcheck, a memory error detector
-==1053914== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1053914== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1053914== Command: ./tester/Minishell
-==1053914== Parent PID: 1053719
-==1053914== 
-==1053914== Conditional jump or move depends on uninitialised value(s)
-==1053914==    at 0x404AF1: start_exec (exec.c:219)
-==1053914==    by 0x40151B: main (main.c:500)
-==1053914== 
-==1053914== 
-==1053914== HEAP SUMMARY:
-==1053914==     in use at exit: 204,223 bytes in 223 blocks
-==1053914==   total heap usage: 1,297 allocs, 1,074 frees, 255,552 bytes allocated
-==1053914== 
-==1053914== 4 bytes in 1 blocks are definitely lost in loss record 1 of 64
-==1053914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1053914==    by 0x40712F: ft_substr (ft_substr.c:26)
-==1053914==    by 0x40163F: value_of_dollar_sign (builtins.c:50)
-==1053914==    by 0x405C0E: search_dollar_signe (expaneded.c:279)
-==1053914==    by 0x403603: fill_cmd_nodes (fill_each_cmd.c:89)
-==1053914==    by 0x403709: split_cmd_nodes (fill_each_cmd.c:114)
-==1053914==    by 0x4014FE: main (main.c:492)
-==1053914== 
-==1053914== 4 bytes in 1 blocks are definitely lost in loss record 2 of 64
-==1053914==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1053914==    by 0x40712F: ft_substr (ft_substr.c:26)
-==1053914==    by 0x4016FF: value_of_dollar_sign (builtins.c:57)
-==1053914==    by 0x405C0E: search_dollar_signe (expaneded.c:279)
-==1053914==    by 0x403603: fill_cmd_nodes (fill_each_cmd.c:89)
-==1053914==    by 0x403709: split_cmd_nodes (fill_each_cmd.c:114)
-==1053914==    by 0x4014FE: main (main.c:492)
-==1053914== 
-==1053914== LEAK SUMMARY:
-==1053914==    definitely lost: 8 bytes in 2 blocks
-==1053914==    indirectly lost: 0 bytes in 0 blocks
-==1053914==      possibly lost: 0 bytes in 0 blocks
-==1053914==    still reachable: 204,215 bytes in 221 blocks
-==1053914==         suppressed: 0 bytes in 0 blocks
-==1053914== Reachable blocks (those to which a pointer was found) are not shown.
-==1053914== To see them, rerun with: --leak-check=full --show-leak-kinds=all
-==1053914== 
-==1053914== Use --track-origins=yes to see where uninitialised values come from
-==1053914== For lists of detected and suppressed errors, rerun with: -s
-==1053914== ERROR SUMMARY: 65 errors from 65 contexts (suppressed: 0 from 0)
+==1059548== Memcheck, a memory error detector
+==1059548== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1059548== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1059548== Command: ./tester/Minishell
+==1059548== Parent PID: 1059352
+==1059548== 
+==1059548== Conditional jump or move depends on uninitialised value(s)
+==1059548==    at 0x404AF1: start_exec (exec.c:219)
+==1059548==    by 0x40151B: main (main.c:500)
+==1059548== 
+==1059548== 
+==1059548== HEAP SUMMARY:
+==1059548==     in use at exit: 204,223 bytes in 223 blocks
+==1059548==   total heap usage: 1,288 allocs, 1,065 frees, 255,371 bytes allocated
+==1059548== 
+==1059548== 4 bytes in 1 blocks are definitely lost in loss record 1 of 64
+==1059548==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1059548==    by 0x40712F: ft_substr (ft_substr.c:26)
+==1059548==    by 0x40163F: value_of_dollar_sign (builtins.c:50)
+==1059548==    by 0x405C0E: search_dollar_signe (expaneded.c:279)
+==1059548==    by 0x403603: fill_cmd_nodes (fill_each_cmd.c:89)
+==1059548==    by 0x403709: split_cmd_nodes (fill_each_cmd.c:114)
+==1059548==    by 0x4014FE: main (main.c:492)
+==1059548== 
+==1059548== 4 bytes in 1 blocks are definitely lost in loss record 2 of 64
+==1059548==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1059548==    by 0x40712F: ft_substr (ft_substr.c:26)
+==1059548==    by 0x4016FF: value_of_dollar_sign (builtins.c:57)
+==1059548==    by 0x405C0E: search_dollar_signe (expaneded.c:279)
+==1059548==    by 0x403603: fill_cmd_nodes (fill_each_cmd.c:89)
+==1059548==    by 0x403709: split_cmd_nodes (fill_each_cmd.c:114)
+==1059548==    by 0x4014FE: main (main.c:492)
+==1059548== 
+==1059548== LEAK SUMMARY:
+==1059548==    definitely lost: 8 bytes in 2 blocks
+==1059548==    indirectly lost: 0 bytes in 0 blocks
+==1059548==      possibly lost: 0 bytes in 0 blocks
+==1059548==    still reachable: 0 bytes in 0 blocks
+==1059548==         suppressed: 204,215 bytes in 221 blocks
+==1059548== 
+==1059548== Use --track-origins=yes to see where uninitialised values come from
+==1059548== For lists of detected and suppressed errors, rerun with: -s
+==1059548== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 62 from 62)

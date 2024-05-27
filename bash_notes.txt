@@ -20,3 +20,15 @@ echo -nnn -nm -nn stopt bij de eerste invalid flag en behandelt alles als string
 if unset OLDPWD or PWD, OLDPWD or PWD is created local only after cd
 pwd returns working directory but doesn't create variable PWD
 if using signals in terminal bash will display key command for signal on previous line
+
+exit :
+
+exit in a line with more than one cmd it doesn't exit the program .
+if just one cmd (exit) it exit the program.
+
+arguments:
+
+if there is one argument it going to exit.
+but if there are more than one argument it doesn't exit. and give error too many arguments.
+if one argument and the argument is not number it exit status is 2 and error massage.
+if one argument and the argument is a number it exit status is the number.

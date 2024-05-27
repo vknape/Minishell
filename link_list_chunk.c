@@ -10,6 +10,7 @@ t_chunk	*ft_lstnewchunk(char *str)
 		return (NULL);
 	(*lst1).next = NULL;
 	lst1->str = str;
+	// dprintf(2, "str to add is (%s)\n", str);
 	return (lst1);
 }
 
@@ -33,7 +34,10 @@ void	ft_lstadd_back_chunk(t_chunk **lst, t_chunk *new)
 	}
 	ptr = ft_lstlast_chunk(*lst);
 	if (new)
+	{
+		// dprintf(2, "in ft_lstadd_back_chunk add new\n");
 		(*ptr).next = new;
+	}
 }
 
 void	lstclear(t_chunk **lst)

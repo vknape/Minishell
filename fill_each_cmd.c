@@ -87,6 +87,7 @@ void	fill_cmd_nodes(t_all *all, t_chunk *chunks)
 	else
 	{
 		chunks->str = search_dollar_signe(all, chunks->str);
+		// dprintf(2, "str = (%s)\n", chunks->str);
 		each_cmd->cmd = ft_split_quotes(chunks->str, ' ');
 		if (is_one_of_builtins(each_cmd->cmd[0]))
 			each_cmd->is_builtin = true;

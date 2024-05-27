@@ -1,6 +1,8 @@
 
 #include "minishell.h"
 
+g_glob = 0;
+
 
 // void	check_line(char *curline, t_all *all)
 // {
@@ -421,40 +423,56 @@ void	initialize_each_cmd(t_all *all)
 	// printf("after initialize_t_all\n\n");
 }
 
+void	make_line(t_all *all)
+{
+	char	*curline;
+	char	*current_path;
+	char	*prompt;
+
+	all->line = ft_calloc(1, sizeof(t_line));
+	current_path = get_current_dir();
+	prompt = ft_strjoin(current_path, "$ ");
+	free(current_path);
+	current_path = NULL;
+	curline = readline(prompt);
+	free(prompt);
+	prompt = NULL;
+	if (!curline)
+	{
+		// dprintf(2, "exit\n");
+		free_all(&all);
+		exit(0);
+	}
+	if (curline[0] != '\0')
+	{
+		check_input(curline, all);
+		add_history(curline);
+		free(curline);
+		curline = NULL;
+		split_cmd_nodes(all);
+		remove_whitespace_quotes(all, all->line->each_cmd);
+		start_exec(all);
+		dup2(all->stdinfd, 0);
+	}
+
+}
+
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*curline;
-	int		amount_cmd;
 	t_all	*all;
-	char	*pwd;
-	int		i = 0;
-	char	*prompt;
-	char	*current_path;
 
-	// while (envp[i])
-	// {
-	// 	printf("%s\n", envp[i]);
-	// 	i++;
-	// }
 
-	//line = NULL;
-	//rl_initialize();
-	// all = initialize_t_all(amount_cmd, curline);
-	// pwd = get_current_dir();
-	// change_directory("35 3");
-	if (signal(SIGINT, sighandler) == SIG_ERR)
-	{
-		perror("signal failed");
-		exit(1);
-	}
-	if (signal(SIGQUIT, sighandler) == SIG_ERR)
-	{
-		perror("signal failed");
-		exit(1);
-	}
+	// if (sigaction(SIGINT, &sa, NULL) == -1)
+	// 	return (0);
+
+
+
 	all = ft_calloc(1, sizeof(t_all));
-	
+	all->sa.sa_handler = &sigparent;
+	sigemptyset(&all->sa.sa_mask);
+	all->sa.sa_flags = SA_INTERRUPT;
+
 	all->envpcpy = envp;
 	all->stdinfd = dup(STDIN_FILENO);
 	all->stdoutfd = dup(STDOUT_FILENO);
@@ -465,47 +483,29 @@ int	main(int argc, char **argv, char **envp)
 	make_export(all, envp);
 	while (1)
 	{
-		all->line = ft_calloc(1, sizeof(t_line));
-		current_path = get_current_dir();
-		prompt = ft_strjoin(current_path, "$ ");
-		free(current_path);
-		current_path = NULL;
-		// dprintf(2, "hello1\n");
-		// dprintf(2, "line = (%s)\n", curline);
-		curline = readline(prompt);
-		free(prompt);
-		prompt = NULL;
-		// dprintf(2, "line = (%s)\n", curline);
-		if (!curline)
+		// g_glob = 0;
+		dup2(all->stdinfd, STDIN_FILENO);
+		if (sigaction(SIGINT, &all->sa, NULL) == -1)
 		{
-			// dprintf(2, "    exit\n");
-			free_all(&all);
-			exit(0);
+			free_line(&all->line);
+			// printf("\n");
+			// rl_on_new_line();
+			// rl_replace_line("", 0);
+			// rl_redisplay();
 		}
-		if (curline[0] != '\0')
+		else
 		{
-			// dprintf(2, "hello3\n");
-			check_input(curline, all);
-			free(curline);
-			
-			// printf("here cur line iss (%s)\n", all->line->saved_line);
-			split_cmd_nodes(all);
-			// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
-			// expanded(all, all->line->each_cmd);
-			remove_whitespace_quotes(all, all->line->each_cmd);
-			// all->envpcpy = envp;
-			// all->stdoutfd = dup(STDOUT_FILENO);
-			// printf("here\n");
-			// free_line(&all->line);
-			start_exec(all);
-			// dprintf(2, "hello2\n");
-			dup2(all->stdinfd, 0);
-			// current_path = get_current_dir();
-			// dprintf(2, "path = (%s)\n", current_path);
+			// dup2(all->stdinfd, STDIN_FILENO);
+			// dprintf(2, "start\n");
+			make_line(all);
+			free_line(&all->line);
 		}
-		free_line(&all->line);
+		// printf("\n");
+		// rl_on_new_line();
+		// rl_replace_line("", 0);
+		// rl_redisplay();
 	}
-	free_all(&all);
+	// free_all(&all);
 	// while (all->envp)
 	// {
 	// 	printf("%s\n", all->envp->str);

@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -17,6 +18,8 @@
 # include <errno.h>
 # include "libft/libft.h"
 # include <stdbool.h>
+
+extern int	g_glob;
 
 typedef struct s_chunk
 {
@@ -67,7 +70,9 @@ typedef struct s_all
 	t_chunk	*set;
 	int		stdinfd;
 	int		stdoutfd;
-	
+	struct sigaction	sa;
+	int		last_exit_status;
+
 }	t_all;
 
 int		main(int argc, char **argv, char **envm);
@@ -77,7 +82,8 @@ void	make_export(t_all *all, char *envp[]);
 void	start_exec(t_all *all);
 void	get_path(t_all *all, t_cmd *cmd);
 void	expanded(t_all *all, t_cmd *cmd);
-void	sighandler(int sig);
+void	sigparent(int sig);
+void	sigchild(int sig);
 
 // char	*get_current_dir(void);
 // void	change_directory(char *dir);
@@ -129,6 +135,7 @@ void	ft_unset(t_all *all, char **str);
 void	ft_export(t_all	*all);
 void	sorter_export(t_all *all);
 char	*ft_joined_for_export(char *str, int start);
+void	ft_exit(t_all *all);
 
 //free
 void	free_line(t_line **line);

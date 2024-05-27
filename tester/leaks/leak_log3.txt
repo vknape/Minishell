@@ -1,20 +1,23 @@
-==1581386== Memcheck, a memory error detector
-==1581386== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1581386== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1581386== Command: ./tester/Minishell
-==1581386== Parent PID: 1581346
-==1581386== 
-==1581386== 
-==1581386== HEAP SUMMARY:
-==1581386==     in use at exit: 208,219 bytes in 222 blocks
-==1581386==   total heap usage: 1,192 allocs, 970 frees, 261,609 bytes allocated
-==1581386== 
-==1581386== LEAK SUMMARY:
-==1581386==    definitely lost: 0 bytes in 0 blocks
-==1581386==    indirectly lost: 0 bytes in 0 blocks
-==1581386==      possibly lost: 0 bytes in 0 blocks
-==1581386==    still reachable: 0 bytes in 0 blocks
-==1581386==         suppressed: 208,219 bytes in 222 blocks
-==1581386== 
-==1581386== For lists of detected and suppressed errors, rerun with: -s
-==1581386== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+==1520971== Memcheck, a memory error detector
+==1520971== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1520971== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1520971== Command: ./tester/Minishell
+==1520971== Parent PID: 1520913
+==1520971== 
+==1520971== 
+==1520971== HEAP SUMMARY:
+==1520971==     in use at exit: 208,231 bytes in 222 blocks
+==1520971==   total heap usage: 1,300 allocs, 1,078 frees, 259,833 bytes allocated
+==1520971== 
+==1520971== LEAK SUMMARY:
+==1520971==    definitely lost: 0 bytes in 0 blocks
+==1520971==    indirectly lost: 0 bytes in 0 blocks
+==1520971==      possibly lost: 0 bytes in 0 blocks
+==1520971==    still reachable: 0 bytes in 0 blocks
+==1520971==         suppressed: 208,231 bytes in 222 blocks
+==1520971== 
+==1520971== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+--1520971-- 
+--1520971-- used_suppression:     63 readline read.supp:3 suppressed: 208,231 bytes in 222 blocks
+==1520971== 
+==1520971== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)

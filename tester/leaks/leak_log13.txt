@@ -1,64 +1,63 @@
-==1581497== Memcheck, a memory error detector
-==1581497== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1581497== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1581497== Command: ./tester/Minishell
-==1581497== Parent PID: 1581346
-==1581497== 
-==1581498== 
-==1581498== HEAP SUMMARY:
-==1581498==     in use at exit: 208,471 bytes in 235 blocks
-==1581498==   total heap usage: 1,201 allocs, 966 frees, 260,688 bytes allocated
-==1581498== 
-==1581498== 9 bytes in 1 blocks are definitely lost in loss record 3 of 66
-==1581498==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1581498==    by 0x4079FF: ft_substr (ft_substr.c:26)
-==1581498==    by 0x406076: search_dollar_signe (expaneded.c:271)
-==1581498==    by 0x40643E: remove_whitespace_quotes (remove_whitespace_quotes.c:164)
-==1581498==    by 0x401492: make_line (main.c:453)
-==1581498==    by 0x4015B0: main (main.c:500)
-==1581498== 
-==1581498== 147 bytes in 11 blocks are indirectly lost in loss record 21 of 66
-==1581498==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1581498==    by 0x4072AD: ft_split (ft_split.c:34)
-==1581498==    by 0x40517F: get_path (access.c:69)
-==1581498==    by 0x40496C: exec_cmd (exec.c:132)
-==1581498==    by 0x404BF6: check_scenario (exec.c:195)
-==1581498==    by 0x404D18: start_fork (exec.c:233)
-==1581498==    by 0x404F17: start_exec (exec.c:278)
-==1581498==    by 0x40149B: make_line (main.c:454)
-==1581498==    by 0x4015B0: main (main.c:500)
-==1581498== 
-==1581498== 243 (96 direct, 147 indirect) bytes in 1 blocks are definitely lost in loss record 24 of 66
-==1581498==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1581498==    by 0x40723D: ft_split (ft_split.c:24)
-==1581498==    by 0x40517F: get_path (access.c:69)
-==1581498==    by 0x40496C: exec_cmd (exec.c:132)
-==1581498==    by 0x404BF6: check_scenario (exec.c:195)
-==1581498==    by 0x404D18: start_fork (exec.c:233)
-==1581498==    by 0x404F17: start_exec (exec.c:278)
-==1581498==    by 0x40149B: make_line (main.c:454)
-==1581498==    by 0x4015B0: main (main.c:500)
-==1581498== 
-==1581498== LEAK SUMMARY:
-==1581498==    definitely lost: 105 bytes in 2 blocks
-==1581498==    indirectly lost: 147 bytes in 11 blocks
-==1581498==      possibly lost: 0 bytes in 0 blocks
-==1581498==    still reachable: 0 bytes in 0 blocks
-==1581498==         suppressed: 208,219 bytes in 222 blocks
-==1581498== 
-==1581498== For lists of detected and suppressed errors, rerun with: -s
-==1581498== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 63 from 63)
-==1581497== 
-==1581497== HEAP SUMMARY:
-==1581497==     in use at exit: 208,219 bytes in 222 blocks
-==1581497==   total heap usage: 1,173 allocs, 951 frees, 261,222 bytes allocated
-==1581497== 
-==1581497== LEAK SUMMARY:
-==1581497==    definitely lost: 0 bytes in 0 blocks
-==1581497==    indirectly lost: 0 bytes in 0 blocks
-==1581497==      possibly lost: 0 bytes in 0 blocks
-==1581497==    still reachable: 0 bytes in 0 blocks
-==1581497==         suppressed: 208,219 bytes in 222 blocks
-==1581497== 
-==1581497== For lists of detected and suppressed errors, rerun with: -s
-==1581497== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+==1521140== Memcheck, a memory error detector
+==1521140== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1521140== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1521140== Command: ./tester/Minishell
+==1521140== Parent PID: 1520913
+==1521140== 
+==1521140== 
+==1521140== Process terminating with default action of signal 2 (SIGINT)
+==1521140==    at 0x40779A: ft_strlcpy (ft_strlcpy.c:29)
+==1521140==    by 0x401BB0: ft_strjoin_free (builtins.c:140)
+==1521140==    by 0x40246B: ft_joined_for_export (builtins.c:588)
+==1521140==    by 0x40461D: make_export (envp.c:82)
+==1521140==    by 0x40156C: main (main.c:483)
+==1521140== 
+==1521140== HEAP SUMMARY:
+==1521140==     in use at exit: 12,128 bytes in 363 blocks
+==1521140==   total heap usage: 802 allocs, 439 frees, 23,831 bytes allocated
+==1521140== 
+==1521140== 191 bytes in 1 blocks are still reachable in loss record 1 of 6
+==1521140==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1521140==    by 0x401B76: ft_strjoin_free (builtins.c:134)
+==1521140==    by 0x40244B: ft_joined_for_export (builtins.c:586)
+==1521140==    by 0x40461D: make_export (envp.c:82)
+==1521140==    by 0x40156C: main (main.c:483)
+==1521140== 
+==1521140== 216 bytes in 1 blocks are still reachable in loss record 2 of 6
+==1521140==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1521140==    by 0x407038: ft_calloc (ft_calloc.c:21)
+==1521140==    by 0x4014D8: main (main.c:471)
+==1521140== 
+==1521140== 2,088 bytes in 87 blocks are still reachable in loss record 3 of 6
+==1521140==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1521140==    by 0x4028BA: ft_lstnewchunk (link_list_chunk.c:8)
+==1521140==    by 0x404625: make_export (envp.c:82)
+==1521140==    by 0x40156C: main (main.c:483)
+==1521140== 
+==1521140== 2,232 bytes in 93 blocks are still reachable in loss record 4 of 6
+==1521140==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1521140==    by 0x4028BA: ft_lstnewchunk (link_list_chunk.c:8)
+==1521140==    by 0x40445C: make_envp_and_set (envp.c:22)
+==1521140==    by 0x40155F: main (main.c:482)
+==1521140== 
+==1521140== 3,224 bytes in 93 blocks are still reachable in loss record 5 of 6
+==1521140==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1521140==    by 0x407A1F: ft_substr (ft_substr.c:26)
+==1521140==    by 0x404454: make_envp_and_set (envp.c:22)
+==1521140==    by 0x40155F: main (main.c:482)
+==1521140== 
+==1521140== 4,177 bytes in 88 blocks are still reachable in loss record 6 of 6
+==1521140==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1521140==    by 0x401B76: ft_strjoin_free (builtins.c:134)
+==1521140==    by 0x40246B: ft_joined_for_export (builtins.c:588)
+==1521140==    by 0x40461D: make_export (envp.c:82)
+==1521140==    by 0x40156C: main (main.c:483)
+==1521140== 
+==1521140== LEAK SUMMARY:
+==1521140==    definitely lost: 0 bytes in 0 blocks
+==1521140==    indirectly lost: 0 bytes in 0 blocks
+==1521140==      possibly lost: 0 bytes in 0 blocks
+==1521140==    still reachable: 12,128 bytes in 363 blocks
+==1521140==         suppressed: 0 bytes in 0 blocks
+==1521140== 
+==1521140== ERROR SUMMARY: 6 errors from 6 contexts (suppressed: 0 from 0)

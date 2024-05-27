@@ -8,6 +8,7 @@ OUTPUT1=tester/bredir.txt
 OUTPUT2=tester/vredir.txt
 
 
+
 RESET="\033[0m"
 BLACK="\033[30m"
 RED="\033[31m"
@@ -113,10 +114,20 @@ tester()
 		printf "$BOLDRED error"
 		error_log 3
 	fi
-	echo $@ | valgrind --suppressions="read.supp" --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --trace-children=yes --error-exitcode=42 ./tester/Minishell &>/dev/null
+	echo $@ | valgrind --suppressions="read.supp" -s --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --trace-children=yes --error-exitcode=42 ./tester/Minishell &>/dev/null
 	es2=$?
-	printf "$es2\n"
-	if [ $es2 -ne 42 ]; then
+	# printf "$es2\n"
+	grep "ERROR SUMMARY: " tester/leaks/leak_log$i.txt >tester/child_leak.txt
+	# CHILD_LEAK=$(awk '$4 != "0"' tester/child_leak.txt)
+	awk '$4 != "0" {print $4}' tester/child_leak.txt > tester/child_leak2.txt
+	# printf $CHILD_LEAK\n
+	CHILD_LEAK=0
+	# CHILD_LEAK_NUM=0
+	while read -r CHILD_LEAK_NUM
+	do
+		CHILD_LEAK=1
+	done < "tester/child_leak2.txt"
+	if [ $es2 -ne 42 ] && [ $CHILD_LEAK -eq 0 ]; then
 		printf "$BOLDGREEN MOK\n"
 	else
 		printf "$BOLDRED MKO\n"
@@ -144,6 +155,8 @@ REM=$(grep -m1 "" $OUTFILE2)
 # printf "$REM\n"
 rm tester/leaks/*.txt
 rm tester/*.txt
+rm tester/child_leak.txt
+rm tester/child_leak2.txt
 # exit
 # clear_logs $i
 
@@ -203,7 +216,6 @@ tester 'echo $?$var'
 tester 'echo ?'
 tester 'echo $ ?'
 tester 'echo $var?'
-
 unset var
 
 printf "\n\033[1m\033[36mEXIT TESTS\n"
@@ -216,6 +228,7 @@ printf "\n\033[1m\033[36mCMD with flags TESTS\n"
 tester 'ls -l'
 tester 'sleep 1'
 tester 'cat infile.txt'
+
 
 printf "\n\033[1m\033[36mCMD with pipe TESTS\n"
 tester 'ls | echo'

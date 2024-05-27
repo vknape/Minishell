@@ -1,0 +1,159 @@
+==1581791== Memcheck, a memory error detector
+==1581791== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1581791== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1581791== Command: /usr/bin/ls
+==1581791== Parent PID: 1581790
+==1581791== 
+==1581791== 
+==1581791== Process terminating with default action of signal 13 (SIGPIPE)
+==1581791==    at 0x49B4887: write (write.c:26)
+==1581791==    by 0x492AEEC: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1180)
+==1581791==    by 0x492C9E0: new_do_write (fileops.c:448)
+==1581791==    by 0x492C9E0: _IO_new_do_write (fileops.c:425)
+==1581791==    by 0x492C9E0: _IO_do_write@@GLIBC_2.2.5 (fileops.c:422)
+==1581791==    by 0x492A4D7: _IO_file_sync@@GLIBC_2.2.5 (fileops.c:798)
+==1581791==    by 0x491F1A9: fflush (iofflush.c:40)
+==1581791==    by 0x1139C8: ??? (in /usr/bin/ls)
+==1581791==    by 0x113AF4: ??? (in /usr/bin/ls)
+==1581791==    by 0x48E5494: __run_exit_handlers (exit.c:113)
+==1581791==    by 0x48E560F: exit (exit.c:143)
+==1581791==    by 0x48C9D96: (below main) (libc_start_call_main.h:74)
+==1581791== 
+==1581791== HEAP SUMMARY:
+==1581791==     in use at exit: 34,352 bytes in 100 blocks
+==1581791==   total heap usage: 108 allocs, 8 frees, 68,828 bytes allocated
+==1581791== 
+==1581791== 10 bytes in 1 blocks are still reachable in loss record 1 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x494858E: strdup (strdup.c:42)
+==1581791==    by 0x48DDD57: __textdomain (textdomain.c:94)
+==1581791==    by 0x48DDD57: textdomain (textdomain.c:64)
+==1581791==    by 0x10CDF7: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 24 bytes in 2 blocks are still reachable in loss record 2 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x494858E: strdup (strdup.c:42)
+==1581791==    by 0x48D831A: _nl_load_locale_from_archive (loadarchive.c:464)
+==1581791==    by 0x48D70DF: _nl_find_locale (findlocale.c:152)
+==1581791==    by 0x48D6856: setlocale (setlocale.c:337)
+==1581791==    by 0x48D6856: setlocale (setlocale.c:217)
+==1581791==    by 0x10CDE0: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 34 bytes in 1 blocks are still reachable in loss record 3 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x48DA5DE: set_binding_values.part.0 (bindtextdom.c:203)
+==1581791==    by 0x48DA89B: set_binding_values (bindtextdom.c:322)
+==1581791==    by 0x48DA89B: bindtextdomain (bindtextdom.c:320)
+==1581791==    by 0x10CDEF: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 56 bytes in 1 blocks are still reachable in loss record 4 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x115E18: ??? (in /usr/bin/ls)
+==1581791==    by 0x115E49: ??? (in /usr/bin/ls)
+==1581791==    by 0x10D538: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 56 bytes in 1 blocks are still reachable in loss record 5 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x115E18: ??? (in /usr/bin/ls)
+==1581791==    by 0x115E49: ??? (in /usr/bin/ls)
+==1581791==    by 0x10D142: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 128 bytes in 1 blocks are still reachable in loss record 6 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x113959: ??? (in /usr/bin/ls)
+==1581791==    by 0x10D246: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 144 bytes in 12 blocks are still reachable in loss record 7 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x494858E: strdup (strdup.c:42)
+==1581791==    by 0x48D6C84: setlocale (setlocale.c:366)
+==1581791==    by 0x48D6C84: setlocale (setlocale.c:217)
+==1581791==    by 0x10CDE0: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 240 bytes in 2 blocks are still reachable in loss record 8 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x48D82FF: _nl_load_locale_from_archive (loadarchive.c:460)
+==1581791==    by 0x48D70DF: _nl_find_locale (findlocale.c:152)
+==1581791==    by 0x48D6856: setlocale (setlocale.c:337)
+==1581791==    by 0x48D6856: setlocale (setlocale.c:217)
+==1581791==    by 0x10CDE0: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 281 bytes in 1 blocks are still reachable in loss record 9 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x48D6607: new_composite_name (setlocale.c:170)
+==1581791==    by 0x48D6BAA: setlocale (setlocale.c:375)
+==1581791==    by 0x48D6BAA: setlocale (setlocale.c:217)
+==1581791==    by 0x10CDE0: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 603 bytes in 51 blocks are still reachable in loss record 10 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x1166BE: ??? (in /usr/bin/ls)
+==1581791==    by 0x116CFF: ??? (in /usr/bin/ls)
+==1581791==    by 0x11A26E: ??? (in /usr/bin/ls)
+==1581791==    by 0x10D34F: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 1,224 bytes in 1 blocks are still reachable in loss record 11 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x115F1B: ??? (in /usr/bin/ls)
+==1581791==    by 0x11A0C7: ??? (in /usr/bin/ls)
+==1581791==    by 0x10D34F: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 4,096 bytes in 1 blocks are still reachable in loss record 12 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x491EBA3: _IO_file_doallocate (filedoalloc.c:101)
+==1581791==    by 0x492DCDF: _IO_doallocbuf (genops.c:347)
+==1581791==    by 0x492CF5F: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:744)
+==1581791==    by 0x492B6D4: _IO_new_file_xsputn (fileops.c:1243)
+==1581791==    by 0x492B6D4: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1196)
+==1581791==    by 0x492A288: fwrite_unlocked (iofwrite_u.c:42)
+==1581791==    by 0x11812E: ??? (in /usr/bin/ls)
+==1581791==    by 0x118270: ??? (in /usr/bin/ls)
+==1581791==    by 0x11EF72: ??? (in /usr/bin/ls)
+==1581791==    by 0x119AD1: ??? (in /usr/bin/ls)
+==1581791==    by 0x10D34F: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 7,456 bytes in 24 blocks are still reachable in loss record 13 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x48D796E: _nl_intern_locale_data (loadlocale.c:97)
+==1581791==    by 0x48D8370: _nl_load_locale_from_archive (loadarchive.c:477)
+==1581791==    by 0x48D70DF: _nl_find_locale (findlocale.c:152)
+==1581791==    by 0x48D6856: setlocale (setlocale.c:337)
+==1581791==    by 0x48D6856: setlocale (setlocale.c:217)
+==1581791==    by 0x10CDE0: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== 20,000 bytes in 1 blocks are still reachable in loss record 14 of 14
+==1581791==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1581791==    by 0x115E18: ??? (in /usr/bin/ls)
+==1581791==    by 0x10D2B0: ??? (in /usr/bin/ls)
+==1581791==    by 0x48C9D8F: (below main) (libc_start_call_main.h:58)
+==1581791== 
+==1581791== LEAK SUMMARY:
+==1581791==    definitely lost: 0 bytes in 0 blocks
+==1581791==    indirectly lost: 0 bytes in 0 blocks
+==1581791==      possibly lost: 0 byt==1581790== 
+==1581790== HEAP SUMMARY:
+==1581790==     in use at exit: 208,219 bytes in 222 blocks
+==1581790==   total heap usage: 1,180 allocs, 958 frees, 261,343 bytes allocated
+==1581790== 
+==1581790== LEAK SUMMARY:
+==1581790==    definitely lost: 0 bytes in 0 blocks
+==1581790==    indirectly lost: 0 bytes in 0 blocks
+==1581790==      possibly lost: 0 bytes in 0 blocks
+==1581790==    still reachable: 0 bytes in 0 blocks
+==1581790==         suppressed: 208,219 bytes in 222 blocks
+==1581790== 
+==1581790== For lists of detected and suppressed errors, rerun with: -s
+==1581790== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)

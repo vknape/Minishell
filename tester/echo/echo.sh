@@ -48,7 +48,7 @@ tester_echo()
 		printf "$BOLDRED error"
 		error_log 3
 	fi
-	echo $@ | valgrind --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --error-exitcode=42 ./tester/Minishell &>/dev/null
+	echo $@ | valgrind --suppressions="read.supp" --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --error-exitcode=42 ./tester/Minishell &>/dev/null
 	es2=$?
 	if [ $es2 -ne 42 ]; then
 		printf "$BOLDGREEN MOK\n"

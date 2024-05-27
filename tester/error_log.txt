@@ -12,16 +12,10 @@
 12.
 13.
 Bash error is:	
-bash: line 1: vknape: command not found
+bash: line 1: adakheel: command not found
 Your error is:	
 14.
 15.
-Bash error is:	
-sleep: missing operand
-Try 'sleep --help' for more information.
-Your error is:	
-/usr/bin/sleep: missing operand
-Try '/usr/bin/sleep --help' for more information.
 16.
 17.
 18.
@@ -41,4 +35,29 @@ Try '/usr/bin/sleep --help' for more information.
 32.
 33.
 34.
+Bash error is:	
+sleep: missing operand
+Try 'sleep --help' for more information.
+Your error is:	
+/usr/bin/sleep: missing operand
+Try '/usr/bin/sleep --help' for more information.
 35.
+36.
+37.
+38.
+39.
+40.
+41.
+42.
+43.
+44.
+45.
+46.
+47.
+48.
+49.
+50.
+51.
+52.
+53.
+54.

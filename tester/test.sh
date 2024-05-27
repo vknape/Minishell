@@ -113,8 +113,9 @@ tester()
 		printf "$BOLDRED error"
 		error_log 3
 	fi
-	echo $@ | valgrind --suppressions="read.supp" --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --error-exitcode=42 ./tester/Minishell &>/dev/null
+	echo $@ | valgrind --suppressions="read.supp" --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --trace-children=yes --error-exitcode=42 ./tester/Minishell &>/dev/null
 	es2=$?
+	printf "$es2\n"
 	if [ $es2 -ne 42 ]; then
 		printf "$BOLDGREEN MOK\n"
 	else
@@ -177,9 +178,33 @@ printf "\n\033[1m\033[36mENV TESTS\n"
 printf "\n\033[1m\033[36m$ TESTS\n"
 export var="ls"
 tester '$var'
+unset var
 export var="ls "
 tester '$var'
+unset var
 tester '$USER'
+tester 'echo $'
+tester 'echo $ '
+tester 'echo  $'
+tester 'echo $$'
+export var=hello
+tester 'echo $var'
+tester 'echo $ $'
+tester 'echo $ $var'
+tester 'echo $var$var'
+tester 'echo $$$'
+tester 'echo $ $$'
+tester 'echo $ $var$'
+tester 'echo $?'
+tester 'echo $??'
+tester 'echo $?$?'
+tester 'echo $var$?'
+tester 'echo $?$var'
+tester 'echo ?'
+tester 'echo $ ?'
+tester 'echo $var?'
+
+unset var
 
 printf "\n\033[1m\033[36mEXIT TESTS\n"
 

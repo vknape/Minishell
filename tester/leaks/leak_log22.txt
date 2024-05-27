@@ -1,25 +1,20 @@
-==1059752== Memcheck, a memory error detector
-==1059752== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1059752== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1059752== Command: ./tester/Minishell
-==1059752== Parent PID: 1059352
-==1059752== 
-==1059752== Conditional jump or move depends on uninitialised value(s)
-==1059752==    at 0x404AF1: start_exec (exec.c:219)
-==1059752==    by 0x40151B: main (main.c:500)
-==1059752== 
-==1059752== 
-==1059752== HEAP SUMMARY:
-==1059752==     in use at exit: 204,215 bytes in 221 blocks
-==1059752==   total heap usage: 1,297 allocs, 1,076 frees, 255,562 bytes allocated
-==1059752== 
-==1059752== LEAK SUMMARY:
-==1059752==    definitely lost: 0 bytes in 0 blocks
-==1059752==    indirectly lost: 0 bytes in 0 blocks
-==1059752==      possibly lost: 0 bytes in 0 blocks
-==1059752==    still reachable: 0 bytes in 0 blocks
-==1059752==         suppressed: 204,215 bytes in 221 blocks
-==1059752== 
-==1059752== Use --track-origins=yes to see where uninitialised values come from
-==1059752== For lists of detected and suppressed errors, rerun with: -s
-==1059752== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 62 from 62)
+==1581592== Memcheck, a memory error detector
+==1581592== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1581592== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1581592== Command: ./tester/Minishell
+==1581592== Parent PID: 1581346
+==1581592== 
+==1581592== 
+==1581592== HEAP SUMMARY:
+==1581592==     in use at exit: 208,219 bytes in 222 blocks
+==1581592==   total heap usage: 1,195 allocs, 973 frees, 261,440 bytes allocated
+==1581592== 
+==1581592== LEAK SUMMARY:
+==1581592==    definitely lost: 0 bytes in 0 blocks
+==1581592==    indirectly lost: 0 bytes in 0 blocks
+==1581592==      possibly lost: 0 bytes in 0 blocks
+==1581592==    still reachable: 0 bytes in 0 blocks
+==1581592==         suppressed: 208,219 bytes in 222 blocks
+==1581592== 
+==1581592== For lists of detected and suppressed errors, rerun with: -s
+==1581592== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)

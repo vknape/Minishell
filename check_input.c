@@ -6,20 +6,32 @@ char	*join_line_after_quotes(char *curline, t_all *all)
 	char	*previous_line;
 	char	*line_joined;
 	char	*input;
-	char	*with_newline;
+	int		i;
 
+	i = 0;
 	previous_line = ft_strdup(curline);
 	free(curline);
 	curline = NULL;
 	input = readline("> ");
-	with_newline = ft_strjoin(previous_line, "\n");
-	free(previous_line);
-	line_joined = ft_strjoin(with_newline, input);
+	while (previous_line[i])
+	{
+		if (previous_line[i] == 10)
+			previous_line[i] = 32;
+		i++;
+	}
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == 10)
+			input[i] = 32;
+		i++;
+	}
+	// i = ft_strlen(previous_line);
+	// if (previous_line[i - 1] == ' ' && input)
+	line_joined = ft_strjoin_free(previous_line, input);
 	free(input);
-	free(with_newline);
 	curline = ft_strdup(line_joined);
 	free(line_joined);
-	// printf("\n\n");
 	return (curline);
 }
 
@@ -72,11 +84,12 @@ int	check_meta(t_all *all, char *curline)
 {
 	t_chunk	*prev;
 	t_chunk	*cur;
+	int i;
 
 	cur = all->line->chunks;
 	prev = NULL;
 
-	t_chunk *test_chunks = all->line->chunks;
+	//t_chunk *test_chunks = all->line->chunks;
 	// while (test_chunks != NULL)
 	// {
 	// 	printf("test (%s)\n", test_chunks->str);
@@ -85,14 +98,22 @@ int	check_meta(t_all *all, char *curline)
 	// printf("after print nodes\n");
 	while (cur)
 	{
+		i = 0;
 		if (cur->str[0] == '|')
 		{
 			if (prev == NULL || (prev && !check_space(prev->str)))
 				return (2);
-			if (cur->next && cur->next->str[0] == '|')
-				return (2);
 			if (cur->next == NULL)
 				return (1);
+			if (cur->next->str[0] == '|')
+				return (2);
+			while (cur->next->str[i] && is_white_space(cur->next->str[i]))
+				i++;
+			if (cur->next->str[i])
+				return (0);
+			else
+				return (1);
+
 		}
 		if (cur->str[0] == '<' || cur->str[0] == '>')
 		{
@@ -169,9 +190,10 @@ void	split_all(char *curline, t_all *all)
 	}
 }
 
-int	check_input(char *curline, t_all *all)
+char	*check_input(char *curline, t_all *all)
 {
 	int	i;
+	char	*temp;
 
 	while (1)
 	{
@@ -191,7 +213,11 @@ int	check_input(char *curline, t_all *all)
 				curline = readline("current working directory$");
 			}
 			else if (i == 0)
-				return (0);
+			{
+				temp = ft_strdup(curline);
+				free(curline);
+				return (temp);
+			}
 
 		}
 	}

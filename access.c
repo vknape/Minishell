@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/08 11:52:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/21 09:45:21 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/30 09:29:35 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ char	*combine_str(char *str, char *slash, char *cmd)
 	temp = ft_strjoin(str, slash);
 	if (!temp)
 	{
-		exit(EXIT_FAILURE);
+		return (NULL);
 	}
 	path = ft_strjoin(temp, cmd);
 	if (!path)
 	{
 		free(temp);
-		exit(EXIT_FAILURE);
+		return (NULL);
 	}
 	free(temp);
 	return (path);
@@ -43,10 +43,13 @@ char	*check_access(char **all_paths, char *cmd)
 	while (all_paths[i])
 	{
 		path = combine_str(all_paths[i], "/", cmd);
+		// dprintf(2, "path is (%s)\n", path);
 		if (!cmd || !path || (access(path, F_OK | X_OK) \
 		== -1 && all_paths[i + 1] == NULL))
 		{
+			perror("minishell: ");
 			free(path);
+			free2d(all_paths);
 			return (NULL);
 		}
 		else if (access(path, F_OK | X_OK) == 0)
@@ -54,6 +57,7 @@ char	*check_access(char **all_paths, char *cmd)
 		free(path);
 		i++;
 	}
+	free2d(all_paths);
 	return (NULL);
 }
 
@@ -68,14 +72,13 @@ void	get_path(t_all *all, t_cmd *cmd)
 		i++;
 	all_paths = ft_split((all->envpcpy[i] + 5), ':');
 	path = check_access(all_paths, cmd->cmd[0]);
-	// free(cmd->cmd[0]);
 	if (path)
+	{
+		cmd->path_found = 1;
 		cmd->cmd[0] = path;
+	}
 	else
 	{
-		// free2d(cmd->cmd);
-		// cmd->cmd = NULL;
-		cmd->cmd[0] = NULL;
+		cmd->path_found = 0;
 	}
-		// cmd->cmd[0] = NULL;
 }

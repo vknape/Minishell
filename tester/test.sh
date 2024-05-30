@@ -77,10 +77,14 @@ tester()
 	if test -f $OUTPUT1 ; then
 		mv $OUTPUT1 $OUTFILE1
 	fi
-	echo -e $@ | ./tester/Minishell >$OUTFILE2 2>$ERROR2
+	echo -e $@ | valgrind --suppressions="read.supp" -s --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --trace-children=yes --track-fds=yes --error-exitcode=42 ./tester/Minishell >$OUTFILE2 2>$ERROR2
 	es2=$?
 	grep -v "$REM" $OUTFILE2 > tester/temp.txt
 	mv tester/temp.txt $OUTFILE2
+	grep -v ">" $OUTFILE2 > tester/temp.txt
+	mv tester/temp.txt $OUTFILE2
+	# grep -v "> end" $OUTFILE2 > tester/temp.txt
+	# mv tester/temp.txt $OUTFILE2
 	# sed -i "s@$REM@""@g"
 	# sed -i	'1d' $OUTFILE2
 	# grep . $OUTFILE2 > tester/temp.txt && mv tester/temp.txt $OUTFILE2
@@ -114,10 +118,11 @@ tester()
 		printf "$BOLDRED error"
 		error_log 3
 	fi
-	echo $@ | valgrind --suppressions="read.supp" -s --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --trace-children=yes --error-exitcode=42 ./tester/Minishell &>/dev/null
+	#echo $@ | valgrind --suppressions="read.supp" -s --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --trace-children=yes --track-fds=yes --error-exitcode=42 ./tester/Minishell &>/dev/null
 	es2=$?
 	# printf "$es2\n"
 	grep "ERROR SUMMARY: " tester/leaks/leak_log$i.txt >tester/child_leak.txt
+
 	# CHILD_LEAK=$(awk '$4 != "0"' tester/child_leak.txt)
 	awk '$4 != "0" {print $4}' tester/child_leak.txt > tester/child_leak2.txt
 	# printf $CHILD_LEAK\n
@@ -181,12 +186,19 @@ tester 'pwd'
 
 printf "\n\033[1m\033[36mEXPORT TESTS\n"
 # tester 'export var=5 \nexport'
+export var="'hello'"
+tester 'echo $var'
+tester 'echo "$var"'
+unset var
 # exit
 printf "\n\033[1m\033[36mUNSET TESTS\n"
 # tester 'unset USER \nexport'
 
 printf "\n\033[1m\033[36mENV TESTS\n"
 # tester 'env'
+
+printf "\n\033[1m\033[36mHEREDOC TESTS\n"
+tester 'cat << end\nhere\nend'
 
 printf "\n\033[1m\033[36m$ TESTS\n"
 export var="ls"
@@ -218,6 +230,7 @@ tester 'echo $ ?'
 tester 'echo $var?'
 unset var
 
+
 printf "\n\033[1m\033[36mEXIT TESTS\n"
 
 printf "\n\033[1m\033[36mCMD TESTS\n"
@@ -231,7 +244,9 @@ tester 'cat infile.txt'
 
 
 printf "\n\033[1m\033[36mCMD with pipe TESTS\n"
-tester 'ls | echo'
+tester 'ls | echo hello'
+tester 'ls | pwd'
+tester 'ls | exit 99'
 tester 'ls | cat'
 tester 'sleep 1 | ls -l'
 tester 'ls -l | sleep 1'

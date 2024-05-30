@@ -445,14 +445,24 @@ void	make_line(t_all *all)
 	}
 	if (curline[0] != '\0')
 	{
-		check_input(curline, all);
+		curline = check_input(curline, all);
+		// dprintf(2, "curline after check input() is (%s)\n", curline);
+		// if (!ft_strlen(curline))
+		// 	add_history(all->line->saved_line);
+		// else
+		// {
+		// 	dprintf(2, "not null\n");
+		// 	add_history(all->line->saved_line);
+		// 	free(curline);
+		// 	curline = NULL;
+		// }
 		add_history(curline);
 		free(curline);
 		curline = NULL;
 		split_cmd_nodes(all);
 		remove_whitespace_quotes(all, all->line->each_cmd);
 		start_exec(all);
-		dup2(all->stdinfd, 0);
+		// dup2(all->stdinfd, 0);
 	}
 
 }
@@ -485,6 +495,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		// g_glob = 0;
 		dup2(all->stdinfd, STDIN_FILENO);
+		dup2(all->stdoutfd, STDOUT_FILENO);
 		if (sigaction(SIGINT, &all->sa, NULL) == -1)
 		{
 			free_line(&all->line);

@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/20 13:02:28 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/22 13:21:25 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/30 14:26:58 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,13 @@ void	free_all(t_all **all)
 			free((*all)->lastwd);
 		free_chunk(&(*all)->envp);
 		free_chunk(&(*all)->export);
+		dup2((*all)->stdinfd, STDIN_FILENO);
+		dup2((*all)->stdoutfd, STDOUT_FILENO);
 		close((*all)->stdinfd);
 		close((*all)->stdoutfd);
 		free((*all));
+		// close(STDOUT_FILENO);
+		// close(STDIN_FILENO);
 	}
 	all = NULL;
 }

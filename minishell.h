@@ -38,6 +38,7 @@ typedef struct s_pipex
 	t_chunk	*infile;
 	t_chunk	*outfile;
 	char	**cmd;
+	int		path_found;
 	char 	*templine;
 	bool	is_builtin;
 	// bool	is_infile;
@@ -56,6 +57,7 @@ typedef struct s_line
 	char	*saved_line;
 	int		pipe[2];
 	int		heredoc_pipe[2];
+	int		exit_value;
 	t_chunk	*chunks;
 	t_cmd	*each_cmd;
 }	t_line;
@@ -76,7 +78,7 @@ typedef struct s_all
 }	t_all;
 
 int		main(int argc, char **argv, char **envm);
-int		check_input(char *curline, t_all *all);
+char	*check_input(char *curline, t_all *all);
 void	make_envp_and_set(t_all *all, char *envp[]);
 void	make_export(t_all *all, char *envp[]);
 void	start_exec(t_all *all);
@@ -84,6 +86,7 @@ void	get_path(t_all *all, t_cmd *cmd);
 void	expanded(t_all *all, t_cmd *cmd);
 void	sigparent(int sig);
 void	sigchild(int sig);
+void	ft_kill_minishell(t_all *all);
 
 // char	*get_current_dir(void);
 // void	change_directory(char *dir);
@@ -100,7 +103,9 @@ int	is_white_space(char c);
 char	*value_of_dollar_sign(t_all *all, char *str, int len);
 char	*ft_strjoin_free(char *s1, char *s2);
 void	remove_whitespace_quotes(t_all *all, t_cmd *cmd);
+char	*remove_whitespace_cmd(char *str);
 char	*remove_quotes_cmd(char *str);
+char	*remove_quotes_exp(char *str);
 char	*search_dollar_signe(t_all *all, char *str);
 
 // list of link list t_cmd
@@ -136,6 +141,7 @@ void	ft_export(t_all	*all);
 void	sorter_export(t_all *all);
 char	*ft_joined_for_export(char *str, int start);
 void	ft_exit(t_all *all);
+int		ft_isalnum_under(int c);
 
 //free
 void	free_line(t_line **line);

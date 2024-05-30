@@ -1,0 +1,9 @@
+update env and read from env instead of copyright
+rework export for quotes in var names
+error handling and error output
+think of more edge cases to test
+
+export var='"echo"'
+export
+export var=echo
+export

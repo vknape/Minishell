@@ -8,7 +8,7 @@ LIBS = -lreadline
 
 SRCS	= main.c builtins.c link_list_chunk.c link_list_cmd.c check_input.c \
 		fill_each_cmd.c ft_splite_modified.c ft_split_skip.c envp.c exec.c access.c expaneded.c\
-		remove_whitespace_quotes.c get_line.c ft_signal.c free.c
+		remove_whitespace_quotes.c get_line.c ft_signal.c free.c ft_kill_minishell.c
 objects	= $(SRCS:.c=.o)
 
 all: $(NAME)

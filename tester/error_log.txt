@@ -1,16 +1,719 @@
 1.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+echo str = (hello)
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+echo str = (hello)
 2.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+echo str = (hello)
+echo str = (hello)
 3.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+str in is ("hello hello")
+str without quotes (hello hello)
+str after expende is (hello hello)
+echo str = (hello)
+echo str = (hello hello)
 4.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+str in is ("hello hello")
+str without quotes (hello hello)
+str after expende is (hello hello)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+echo str = (hello)
+echo str = (hello hello)
+echo str = (hello)
 5.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is (-n)
+str without quotes (-n)
+str after expende is (-n)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+str in is ("hello hello")
+str without quotes (hello hello)
+str after expende is (hello hello)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+echo str = (hello)
+echo str = (hello hello)
+echo str = (hello)
 6.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is (-n)
+str without quotes (-n)
+str after expende is (-n)
+str in is (-n)
+str without quotes (-n)
+str after expende is (-n)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+str in is ("hello hello")
+str without quotes (hello hello)
+str after expende is (hello hello)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+echo str = (hello)
+echo str = (hello hello)
+echo str = (hello)
 7.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is (-n)
+str without quotes (-n)
+str after expende is (-n)
+str in is (-nm)
+str without quotes (-nm)
+str after expende is (-nm)
+str in is (-n)
+str without quotes (-n)
+str after expende is (-n)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+str in is ("hello hello")
+str without quotes (hello hello)
+str after expende is (hello hello)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+echo str = (-nm)
+echo str = (-n)
+echo str = (hello)
+echo str = (hello hello)
+echo str = (hello)
 8.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is (-n)
+str without quotes (-n)
+str after expende is (-n)
+str in is (-mn)
+str without quotes (-mn)
+str after expende is (-mn)
+str in is (-n)
+str without quotes (-n)
+str after expende is (-n)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+str in is ("hello hello")
+str without quotes (hello hello)
+str after expende is (hello hello)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+echo str = (-mn)
+echo str = (-n)
+echo str = (hello)
+echo str = (hello hello)
+echo str = (hello)
 9.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is (-nnnnnnnnnnnn)
+str without quotes (-nnnnnnnnnnnn)
+str after expende is (-nnnnnnnnnnnn)
+str in is (-n)
+str without quotes (-n)
+str after expende is (-n)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+str in is ("hello hello")
+str without quotes (hello hello)
+str after expende is (hello hello)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+echo str = (hello)
+echo str = (hello hello)
+echo str = (hello)
 10.
+Bash error is:	
+Your error is:	
+str in is (pwd)
+str without quotes (pwd)
+str after expende is (pwd)
 11.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($var)
+str without quotes ($var)
+copy str after remove _quotes_cmd('hello')
+str after expende is ('hello')
+echo str = ('hello')
 12.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ("$var")
+str without quotes ($var)
+copy str after remove _quotes_cmd('hello')
+str after expende is ('hello')
+echo str = ('hello')
 13.
 Bash error is:	
-bash: line 1: vknape: command not found
 Your error is:	
+str in is (cat)
+str without quotes (cat)
+str after expende is (cat)
+str in is (end)
+str without quotes (end)
+str after expende is (end)
+14.
+Bash error is:	
+Your error is:	
+str in is ($var)
+str without quotes ($var)
+copy str after remove _quotes_cmd(ls)
+str after expende is (ls)
+15.
+Bash error is:	
+Your error is:	
+str in is ($var)
+str without quotes ($var)
+copy str after remove _quotes_cmd(ls)
+str after expende is (ls)
+16.
+Bash error is:	
+bash: line 1: adakheel: command not found
+Your error is:	
+str in is ($USER)
+str without quotes ($USER)
+copy str after remove _quotes_cmd(adakheel)
+str after expende is (adakheel)
+minishell: : No such file or directory
+17.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($)
+str without quotes ($)
+str after expende is ($)
+echo str = ($)
+18.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($)
+str without quotes ($)
+str after expende is ($)
+echo str = ($)
+19.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($)
+str without quotes ($)
+str after expende is ($)
+echo str = ($)
+20.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($$)
+str without quotes ($$)
+str after expende is ($$)
+echo str = ($$)
+21.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($var)
+str without quotes ($var)
+copy str after remove _quotes_cmd(hello)
+str after expende is (hello)
+echo str = (hello)
+22.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($)
+str without quotes ($)
+str after expende is ($)
+str in is ($)
+str without quotes ($)
+str after expende is ($)
+echo str = ($)
+echo str = ($)
+23.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($)
+str without quotes ($)
+str after expende is ($)
+str in is ($var)
+str without quotes ($var)
+copy str after remove _quotes_cmd(hello)
+str after expende is (hello)
+echo str = ($)
+echo str = (hello)
+24.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($var$var)
+str without quotes ($var$var)
+copy str after remove _quotes_cmd(hello)
+copy str after remove _quotes_cmd(hello)
+str after expende is (hellohello)
+echo str = (hellohello)
+25.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($$$)
+str without quotes ($$$)
+str after expende is ($$$)
+echo str = ($$$)
+26.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($)
+str without quotes ($)
+str after expende is ($)
+str in is ($$)
+str without quotes ($$)
+str after expende is ($$)
+echo str = ($)
+echo str = ($$)
+27.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($)
+str without quotes ($)
+str after expende is ($)
+str in is ($var$)
+str without quotes ($var$)
+copy str after remove _quotes_cmd(hello)
+str after expende is (hello$)
+echo str = ($)
+echo str = (hello$)
+28.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($?)
+str without quotes ($?)
+str after expende is (0)
+echo str = (0)
+29.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($??)
+str without quotes ($??)
+str after expende is (0?)
+echo str = (0?)
+30.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($?$?)
+str without quotes ($?$?)
+str after expende is (00)
+echo str = (00)
+31.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($var$?)
+str without quotes ($var$?)
+copy str after remove _quotes_cmd(hello)
+str after expende is (hello0)
+echo str = (hello0)
+32.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($?$var)
+str without quotes ($?$var)
+copy str after remove _quotes_cmd(hello)
+str after expende is (0hello)
+echo str = (0hello)
+33.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is (?)
+str without quotes (?)
+str after expende is (?)
+echo str = (?)
+34.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($)
+str without quotes ($)
+str after expende is ($)
+str in is (?)
+str without quotes (?)
+str after expende is (?)
+echo str = ($)
+echo str = (?)
+35.
+Bash error is:	
+Your error is:	
+str in is (echo)
+str without quotes (echo)
+str after expende is (echo)
+str in is ($var?)
+str without quotes ($var?)
+copy str after remove _quotes_cmd(hello)
+str after expende is (hello?)
+echo str = (hello?)
+36.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+37.
+Bash error is:	
+sleep: missing operand
+Try 'sleep --help' for more information.
+Your error is:	
+str in is (sleep)
+str without quotes (sleep)
+str after expende is (sleep)
+/usr/bin/sleep: missing operand
+Try '/usr/bin/sleep --help' for more information.
+38.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+str in is (-l)
+str without quotes (-l)
+str after expende is (-l)
+39.
+Bash error is:	
+Your error is:	
+str in is (sleep)
+str without quotes (sleep)
+str after expende is (sleep)
+str in is (1)
+str without quotes (1)
+str after expende is (1)
+40.
+Bash error is:	
+Your error is:	
+str in is (cat)
+str without quotes (cat)
+str after expende is (cat)
+str in is (infile.txt)
+str without quotes (infile.txt)
+str after expende is (infile.txt)
+41.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+str in is (hello)
+str without quotes (hello)
+str after expende is (hello)
+echo str = (hello)
+42.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+43.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+str in is (99)
+str without quotes (99)
+str after expende is (99)
+44.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+45.
+Bash error is:	
+Your error is:	
+str in is (sleep)
+str without quotes (sleep)
+str after expende is (sleep)
+str in is (1)
+str without quotes (1)
+str after expende is (1)
+46.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+str in is (-l)
+str without quotes (-l)
+str after expende is (-l)
+47.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+str in is (-e)
+str without quotes (-e)
+str after expende is (-e)
+48.
+Bash error is:	
+Your error is:	
+str in is (cat)
+str without quotes (cat)
+str after expende is (cat)
+str in is (infile.txt)
+str without quotes (infile.txt)
+str after expende is (infile.txt)
+49.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+str in is (infile.txt)
+str without quotes (infile.txt)
+str after expende is (infile.txt)
+50.
+Bash error is:	
+Your error is:	
+str in is (cat)
+str without quotes (cat)
+str after expende is (cat)
+str in is (infile.txt)
+str without quotes (infile.txt)
+str after expende is (infile.txt)
+str in is (out_new)
+str without quotes (out_new)
+str after expende is (out_new)
+51.
+Bash error is:	
+Your error is:	
+str in is (cat)
+str without quotes (cat)
+str after expende is (cat)
+str in is (out_new)
+str without quotes (out_new)
+str after expende is (out_new)
+str in is (infile.txt)
+str without quotes (infile.txt)
+str after expende is (infile.txt)
+52.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+str in is (tester/bredir.txt)
+str without quotes (tester/bredir.txt)
+str after expende is (tester/bredir.txt)
+53.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+str in is (outfile)
+str without quotes (outfile)
+str after expende is (outfile)
+str in is (tester/bredir.txt)
+str without quotes (tester/bredir.txt)
+str after expende is (tester/bredir.txt)
+54.
+Bash error is:	
+Your error is:	
+str in is (cat)
+str without quotes (cat)
+str after expende is (cat)
+str in is (infile.txt)
+str without quotes (infile.txt)
+str after expende is (infile.txt)
+str in is (-e)
+str without quotes (-e)
+str after expende is (-e)
+55.
+Bash error is:	
+Your error is:	
+str in is (cat)
+str without quotes (cat)
+str after expende is (cat)
+str in is (infile.txt)
+str without quotes (infile.txt)
+str after expende is (infile.txt)
+56.
+Bash error is:	
+Your error is:	
+str in is (ls)
+str without quotes (ls)
+str after expende is (ls)
+str in is (infile.txt)
+str without quotes (infile.txt)
+str after expende is (infile.txt)
+str in is (-e)
+str without quotes (-e)
+str after expende is (-e)
+57.
+Bash error is:	
+Your error is:	
+str in is (cat)
+str without quotes (cat)
+str after expende is (cat)
+str in is (infile.txt)
+str without quotes (infile.txt)
+str after expende is (infile.txt)
+str in is (out_new)
+str without quotes (out_new)
+str after expende is (out_new)
+str in is (-e)
+str without quotes (-e)
+str after expende is (-e)
+str in is (outfile)
+str without quotes (outfile)
+str after expende is (outfile)
+str in is (tester/bredir.txt)
+str without quotes (tester/bredir.txt)
+str after expende is (tester/bredir.txt)
+58.
+Bash error is:	
+Your error is:	
+str in is (cat)
+str without quotes (cat)
+str after expende is (cat)
+str in is (infile.txt)
+str without quotes (infile.txt)
+str after expende is (infile.txt)
+str in is (out_new)
+str without quotes (out_new)
+str after expende is (out_new)
+str in is (-e)
+str without quotes (-e)
+str after expende is (-e)
+str in is (outfile)
+str without quotes (outfile)
+str after expende is (outfile)
+str in is (tester/bredir.txt)
+str without quotes (tester/bredir.txt)
+str after expende is (tester/bredir.txt)
+59.
+Bash error is:	
+Your error is:	
+str in is (cat)
+str without quotes (cat)
+str after expende is (cat)
+str in is (out_new)
+str without quotes (out_new)
+str after expende is (out_new)
+str in is (tester/bredir.txt)
+str without quotes (tester/bredir.txt)
+str after expende is (tester/bredir.txt)

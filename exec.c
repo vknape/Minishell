@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/08 09:40:42 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/23 15:06:20 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/05/30 15:22:59 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*heredoc_text(t_chunk *infile)
 		if (!ft_strncmp(line, infile->str, ft_strlen(infile->str)) && \
 			ft_strlen(line) == ft_strlen(infile->str))
 		{
+			temp = ft_strjoin_free(temp, "\n");
 			free(line);
 			return (temp);
 		}
@@ -51,6 +52,7 @@ char	*heredoc_text(t_chunk *infile)
 			temp = ft_strdup(line);
 		else
 		{
+			temp = ft_strjoin_free(temp, "\n");
 			temp = ft_strjoin_free(temp, line);
 			free(line);
 		}
@@ -60,6 +62,7 @@ char	*heredoc_text(t_chunk *infile)
 		// rl_redisplay();
 		// line = readline("> ");
 	}
+	
 }
 
 void	handle_infiles(t_all *all, t_chunk *infile)
@@ -71,7 +74,12 @@ void	handle_infiles(t_all *all, t_chunk *infile)
 	{
 		if (infile->is_infile)
 		{
+			//dprintf(2, "infile name is (%s)\n", infile->str);
 			fd = open(infile->str, O_RDONLY);
+			if (fd == -1)
+			{
+				perror("can't open file: ");
+			}
 			if (!infile->next)
 				dup2(fd, STDIN_FILENO);
 			close(fd);
@@ -130,14 +138,18 @@ void	exec_cmd(t_all *all, t_cmd *cmd)
 {
 	// printf("here\n");
 	get_path(all, cmd);
-	if (!cmd->cmd[0])
+	if (cmd->path_found == 0)
 	{
-		free_all(&all);
-		exit(127);
+		all->line->exit_value = 127;
+		ft_exit(all);
 	}
 	// printf("here\n");
 	// printf("%s\n", all->line->each_cmd->cmd[0]);
 	// printf("%s\n", all->line->each_cmd->cmd[1]);
+	// dup2(all->stdinfd, STDIN_FILENO);
+	// close(STDIN_FILENO);
+	close(all->stdinfd);
+	close(all->stdoutfd);
 	execve(cmd->cmd[0], cmd->cmd, all->envpcpy);
 	exit(1);
 }
@@ -159,10 +171,12 @@ void	exec_builtin(t_all *all, t_cmd *cmd)
 		ft_env(all);
 	if (!ft_strncmp("exit", cmd->cmd[0], 5))
 	{
-		free_all(&all);
-		exit(1);
+		ft_exit(all);
+		// free_all(&all);
+		// exit(1);
 	}
-	exit(1);
+	// free_all(&all);
+	ft_exit(all);
 }
 
 void	check_scenario(t_all *all, t_cmd *cmd)
@@ -178,7 +192,7 @@ void	check_scenario(t_all *all, t_cmd *cmd)
 		handle_infiles(all, cmd->infile);
 		if (g_glob == 2)
 		{
-			dprintf(2, "here\n");
+			//dprintf(2, "here\n");
 			return ;
 		}
 	}
@@ -214,13 +228,13 @@ pid_t	start_fork(t_all *all, t_cmd *cmd)
 
 		if (sigaction(SIGINT, &all->sa, NULL) == -1)
 		{
-			free_all(&all);
+			// free_all(&all);
 			// printf("\n");
 			// rl_on_new_line();
 			// rl_replace_line("", 0);
 			// rl_redisplay();
 			// printf("\n");
-			exit(0);
+			ft_exit(all);
 		}
 		// dprintf(2, "cmd here is %s\n", all->line->each_cmd->cmd[0]);
 		close(all->line->pipe[0]);
@@ -232,7 +246,43 @@ pid_t	start_fork(t_all *all, t_cmd *cmd)
 		// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
 		check_scenario(all, cmd);
 		// free_all(&all);
-		dprintf(2, "end\n");
+		//dprintf(2, "end\n");
+		// exit(0);
+	}
+	return (p);
+}
+
+pid_t	start_fork_1cmd(t_all *all, t_cmd *cmd)
+{
+	pid_t	p;
+	// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
+	p = fork();
+	if(p == -1)
+		exit(1);
+	if (p > 0)
+	{
+		;
+	}
+	else if (p == 0)
+	{
+		all->sa.sa_handler = &sigchild;
+
+		if (sigaction(SIGINT, &all->sa, NULL) == -1)
+		{
+			free_all(&all);
+			// printf("\n");
+			// rl_on_new_line();
+			// rl_replace_line("", 0);
+			// rl_redisplay();
+			// printf("\n");
+			ft_exit(all);
+		}
+		// dprintf(2, "cmd here is %s\n", all->line->each_cmd->cmd[0]);
+		// dup2(all->stdoutfd, STDOUT_FILENO);
+		// dprintf(2, "outfile not okay %d\n", all->line->each_cmd->outfile->is_outfile);
+		check_scenario(all, cmd);
+		// free_all(&all);
+		//dprintf(2, "end\n");
 		// exit(0);
 	}
 	return (p);
@@ -274,14 +324,26 @@ void	start_exec(t_all *all)
 		}
 		else
 		{
-		pipe(all->line->pipe);
-		p = start_fork(all, temp);
+			if (all->line->total_cmd > 1)
+			{
+				if (temp->next)
+					pipe(all->line->pipe);
+				p = start_fork(all, temp);
+			}
+			else
+				p = start_fork_1cmd(all, temp);
 		}
 		temp = temp->next;
 	}
 	if (p)
 	{
 		wpid = waitpid(p, &status, 0);
+		if (wpid == -1)
+			all->last_exit_status = 1;
+		if (WIFEXITED(status))
+			all->last_exit_status = (WEXITSTATUS(status));
+		else if (WIFSIGNALED(status))
+			all->last_exit_status = 128 + (WTERMSIG(status));
 		while (wait(NULL) != -1)
 			;
 	}

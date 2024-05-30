@@ -12,13 +12,13 @@ char	*get_current_dir(void)
 	if (!buf)
 	{
 		perror("malloc failed");
-		ft_exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	ptr = getcwd(buf, buf_size);
 	if (!ptr)
 	{
 		perror("getcwd failed");
-		ft_exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 
 	return (ptr);
@@ -34,6 +34,31 @@ void	ft_pwd(void)
 }
 
 
+int	ft_strncmp2(const char *str1, const char *str2, size_t n)
+{
+	size_t			i;
+	unsigned char	a;
+	unsigned char	b;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	// dprintf(2, "str2 is (%s)---------------------------\n", str2);
+	while (i < n && (str1[i] || str2[i]))
+	{
+		// dprintf(2, "letters are (%c) & (%c)\n", str1[i], str2[i]);
+		a = str1[i];
+		b = str2[i];
+		if (!a && b == '=')
+			return (0);
+		if (a != b)
+			return (a - b);
+		i++;
+	}
+
+	return (str1[i - 1] - str2[i - 1]);
+}
+
 char	*value_of_dollar_sign(t_all *all, char *str, int len)
 {
 	int		i;
@@ -45,11 +70,11 @@ char	*value_of_dollar_sign(t_all *all, char *str, int len)
 	i = 0;
 	temp = all->envp;
 	copy_value = NULL;
-	// printf("str here is (%s)\n", str);
 	copy_str = ft_substr(str, 0, len);
 	while (temp != NULL)
 	{
-		if (!strncmp(copy_str, temp->str, ft_strlen(copy_str)))
+		// dprintf(2, "(%s)\n", temp->str);
+		if (!ft_strncmp2(copy_str, temp->str, ft_strlen(copy_str) + 1))
 		{
 			copy_value = ft_substr(temp->str, ft_strlen(copy_str) + 1, ft_strlen(temp->str) - ft_strlen(copy_str));
 			// printf("do we het here (%s)\n", copy_value);
@@ -62,9 +87,14 @@ char	*value_of_dollar_sign(t_all *all, char *str, int len)
 		temp = all->export;
 		while (temp != NULL)
 		{
-			if (!strncmp(copy_str, temp->str, ft_strlen(copy_str)))
+			// dprintf(2, "(%s)\n", temp->str);
+			while (temp->str[i] && temp->str[i] != '=')
+				i++;
+			if (!ft_strncmp2(copy_str, temp->str, ft_strlen(copy_str) + 1))
 			{
+				// printf("temp str (%s)\n", temp->str);
 				copy_value = ft_substr(temp->str, ft_strlen(copy_str) + 1, ft_strlen(temp->str) - ft_strlen(copy_str));
+				copy_value = remove_quotes_exp(copy_value);
 				break ;
 			}
 			temp = temp->next;
@@ -72,6 +102,9 @@ char	*value_of_dollar_sign(t_all *all, char *str, int len)
 	}
 	free(copy_str);
 	// printf("copy str (%s)\n", copy_value);
+	// copy_value = remove_quotes_exp(copy_value);
+	copy_value = remove_whitespace_cmd(copy_value);
+	dprintf(2, "copy str after remove _quotes_cmd(%s)\n", copy_value);
 	return (copy_value);
 }
 
@@ -89,6 +122,7 @@ void	join_all_indexes_of_array(char **array_str, int index, int new_line)
 	line_joined = NULL;
 	while (array_str[index] != NULL)
 	{
+		dprintf(2, "echo str = (%s)\n", array_str[index]);
 		if (!line_joined)
 			line_joined = ft_strdup(array_str[index]);
 		else
@@ -546,8 +580,8 @@ void	ft_cd(t_all *all)
 	// printf("here (%s)\n", current_dir);
 	if (total_indexes > 2)
 	{
-		printf("error bash: cd: too many arguments\n");
-		ft_exit(EXIT_FAILURE);
+		dprintf(2, "error bash: cd: too many arguments\n");
+		exit(EXIT_FAILURE);
 	}
 	if (!ft_strncmp(all->line->each_cmd->cmd[1], "/", 2))
 	{
@@ -564,7 +598,7 @@ void	ft_cd(t_all *all)
 	// printf("new dir is (%s)\n", new_dir);
 	if (chdir(new_dir) == -1)
 	{
-		printf("error invalid dir\n");
+		dprintf(2, "error invalid dir\n");
 	}
 	free(current_dir);
 	free(new_dir);
@@ -590,6 +624,13 @@ char	*ft_joined_for_export(char *str, int start)
 	return (temp2);
 }
 
+int	ft_isalnum_under(int i)
+{
+	if (ft_isalpha(i) || ft_isdigit(i) || i == '_')
+		return (1);
+	return (0);
+}
+
 void	ft_export(t_all	*all)
 {
 	int		i;
@@ -602,7 +643,6 @@ void	ft_export(t_all	*all)
 	chuncks = all->export;
 	while (all->line->each_cmd->cmd[i] != NULL)
 		i++;
-	printf("in ft_export\n\n\n");
 	if (i == 1)
 	{
 		while (chuncks)
@@ -619,7 +659,7 @@ void	ft_export(t_all	*all)
 		{
 			to_env = 0;
 			i_char = 0;
-			while (all->line->each_cmd->cmd[i][i_char] && !ft_strchr("~!@#$&*(){}\\\%_-+", all->line->each_cmd->cmd[i][i_char]))
+			while (all->line->each_cmd->cmd[i][i_char] && (all->line->each_cmd->cmd[i][i_char] == '=' || ft_isalnum_under(all->line->each_cmd->cmd[i][i_char])))
 			{
 				if (all->line->each_cmd->cmd[i][i_char] == '=')
 					to_env = 1;
@@ -628,19 +668,20 @@ void	ft_export(t_all	*all)
 			if (all->line->each_cmd->cmd[i][i_char])
 			{
 				printf("bash: export: %s: not a valid identifier\n", all->line->each_cmd->cmd[i]);
-				exit(1);
+				all->last_exit_status = 1;
+				return ;
 			}
 			i_char = 0;
 			if (ft_strchr("1234567890=", all->line->each_cmd->cmd[i][0]))
 			{
 				printf("bashs: export: %s: not a valid identifier\n", all->line->each_cmd->cmd[i]);
+				all->last_exit_status = 1;
+				return ;
 			}
 			else
 			{
-				dprintf(2, "going to add to export\n");
 				if (to_env)
 				{
-					dprintf(2, "going to add to env\n");
 					ft_lstadd_back_chunk(&all->envp, ft_lstnewchunk(all->line->each_cmd->cmd[i]));
 				}
 				while (all->line->each_cmd->cmd[i][i_char] && all->line->each_cmd->cmd[i][i_char] != '=')
@@ -672,21 +713,32 @@ void	ft_export(t_all	*all)
 	// }
 }
 
+// void	error_exit(t_all *all)
+// {
+
+// }
+
 void	ft_exit(t_all *all)
 {
 	int	i;
+	int	local;
 
 	i = 0;
 	//check arguments
 	if (all->line->each_cmd->cmd[1] == NULL)
 	{
 		//no arguments
-		// dprintf(2, "hello\n");
+		local = all->line->exit_value;
 		free_all(&all);
 		if (g_glob == 2)
-			exit(g_glob + 128);
+		{
+			local = 130;
+			exit(local);
+		}
 		else
-			exit(EXIT_SUCCESS);
+		{
+			exit(local);
+		}
 	}
 	else
 	{
@@ -694,7 +746,8 @@ void	ft_exit(t_all *all)
 		if (all->line->each_cmd->cmd[2] != NULL)
 		{
 			// there are more than one arguments
-			printf("too many arguments\n");
+			dprintf(2,"too many arguments\n");
+			all->last_exit_status = 1;
 		}
 		else if (all->line->each_cmd->cmd[2] == NULL)
 		{
@@ -708,11 +761,13 @@ void	ft_exit(t_all *all)
 			{
 				//there is another char
 				printf(" %s: numeric argument required\n", all->line->each_cmd->cmd[1]);
+				all->last_exit_status = 2;
 				exit(2);
 			}
 			else
 			{
 				//just numbers
+				all->last_exit_status = ft_atoi(all->line->each_cmd->cmd[1]);
 				exit(ft_atoi(all->line->each_cmd->cmd[1]));
 			}
 		}

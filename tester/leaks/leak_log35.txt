@@ -1,28 +1,172 @@
-==2093944== Memcheck, a memory error detector
-==2093944== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==2093944== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==2093944== Command: ./tester/Minishell
-==2093944== Parent PID: 2093436
-==2093944== 
-==2093944== 
-==2093944== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==2093944== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log35.txt
-==2093944==    <inherited from parent>
-==2093944== 
-==2093944== 
-==2093944== HEAP SUMMARY:
-==2093944==     in use at exit: 208,219 bytes in 222 blocks
-==2093944==   total heap usage: 1,203 allocs, 981 frees, 294,267 bytes allocated
-==2093944== 
-==2093944== LEAK SUMMARY:
-==2093944==    definitely lost: 0 bytes in 0 blocks
-==2093944==    indirectly lost: 0 bytes in 0 blocks
-==2093944==      possibly lost: 0 bytes in 0 blocks
-==2093944==    still reachable: 0 bytes in 0 blocks
-==2093944==         suppressed: 208,219 bytes in 222 blocks
-==2093944== 
-==2093944== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
---2093944-- 
---2093944-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
-==2093944== 
-==2093944== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+==2522496== Memcheck, a memory error detector
+==2522496== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2522496== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2522496== Command: ./tester/Minishell
+==2522496== Parent PID: 2522052
+==2522496== 
+==2522496== Invalid read of size 1
+==2522496==    at 0x40829F: ft_strncmp (ft_strncmp.c:25)
+==2522496==    by 0x402263: ft_cd (builtins.c:618)
+==2522496==    by 0x40560C: start_exec (exec.c:315)
+==2522496==    by 0x4013E8: make_line (main.c:472)
+==2522496==    by 0x401509: main (main.c:520)
+==2522496==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==2522496== 
+==2522496== 
+==2522496== Process terminating with default action of signal 11 (SIGSEGV)
+==2522496==  Access not within mapped region at address 0x0
+==2522496==    at 0x40829F: ft_strncmp (ft_strncmp.c:25)
+==2522496==    by 0x402263: ft_cd (builtins.c:618)
+==2522496==    by 0x40560C: start_exec (exec.c:315)
+==2522496==    by 0x4013E8: make_line (main.c:472)
+==2522496==    by 0x401509: main (main.c:520)
+==2522496==  If you believe this happened as a result of a stack
+==2522496==  overflow in your program's main thread (unlikely but
+==2522496==  possible), you can try to increase the size of the
+==2522496==  main thread stack using the --main-stacksize= flag.
+==2522496==  The main thread stack size used in this run was 8388608.
+==2522496== 
+==2522496== FILE DESCRIPTORS: 6 open (3 std) at exit.
+==2522496== Open file descriptor 5: /home/adakheel/Desktop/Abbas/tester/vmini.txt
+==2522496==    at 0x49DCFEB: dup (syscall-template.S:120)
+==2522496==    by 0x401467: main (main.c:496)
+==2522496== 
+==2522496== Open file descriptor 4:
+==2522496==    at 0x49DCFEB: dup (syscall-template.S:120)
+==2522496==    by 0x401454: main (main.c:495)
+==2522496== 
+==2522496== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log35.txt
+==2522496==    <inherited from parent>
+==2522496== 
+==2522496== 
+==2522496== HEAP SUMMARY:
+==2522496==     in use at exit: 237,174 bytes in 668 blocks
+==2522496==   total heap usage: 1,267 allocs, 599 frees, 266,150 bytes allocated
+==2522496== 
+==2522496== 3 bytes in 1 blocks are still reachable in loss record 2 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x40840F: ft_substr (ft_substr.c:26)
+==2522496==    by 0x403B48: split_all (check_input.c:209)
+==2522496==    by 0x403BE1: check_input (check_input.c:231)
+==2522496==    by 0x4013A4: make_line (main.c:449)
+==2522496==    by 0x401509: main (main.c:520)
+==2522496== 
+==2522496== 3 bytes in 1 blocks are still reachable in loss record 3 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x407F8F: ft_strdup (ft_strdup.c:23)
+==2522496==    by 0x403832: check_meta (check_input.c:149)
+==2522496==    by 0x403BEE: check_input (check_input.c:232)
+==2522496==    by 0x4013A4: make_line (main.c:449)
+==2522496==    by 0x401509: main (main.c:520)
+==2522496== 
+==2522496== 3 bytes in 1 blocks are still reachable in loss record 5 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x407F8F: ft_strdup (ft_strdup.c:23)
+==2522496==    by 0x40693F: reduce_whitespace_between_words (remove_whitespace_quotes.c:296)
+==2522496==    by 0x406A7A: remove_whitespace_at_begin_end (remove_whitespace_quotes.c:323)
+==2522496==    by 0x406CD8: remove_quotes_cmd (remove_whitespace_quotes.c:386)
+==2522496==    by 0x406DA0: remove_whitespace_quotes (remove_whitespace_quotes.c:437)
+==2522496==    by 0x4013DF: make_line (main.c:471)
+==2522496==    by 0x401509: main (main.c:520)
+==2522496== 
+==2522496== 16 bytes in 1 blocks are still reachable in loss record 19 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x404594: ft_split_quotes (ft_split_skip.c:242)
+==2522496==    by 0x40404C: fill_cmd_nodes (fill_each_cmd.c:91)
+==2522496==    by 0x404139: split_cmd_nodes (fill_each_cmd.c:115)
+==2522496==    by 0x4013CB: make_line (main.c:463)
+==2522496==    by 0x401509: main (main.c:520)
+==2522496== 
+==2522496== 24 bytes in 1 blocks are still reachable in loss record 25 of 98
+==2522496==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x402E5A: ft_lstnewchunk (link_list_chunk.c:8)
+==2522496==    by 0x403B74: split_all (check_input.c:211)
+==2522496==    by 0x403BE1: check_input (check_input.c:231)
+==2522496==    by 0x4013A4: make_line (main.c:449)
+==2522496==    by 0x401509: main (main.c:520)
+==2522496== 
+==2522496== 64 bytes in 1 blocks are still reachable in loss record 34 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x4079D8: ft_calloc (ft_calloc.c:21)
+==2522496==    by 0x403066: ft_lstnewcmd (link_list_cmd.c:8)
+==2522496==    by 0x4040CE: split_cmd_nodes (fill_each_cmd.c:105)
+==2522496==    by 0x4013CB: make_line (main.c:463)
+==2522496==    by 0x401509: main (main.c:520)
+==2522496== 
+==2522496== 72 bytes in 1 blocks are still reachable in loss record 35 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x4079D8: ft_calloc (ft_calloc.c:21)
+==2522496==    by 0x40130A: make_line (main.c:432)
+==2522496==    by 0x401509: main (main.c:520)
+==2522496== 
+==2522496== 216 bytes in 1 blocks are still reachable in loss record 46 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x4079D8: ft_calloc (ft_calloc.c:21)
+==2522496==    by 0x401418: main (main.c:489)
+==2522496== 
+==2522496== 656 bytes in 1 blocks are still reachable in loss record 50 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x401D9C: update_env (builtins.c:491)
+==2522496==    by 0x4014A9: main (main.c:502)
+==2522496== 
+==2522496== 1,024 bytes in 1 blocks are still reachable in loss record 62 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x401538: get_current_dir (builtins.c:11)
+==2522496==    by 0x4021B0: ft_cd (builtins.c:607)
+==2522496==    by 0x40560C: start_exec (exec.c:315)
+==2522496==    by 0x4013E8: make_line (main.c:472)
+==2522496==    by 0x401509: main (main.c:520)
+==2522496== 
+==2522496== 1,944 bytes in 81 blocks are still reachable in loss record 65 of 98
+==2522496==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x402E5A: ft_lstnewchunk (link_list_chunk.c:8)
+==2522496==    by 0x404B8C: make_envp_and_set (envp.c:22)
+==2522496==    by 0x401493: main (main.c:500)
+==2522496== 
+==2522496== 1,944 bytes in 81 blocks are still reachable in loss record 66 of 98
+==2522496==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x402E5A: ft_lstnewchunk (link_list_chunk.c:8)
+==2522496==    by 0x404D55: make_export (envp.c:82)
+==2522496==    by 0x4014A0: main (main.c:501)
+==2522496== 
+==2522496== 4,176 bytes in 81 blocks are still reachable in loss record 82 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x40840F: ft_substr (ft_substr.c:26)
+==2522496==    by 0x404B84: make_envp_and_set (envp.c:22)
+==2522496==    by 0x401493: main (main.c:500)
+==2522496== 
+==2522496== 4,176 bytes in 81 blocks are still reachable in loss record 83 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x407F8F: ft_strdup (ft_strdup.c:23)
+==2522496==    by 0x401DB7: update_env (builtins.c:495)
+==2522496==    by 0x4014A9: main (main.c:502)
+==2522496== 
+==2522496== 5,229 bytes in 81 blocks are still reachable in loss record 84 of 98
+==2522496==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2522496==    by 0x4019F6: ft_strjoin_free (builtins.c:170)
+==2522496==    by 0x4023F0: ft_joined_for_export (builtins.c:656)
+==2522496==    by 0x404D4D: make_export (envp.c:82)
+==2522496==    by 0x4014A0: main (main.c:501)
+==2522496== 
+==2522496== LEAK SUMMARY:
+==2522496==    definitely lost: 0 bytes in 0 blocks
+==2522496==    indirectly lost: 0 bytes in 0 blocks
+==2522496==      possibly lost: 0 bytes in 0 blocks
+==2522496==    still reachable: 19,550 bytes in 415 blocks
+==2522496==         suppressed: 217,624 bytes in 253 blocks
+==2522496== 
+==2522496== ERROR SUMMARY: 16 errors from 16 contexts (suppressed: 83 from 83)
+==2522496== 
+==2522496== 1 errors in context 1 of 16:
+==2522496== Invalid read of size 1
+==2522496==    at 0x40829F: ft_strncmp (ft_strncmp.c:25)
+==2522496==    by 0x402263: ft_cd (builtins.c:618)
+==2522496==    by 0x40560C: start_exec (exec.c:315)
+==2522496==    by 0x4013E8: make_line (main.c:472)
+==2522496==    by 0x401509: main (main.c:520)
+==2522496==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==2522496== 
+--2522496-- 
+--2522496-- used_suppression:     83 readline read.supp:3 suppressed: 217,624 bytes in 253 blocks
+==2522496== 
+==2522496== ERROR SUMMARY: 16 errors from 16 contexts (suppressed: 83 from 83)

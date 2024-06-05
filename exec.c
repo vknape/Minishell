@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/08 09:40:42 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/30 15:22:59 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/06/05 13:56:57 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,10 @@ void	exec_cmd(t_all *all, t_cmd *cmd)
 	get_path(all, cmd);
 	if (cmd->path_found == 0)
 	{
+		// dprintf(2, "are we here\n");
 		all->line->exit_value = 127;
+		free_all(&all);
+		exit(127);
 		ft_exit(all);
 	}
 	// printf("here\n");
@@ -150,7 +153,8 @@ void	exec_cmd(t_all *all, t_cmd *cmd)
 	// close(STDIN_FILENO);
 	close(all->stdinfd);
 	close(all->stdoutfd);
-	execve(cmd->cmd[0], cmd->cmd, all->envpcpy);
+	execve(cmd->cmd[0], cmd->cmd, all->envcur);
+	// dprintf(2, "here\n");
 	exit(1);
 }
 
@@ -175,7 +179,8 @@ void	exec_builtin(t_all *all, t_cmd *cmd)
 		// free_all(&all);
 		// exit(1);
 	}
-	// free_all(&all);
+	free_all(&all);
+	exit(0);
 	ft_exit(all);
 }
 
@@ -318,9 +323,10 @@ void	start_exec(t_all *all)
 				ft_env(all);
 			if (!ft_strncmp("exit", temp->cmd[0], 5))
 			{
-				// free_all(&all);
 				ft_exit(all);
 			}
+			// free_all(&all);
+			// exit(0);
 		}
 		else
 		{
@@ -333,6 +339,8 @@ void	start_exec(t_all *all)
 			else
 				p = start_fork_1cmd(all, temp);
 		}
+		// free_all(&all);
+		// exit(0);
 		temp = temp->next;
 	}
 	if (p)

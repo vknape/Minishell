@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/09 07:40:37 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/05/30 11:16:51 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/06/05 13:57:40 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ char	*dollar_found(t_all *all, char *str)
 	int	i;
 
 	i = 1;
-	if (!str[i] || str[i] == '$')
+	if (!str[i] || str[i] == '$' || str[i] == 34 || str[i] == 39)
 		return (ft_substr(str, 0, i));
 	if (str[i] == '?')
 		return (ft_itoa(all->last_exit_status));
@@ -242,98 +242,296 @@ char	*dollar_found(t_all *all, char *str)
 	return (value_of_dollar_sign(all, &str[1], i - 1));
 }
 
+int		find_quote(char *str)
+{
+	int i;
+	
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == 39)
+			return (i + 1);
+		i++;
+	}
+	return (0);
+}
+
+void	handle_single_quotes(int *i, int start, char **whole, char *str)
+{
+	char	*dvalue;
+
+	if (*i - start > 0 && !(*whole))
+		(*whole) = ft_substr(str, start, *i - start);
+	else if (i - start > 0 && (*whole))
+	{
+		dvalue = ft_substr(str, start, *i - start);
+		(*whole) = ft_strjoin_free((*whole), dvalue);
+		free(dvalue);
+	}
+	start = *i;
+	(*i)++;
+	while (str[*i] && str[*i] != 39)
+		(*i)++;
+	(*i)++;
+	if (!(*whole))
+		(*whole) = ft_substr(str, start, *i - start);
+	else
+	{
+		dvalue = ft_substr(str, start, *i - start);
+		(*whole) = ft_strjoin_free((*whole), dvalue);
+		free(dvalue);
+	}
+}
+
+
+
+int		is_double_quote(char current, int counter)
+{
+	if (current == 34)
+	{
+		if (counter == 0)
+			counter = 34;
+		else
+			counter = 0;
+	}
+	return (counter);
+}
+
+void	dollar_signe_join(t_all *all, char **whole, char *str, int start)
+{
+	char	*dvalue;
+
+	if (!*whole)
+	{
+		*whole = ft_substr(str, start, all->line->tempi - start);
+		dvalue = dollar_found(all, &str[all->line->tempi]);
+		// dprintf(2 , "here\n");
+		// if (!dvalue)
+		// 	dprintf(2, "nuu\n");
+		if (all->line->tempc)
+			dvalue = remove_quotes_exp(dvalue);
+		// dprintf(2 , "here\n");
+		dvalue = remove_whitespace_cmd(dvalue);
+		// dprintf(2 , "here\n");
+		*whole = ft_strjoin_free(*whole, dvalue);
+		free(dvalue);
+		//dprintf(2, "*whole Is (%s)\n", *whole);
+	}
+	else
+	{
+		dvalue = ft_substr(str, start, all->line->tempi - start);
+		*whole = ft_strjoin_free(*whole, dvalue);
+		free(dvalue);
+		dvalue = dollar_found(all, &str[all->line->tempi]);
+		if (all->line->tempc)
+			dvalue = remove_quotes_exp(dvalue);
+		dvalue = remove_whitespace_cmd(dvalue);
+		*whole = ft_strjoin_free(*whole, dvalue);
+		free(dvalue);
+	}
+}
+
+int		dollar_signe_pos(t_all *all, char *str, int i)
+{
+	all->line->tempc = is_double_quote(str[i], all->line->tempc);
+	while (str[i] && str[i] != '$')
+	{
+		if (str[i] == 39)
+		{
+			i++;
+			if (find_quote(&str[i]))
+				i += find_quote(&str[i]);
+			if (!str[i])
+				break ;
+		}
+		i++;
+		all->line->tempc = is_double_quote(str[i], all->line->tempc);
+	}
+	return (i);
+}
+
+int		dollar_signe_pos_update(char *str, int i)
+{
+	if (str[i] == '?')
+		i++;
+	else
+	{
+		while (str[i] && ft_isalnum_under(str[i]))
+			i++;
+	}
+	return (i);
+}
+
+void	no_dollar_signe(char **whole, char *str, int i, int start)
+{
+	if (!*whole)
+		*whole = ft_substr(str, start, i - start);
+	else
+		*whole = ft_strjoin_free(*whole, &str[start]);
+}
 
 char	*search_dollar_signe(t_all *all, char *str)
 {
 	int		i;
 	int		start;
-	char	*dvalue;
-	char	*temp;
 	char	*whole;
 
 	i = 0;
 	whole = NULL;
-	//dprintf(2, "start\n");
-	//dprintf(2, "str at the begin is (%s)\n", str);
-	// if (str[0] == 39)
-	// {
-	// 	whole = ft_strdup(str);
-	// 	free(str);
-	// 	remove_quotes_cmd(whole);
-	// 	return (whole);
-	// }
+	all->line->tempc = 0;
 	while (str[i])
 	{
 		start = i;
-		while (str[i] && str[i] != '$' && str[i] != 39)
-			i++;
+		i = dollar_signe_pos(all, str, i);
 		if (!str[i])
-		{
-			if (!whole)
-				whole = ft_substr(str, start, i - start);
-			else
-				whole = ft_strjoin_free(whole, &str[start]);
-		}
+			no_dollar_signe(&whole, str, i, start);
 		else if (str[i] == 39)
-		{
-			//dprintf(2, "char is (%c)\n", str[i]);
-			if (i - start > 0 && !whole)
-				whole = ft_substr(str, start, i - start);
-			else if (i - start > 0 && whole)
-			{
-				dvalue = ft_substr(str, start, i - start);
-				whole = ft_strjoin_free(whole, dvalue);
-				free(dvalue);
-			}
-			start = i;
-			i++;
-			while (str[i] != 39)
-				i++;
-			i++;
-			if (!whole)
-				whole = ft_substr(str, start, i - start);
-			else
-			{
-				dvalue = ft_substr(str, start, i - start);
-				whole = ft_strjoin_free(whole, dvalue);
-				free(dvalue);
-			}
-			//dprintf(2, "str quotes is (%s)\n", whole);
-		}
+			handle_single_quotes(&i, start, &whole, str);
 		else
 		{
-			//dprintf(2, "in else\n");
-			if (!whole)
-			{
-				whole = ft_substr(str, start, i - start);
-				dvalue = dollar_found(all, &str[i]);
-				whole = ft_strjoin_free(whole, dvalue);
-				free(dvalue);
-				//dprintf(2, "whole Is (%s)\n", whole);
-			}
-			// else if (i - start > 0 && whole)
-			// 	dvalue = dollar_found(all, &str[i]);
-			else
-			{
-				dvalue = dollar_found(all, &str[i]);
-				whole = ft_strjoin_free(whole, dvalue);
-				free(dvalue);
-			}
+			all->line->tempi = i;
+			dollar_signe_join(all, &whole, str, start);
 			i++;
-			if (str[i] == '?')
-				i++;
-			else
-			{
-				while (str[i] && ft_isalnum_under(str[i]))
-					i++;
-			}
+			i = dollar_signe_pos_update(str, i);
 		}
 	}
 	free(str);
-	dprintf(2, "str after expende is (%s)\n", whole);
-	// remove_quotes_cmd(whole);
 	return (whole);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// char	*search_dollar_signe(t_all *all, char *str)
+// {
+// 	int		i;
+// 	int		start;
+// 	char	*dvalue;
+// 	char	*temp;
+// 	char	*whole;
+
+// 	i = 0;
+// 	whole = NULL;
+// 	//dprintf(2, "start\n");
+// 	dprintf(2, "str at the begin is (%s)\n", str);
+// 	// if (str[0] == 39)
+// 	// {
+// 	// 	whole = ft_strdup(str);
+// 	// 	free(str);
+// 	// 	remove_quotes_cmd(whole);
+// 	// 	return (whole);
+// 	// }
+// 	while (str[i])
+// 	{
+// 		start = i;
+// 		while (str[i] && str[i] != '$')
+// 		{
+// 			if (str[i] == 39)
+// 			{
+// 				i++;
+// 				if (find_quote(&str[i]))
+// 					i += find_quote(&str[i]);
+// 				if (!str[i])
+// 					break ;
+// 			}
+// 			i++;
+// 		}
+// 		if (!str[i])
+// 		{
+// 			if (!whole)
+// 				whole = ft_substr(str, start, i - start);
+// 			else
+// 				whole = ft_strjoin_free(whole, &str[start]);
+// 		}
+// 		else if (str[i] == 39)
+// 		{
+// 			//dprintf(2, "char is (%c)\n", str[i]);
+// 			if (i - start > 0 && !whole)
+// 				whole = ft_substr(str, start, i - start);
+// 			else if (i - start > 0 && whole)
+// 			{
+// 				dvalue = ft_substr(str, start, i - start);
+// 				whole = ft_strjoin_free(whole, dvalue);
+// 				free(dvalue);
+// 			}
+// 			start = i;
+// 			i++;
+// 			while (str[i] && str[i] != 39)
+// 				i++;
+// 			i++;
+// 			if (!whole)
+// 				whole = ft_substr(str, start, i - start);
+// 			else
+// 			{
+// 				dvalue = ft_substr(str, start, i - start);
+// 				whole = ft_strjoin_free(whole, dvalue);
+// 				free(dvalue);
+// 			}
+// 			//dprintf(2, "str quotes is (%s)\n", whole);
+// 		}
+// 		else
+// 		{
+// 			//dprintf(2, "in else\n");
+// 			if (!whole)
+// 			{
+// 				whole = ft_substr(str, start, i - start);
+// 				dvalue = dollar_found(all, &str[i]);
+// 				whole = ft_strjoin_free(whole, dvalue);
+// 				free(dvalue);
+// 				//dprintf(2, "whole Is (%s)\n", whole);
+// 			}
+// 			// else if (i - start > 0 && whole)
+// 			// 	dvalue = dollar_found(all, &str[i]);
+// 			else
+// 			{
+// 				dvalue = dollar_found(all, &str[i]);
+// 				whole = ft_strjoin_free(whole, dvalue);
+// 				free(dvalue);
+// 			}
+// 			i++;
+// 			if (str[i] == '?')
+// 				i++;
+// 			else
+// 			{
+// 				while (str[i] && ft_isalnum_under(str[i]))
+// 					i++;
+// 			}
+// 		}
+// 	}
+// 	free(str);
+// 	dprintf(2, "str after expende is (%s)\n", whole);
+// 	// remove_quotes_cmd(whole);
+// 	return (whole);
+// }
+
+
+
+
+
+
+
+
+
+
 
 // char	*search_dollar_signe(t_all *all, char *str)
 // {

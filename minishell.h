@@ -56,6 +56,8 @@ typedef struct s_line
 	char	**splits;
 	char	*saved_line;
 	int		pipe[2];
+	int		tempc;
+	int		tempi;
 	int		heredoc_pipe[2];
 	int		exit_value;
 	t_chunk	*chunks;
@@ -67,7 +69,8 @@ typedef struct s_all
 	t_line	*line;
 	char	*lastwd;
 	t_chunk	*envp;
-	char	**envpcpy;
+	// char	**envpcpy;
+	char	**envcur;
 	t_chunk	*export;
 	t_chunk	*set;
 	int		stdinfd;
@@ -119,13 +122,14 @@ t_chunk	*ft_lstnewchunk(char *str);
 t_chunk	*ft_lstlast_chunk(t_chunk *lst);
 void	ft_lstadd_back_chunk(t_chunk **lst, t_chunk *new);
 void	lstclear(t_chunk **lst);
+int		ft_lstsizechunk(t_chunk *lst);
 
 // list of function of fill_each_cmd
 //void	split_cmds(char *curline, t_all *all);
 void	split_cmd_nodes(t_all *all);
 
 //parsing utils
-int	check_space(char *str);
+int		check_space(char *str);
 char	**ft_split_quotes(char const *s, char c);
 char	*get_next_line(int fd);
 
@@ -142,6 +146,8 @@ void	sorter_export(t_all *all);
 char	*ft_joined_for_export(char *str, int start);
 void	ft_exit(t_all *all);
 int		ft_isalnum_under(int c);
+char	**update_env(t_all *all);
+int		ft_strncmp2(const char *str1, const char *str2, size_t n);
 
 //free
 void	free_line(t_line **line);

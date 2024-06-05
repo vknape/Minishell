@@ -6,7 +6,7 @@
 /*   By: vknape <vknape@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/20 09:39:20 by vknape        #+#    #+#                 */
-/*   Updated: 2024/05/30 08:34:22 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/06/05 07:43:25 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,13 @@
 static int	words_counter(char const *s, char c)
 {
 	int		count;
-	int		start;
 	int		i;
 	char	q;
 
 	count = 0;
-	start = 0;
 	i = 0;
 	while (s[i])
 	{
-		// printf("s = (%c)\n", s[i]);
 		while (s[i] && s[i] == c)
 			i++;
 		if (s[i] == 34 || s[i] == 39)
@@ -75,9 +72,7 @@ static int	words_counter(char const *s, char c)
 			if (!s[i] || s[i] == c)
 				count++;
 		}
-
 	}
-	//dprintf(2, "words = (%d)\n", count);
 	return (count);
 }
 
@@ -90,22 +85,19 @@ static int	len(char const *s, char c)
 	char	q;
 
 	i = 0;
-	
+
 	while (s[i] && s[i] != c)
 	{
 		q = -1;
-		// dprintf(2, "char here is  (%c)\n", s[i]);
 		if (s[i] && (s[i] == 34 || s[i] == 39))
 		{
 			q = s[i];
 			i++;
 			while (s[i] && s[i] != q)
 				i++;
-			// i++;
 		}
 		i++;
 	}
-	//dprintf(2, "len is (%d)\n", i);
 	return (i);
 }
 
@@ -244,13 +236,10 @@ char	**ft_split_quotes(char const *s, char c)
 {
 	char	**array_of_s;
 	int		i;
-	int		start;
 	int		index;
-	char	q;
 
 	index = 0;
 	array_of_s = malloc(sizeof(char *) * (words_counter(s, c) + 1));
-	start = 0;
 	i = 0;
 	if (array_of_s == NULL)
 		return (NULL);

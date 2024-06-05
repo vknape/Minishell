@@ -81,8 +81,8 @@ tester()
 	es2=$?
 	grep -v "$REM" $OUTFILE2 > tester/temp.txt
 	mv tester/temp.txt $OUTFILE2
-	grep -v ">" $OUTFILE2 > tester/temp.txt
-	mv tester/temp.txt $OUTFILE2
+	# grep -v ">" $OUTFILE2 > tester/temp.txt
+	# mv tester/temp.txt $OUTFILE2
 	# grep -v "> end" $OUTFILE2 > tester/temp.txt
 	# mv tester/temp.txt $OUTFILE2
 	# sed -i "s@$REM@""@g"
@@ -165,11 +165,43 @@ rm tester/child_leak2.txt
 # exit
 # clear_logs $i
 
+# tester 'echo "> >> < ? [ ] | ; [ ] || && ( ) & # $ \ <<"'
+# tester "echo '> >> < ? [ ] | ; [ ] || && ( ) & # $ \ <<'"
+# tester 'echo "exit_code ->$? user ->$USER home -> $HOME"'
+# tester 'echo "exit_code ->$? user"'
+
+# tester "echo 'exit_code ->$? user ->$USER home -> $HOME'"
+
 # exit
+printf "\033[1m\033[36mSYNTAX TESTS\n"
+tester '|'
+tester '||'
+tester '>'
+tester '>>'
+tester '>>>'
+tester '<'
+tester '<<'
+tester '<<<'
+tester 'echo hello >'
+tester 'echo hello <'
+tester 'echo hello |> ls'
+tester 'echo hello >| ls'
+tester 'echo hello > | ls'
+tester 'echo hello | > ls'
+tester 'echo hello |	> ls'
+tester 'echo hello <> ls'
+tester 'echo hello >< ls'
+tester 'echo hello < > ls'
+tester 'echo hello > < ls'
+tester 'echo hello | "|"'
+tester 'echo hello | "<"'
+tester 'echo hello | ">"'
+
 printf "\033[1m\033[36mECHO TESTS\n"
 tester 'echo hello \n echo hello'
 tester 'echo hello hello'
 tester 'echo hello "hello hello"'
+tester "echo hello 'hello hello'"
 tester 'echo hello "hello hello" hello'
 tester_echo 'echo -n hello "hello hello" hello'
 # exit
@@ -178,11 +210,18 @@ tester_echo 'echo -n -nm -n hello "hello hello" hello'
 tester_echo 'echo -n -mn -n hello "hello hello" hello'
 tester_echo 'echo -nnnnnnnnnnnn -n hello "hello hello" hello'
 
-printf "\n\033[1m\033[36mCD TESTS\n"
-
-
 printf "\n\033[1m\033[36mPWD TESTS\n"
 tester 'pwd'
+tester 'pwd hello'
+
+printf "\n\033[1m\033[36mCD TESTS\n"
+tester 'cd'
+tester 'cd ..\npwd'
+tester 'cd $PWD\npwd'
+tester 'cd ~\npwd'
+tester 'cd ..\ncd -\npwd'
+tester 'cd .. ..'
+tester 'cd invalid'
 
 printf "\n\033[1m\033[36mEXPORT TESTS\n"
 # tester 'export var=5 \nexport'
@@ -209,6 +248,8 @@ tester '$var'
 unset var
 tester '$USER'
 tester 'echo $'
+tester 'echo "$"'
+tester "echo '$'"
 tester 'echo $ '
 tester 'echo  $'
 tester 'echo $$'
@@ -232,6 +273,16 @@ unset var
 
 
 printf "\n\033[1m\033[36mEXIT TESTS\n"
+tester 'exit 123'
+tester 'exit 298'
+tester 'exit +100'
+tester 'exit "+100"'
+tester 'exit +"100"'
+tester 'exit -100'
+tester 'exit "-100"'
+tester 'exit -"100"'
+tester 'exit hello'
+tester 'exit 42 world'
 
 printf "\n\033[1m\033[36mCMD TESTS\n"
 tester 'ls'

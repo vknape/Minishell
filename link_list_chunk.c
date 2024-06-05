@@ -60,3 +60,18 @@ void	lstclear(t_chunk **lst)
 	}
 	*lst = NULL;
 }
+
+int	ft_lstsizechunk(t_chunk *lst)
+{
+	int	i;
+
+	if (lst == NULL)
+		return (0);
+	i = 1;
+	while ((*lst).next != NULL)
+	{
+		i++;
+		lst = (*lst).next;
+	}
+	return (i);
+}

@@ -1,9 +1,31 @@
-update env and read from env instead of copyright
-rework export for quotes in var names
-error handling and error output
+//update env and read from env instead of copyright
+//rework export for quotes in var names
+//find program from ~ path
 think of more edge cases to test
+error handling and error output
+exit and exit codes
+add absolute and relative path tests
+add permissions tests
+don't accept unfinished tokens before pipe
+segfault after unfinished token and then enter on next line
+segfault after space enter
+update shell lvl
+
+exit > 255 = exit code is % 256
+exit accepts 1 + at the first spot
+exit < 0 = add 256 till positive accepts only one - on the first spot
+exit invalid argument is exit code 2
+exit too many arguments is exit code 1
 
 export var='"echo"'
 export
 export var=echo
 export
+
+------dollar sign, no value, ending with ' or "
+
+manual tests
+signals
+adding and removing variables
+readline prompt
+env export and unset

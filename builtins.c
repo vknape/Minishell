@@ -71,40 +71,42 @@ char	*value_of_dollar_sign(t_all *all, char *str, int len)
 	temp = all->envp;
 	copy_value = NULL;
 	copy_str = ft_substr(str, 0, len);
-	while (temp != NULL)
-	{
-		// dprintf(2, "(%s)\n", temp->str);
-		if (!ft_strncmp2(copy_str, temp->str, ft_strlen(copy_str) + 1))
-		{
-			copy_value = ft_substr(temp->str, ft_strlen(copy_str) + 1, ft_strlen(temp->str) - ft_strlen(copy_str));
-			// printf("do we het here (%s)\n", copy_value);
-			break ;
-		}
-		temp = temp->next;
-	}
+	// while (temp != NULL)
+	// {
+	// 	// dprintf(2, "(%s)\n", temp->str);
+	// 	if (!ft_strncmp2(copy_str, temp->str, ft_strlen(copy_str) + 1))
+	// 	{
+	// 		copy_value = ft_substr(temp->str, ft_strlen(copy_str) + 1, ft_strlen(temp->str) - ft_strlen(copy_str));
+	// 		dprintf(2,"do we het here (%s)\n", copy_value);
+	// 		break ;
+	// 	}
+	// 	temp = temp->next;
+	// }
 	if (copy_value == NULL)
 	{
 		temp = all->export;
 		while (temp != NULL)
 		{
 			// dprintf(2, "(%s)\n", temp->str);
-			while (temp->str[i] && temp->str[i] != '=')
-				i++;
-			if (!ft_strncmp2(copy_str, temp->str, ft_strlen(copy_str) + 1))
+			// while (temp->str[i] && temp->str[i] != '=')
+			// 	i++;
+			if (!ft_strncmp2(copy_str, temp->str + 11, ft_strlen(copy_str) + 1))
 			{
-				// printf("temp str (%s)\n", temp->str);
-				copy_value = ft_substr(temp->str, ft_strlen(copy_str) + 1, ft_strlen(temp->str) - ft_strlen(copy_str));
-				copy_value = remove_quotes_exp(copy_value);
+				// dprintf(2, "temp str (%s)\n", temp->str);
+				copy_value = ft_substr(temp->str, ft_strlen(copy_str) + 1 + 11, ft_strlen(temp->str) - ft_strlen(copy_str));
+				// copy_value = remove_quotes_exp(copy_value);
 				break ;
 			}
 			temp = temp->next;
 		}
 	}
+	if (!copy_value)
+		copy_value = ft_substr(copy_str, ft_strlen(copy_str), 1);
 	free(copy_str);
 	// printf("copy str (%s)\n", copy_value);
 	// copy_value = remove_quotes_exp(copy_value);
-	copy_value = remove_whitespace_cmd(copy_value);
-	dprintf(2, "copy str after remove _quotes_cmd(%s)\n", copy_value);
+	// copy_value = remove_whitespace_cmd(copy_value);
+	// dprintf(2, "copy str after remove _quotes_cmd(%s)\n", copy_value);
 	return (copy_value);
 }
 
@@ -122,7 +124,7 @@ void	join_all_indexes_of_array(char **array_str, int index, int new_line)
 	line_joined = NULL;
 	while (array_str[index] != NULL)
 	{
-		dprintf(2, "echo str = (%s)\n", array_str[index]);
+		// dprintf(2, "echo str = (%s)\n", array_str[index]);
 		if (!line_joined)
 			line_joined = ft_strdup(array_str[index]);
 		else
@@ -455,7 +457,7 @@ void	ft_remove_var(t_chunk *chunk, char *str)
 	t_chunk	*temp2;
 
 	temp = chunk;
-	if (!ft_strncmp(temp->str, str, ft_strlen(temp->str)))
+	if (!ft_strncmp2(str, temp->str, ft_strlen(str) + 1))
 	{
 		chunk = temp->next;
 		free(temp);
@@ -463,7 +465,7 @@ void	ft_remove_var(t_chunk *chunk, char *str)
 	}
 	while (temp->next)
 	{
-		if (!ft_strncmp(temp->next->str, str, ft_strlen(str)))
+		if (!ft_strncmp2(str, temp->next->str, ft_strlen(str) + 1))
 		{
 			temp2 = temp->next;
 			temp->next = temp->next->next;
@@ -474,6 +476,33 @@ void	ft_remove_var(t_chunk *chunk, char *str)
 		}
 		temp = temp->next;
 	}
+}
+
+char	**update_env(t_all *all)
+{
+	t_chunk	*temp;
+	int		count_nodes;
+	char	**env_updated;
+	int		index;
+
+	index = 0;
+	temp = all->envp;
+	count_nodes = ft_lstsizechunk(temp);
+	env_updated = malloc(sizeof(char *) * (count_nodes + 1));
+	while (temp)
+	{
+		// dprintf(2, "str = (%s)\n", temp->str);
+		env_updated[index++] = ft_strdup(temp->str);
+		temp = temp->next;
+	}
+	env_updated[index] = NULL;
+	// index = 0;
+	// while (env_updated[index])
+	// {
+	// 	dprintf(2, "%s\n", env_updated[index]);
+	// 	index++;
+	// }
+	return (env_updated);
 }
 
 void	ft_unset(t_all *all, char **str)
@@ -490,6 +519,9 @@ void	ft_unset(t_all *all, char **str)
 		free(c);
 		i++;
 	}
+	if (all->envcur)
+		free2d(all->envcur);
+	all->envcur = update_env(all);
 }
 
 
@@ -614,12 +646,15 @@ char	*ft_joined_for_export(char *str, int start)
 	temp1 = ft_substr(str, 0, start + 1);
 	temp2 = ft_strjoin("declare -x ", temp1);
 	free(temp1);
-	temp1 = ft_strjoin(temp2, "\"");
-	free(temp2);
-	temp2 = ft_substr(str, start + 1, ft_strlen(str) - (start + 1));
-	temp1 = ft_strjoin_free(temp1, temp2);
-	free(temp2);
-	temp2 = ft_strjoin_free(temp1, "\"");
+	if (str[start] == '=')
+	{
+		temp1 = ft_strjoin(temp2, "\"");
+		free(temp2);
+		temp2 = ft_substr(str, start + 1, ft_strlen(str) - (start + 1));
+		temp1 = ft_strjoin_free(temp1, temp2);
+		free(temp2);
+		temp2 = ft_strjoin_free(temp1, "\"");
+	}
 	// printf("str for export is (%s)\n", temp2);
 	return (temp2);
 }
@@ -631,87 +666,273 @@ int	ft_isalnum_under(int i)
 	return (0);
 }
 
-void	ft_export(t_all	*all)
+void	ft_printexport(t_all *all)
 {
-	int		i;
-	int		i_char;
-	int		to_env;
-	t_chunk	*chuncks;
-	char	*joined_for_export;
+	t_chunk	*chunks;
+
+	chunks = all->export;
+	while (chunks)
+	{
+		printf("%s\n", chunks->str);
+		chunks = chunks->next;
+	}
+}
+
+int		check_export_in(t_all *all, char *str)
+{
+	int i;
 
 	i = 0;
-	chuncks = all->export;
-	while (all->line->each_cmd->cmd[i] != NULL)
-		i++;
-	if (i == 1)
+	if (ft_strchr("1234567890=", str[0]))
 	{
-		while (chuncks)
-		{
-			printf("%s\n", chuncks->str);
-			chuncks = chuncks->next;
-		}
+		printf("bashs: export: %s: not a valid identifier\n", str);
+		all->last_exit_status = 1;
+		return (0);
 	}
-	else
+	while (str[i] && str[i] != '=')// && ft_isalnum_under(str[i]))
 	{
-		// there are some arguments
-		i = 1;
-		while (all->line->each_cmd->cmd[i] != NULL)
+		if (!ft_isalnum_under(str[i]))
 		{
-			to_env = 0;
-			i_char = 0;
-			while (all->line->each_cmd->cmd[i][i_char] && (all->line->each_cmd->cmd[i][i_char] == '=' || ft_isalnum_under(all->line->each_cmd->cmd[i][i_char])))
+			printf("bashs: export: %s: not a valid identifier\n", str);
+			all->last_exit_status = 1;
+			return (0);
+		}
+		i++;
+	}
+	all->last_exit_status = 0;
+	if (str[i] && str[i] == '=')
+		return (2);
+	else
+		return (1);
+	
+}
+
+int		is_in_export(t_chunk *node, char *str)
+{
+	t_chunk	*temp;
+	int		i;
+
+	temp = node;
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	while (temp)
+	{
+		if (!ft_strncmp(temp->str + 11, str, i))
+		{
+			if (str[i])
 			{
-				if (all->line->each_cmd->cmd[i][i_char] == '=')
-					to_env = 1;
-				i_char++;
-			}
-			if (all->line->each_cmd->cmd[i][i_char])
-			{
-				printf("bash: export: %s: not a valid identifier\n", all->line->each_cmd->cmd[i]);
-				all->last_exit_status = 1;
-				return ;
-			}
-			i_char = 0;
-			if (ft_strchr("1234567890=", all->line->each_cmd->cmd[i][0]))
-			{
-				printf("bashs: export: %s: not a valid identifier\n", all->line->each_cmd->cmd[i]);
-				all->last_exit_status = 1;
-				return ;
+				// dprintf(2, "2\n");
+				return (2);
 			}
 			else
 			{
-				if (to_env)
-				{
-					ft_lstadd_back_chunk(&all->envp, ft_lstnewchunk(all->line->each_cmd->cmd[i]));
-				}
-				while (all->line->each_cmd->cmd[i][i_char] && all->line->each_cmd->cmd[i][i_char] != '=')
-					i_char++;
-				if (all->line->each_cmd->cmd[i][i_char])
-				{
-					joined_for_export = ft_joined_for_export(all->line->each_cmd->cmd[i], i_char);
-					ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(joined_for_export));
-					free(joined_for_export);
-				}
-				else
-				{
-					joined_for_export = ft_strjoin("declare -x ", all->line->each_cmd->cmd[i]);
-					ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(joined_for_export));
-					free(joined_for_export);
-				}
+				// dprintf(2, "1\n");
+				return (1);
 			}
-			i++;
+		}
+		temp = temp->next;
+	}
+	return (0);
+}
+
+int		is_in_envp(t_chunk *node, char *str)
+{
+	t_chunk	*temp;
+	int		i;
+
+	temp = node;
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	while (temp)
+	{
+		if (!ft_strncmp(temp->str, str, i))
+		{
+			if (str[i])
+				return (2);
+			else
+				return (1);
+		}
+		temp = temp->next;
+	}
+	return (0);
+}
+
+void	update_export(t_all *all, char *str, int varvalue)
+{
+	int		i;
+	char	*temp;
+	char	*temp2;
+	t_chunk	*list;
+
+	list = all->export;
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	if (varvalue == 1 && is_in_export(list, str) > 0)
+		return ;
+	else if (varvalue > 0 && is_in_export(list, str) == 0)
+	{
+		temp = ft_joined_for_export(str, i);
+		ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(temp));
+	}
+	else if (varvalue == 2 && is_in_export(list, str) > 0)
+	{
+		temp2 = ft_substr(str, 0, i);
+		temp = ft_strjoin("declare -x ", temp2);
+		free(temp2);
+		ft_remove_var(all->export, temp);
+		free(temp);
+		temp = ft_joined_for_export(str, i);
+		ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(temp));
+	}
+}
+
+void	update_envp(t_all *all, char *str, int varvalue)
+{
+	int		i;
+	char	*temp;
+	t_chunk	*list;
+
+	list = all->envp;
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	if (varvalue != 2)
+		return ;
+	if (is_in_envp(list, str) == 0)
+	{
+		temp = ft_strdup(str);
+		ft_lstadd_back_chunk(&all->envp, ft_lstnewchunk(temp));
+	}
+	else if (is_in_envp(list, str) > 0)
+	{
+		ft_remove_var(all->envp, str);
+		temp = ft_strdup(str);
+		ft_lstadd_back_chunk(&all->envp, ft_lstnewchunk(temp));
+	}
+}
+
+void	ft_export(t_all *all)
+{
+	t_chunk	*chunks;
+	int		index;
+	int		varvalue;
+
+	chunks = all->export;
+	index = 1;
+	if (!all->line->each_cmd->cmd[1])
+		ft_printexport(all);
+	else
+	{
+		while (all->line->each_cmd->cmd[index])
+		{
+			varvalue = check_export_in(all, all->line->each_cmd->cmd[index]);
+			if (varvalue == 1)
+				update_export(all, all->line->each_cmd->cmd[index], varvalue);
+			if (varvalue == 2)
+			{
+				update_envp(all, all->line->each_cmd->cmd[index], varvalue);
+				update_export(all, all->line->each_cmd->cmd[index], varvalue);
+				if (all->envcur)
+					free2d(all->envcur);
+				all->envcur = update_env(all);
+			}
+			index++;
 		}
 		sorter_export(all);
 	}
-	// just to test the out put
-	// printf("test\n\n\n");
-	// chuncks = all->export;
-	// while (chuncks)
-	// {
-	// 	printf("%s\n", chuncks->str);
-	// 	chuncks = chuncks->next;
-	// }
 }
+
+// void	ft_export(t_all	*all)
+// {
+// 	int		i;
+// 	int		i_char;
+// 	int		to_env;
+// 	t_chunk	*chuncks;
+// 	char	*joined_for_export;
+
+// 	i = 0;
+// 	chuncks = all->export;
+// 	while (all->line->each_cmd->cmd[i] != NULL)
+// 		i++;
+// 	if (i == 1)
+// 	{
+// 		while (chuncks)
+// 		{
+// 			printf("%s\n", chuncks->str);
+// 			chuncks = chuncks->next;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		// there are some arguments
+// 		i = 1;
+// 		while (all->line->each_cmd->cmd[i] != NULL)
+// 		{
+// 			to_env = 0;
+// 			i_char = 0;
+// 			while (all->line->each_cmd->cmd[i][i_char] && (all->line->each_cmd->cmd[i][i_char] == '=' || ft_isalnum_under(all->line->each_cmd->cmd[i][i_char])))
+// 			{
+// 				if (all->line->each_cmd->cmd[i][i_char] == '=')
+// 					to_env = 1;
+// 				i_char++;
+// 			}
+// 			if (all->line->each_cmd->cmd[i][i_char])
+// 			{
+// 				printf("bash: export: %s: not a valid identifier\n", all->line->each_cmd->cmd[i]);
+// 				all->last_exit_status = 1;
+// 				return ;
+// 			}
+// 			i_char = 0;
+// 			if (ft_strchr("1234567890=", all->line->each_cmd->cmd[i][0]))
+// 			{
+// 				printf("bashs: export: %s: not a valid identifier\n", all->line->each_cmd->cmd[i]);
+// 				all->last_exit_status = 1;
+// 				return ;
+// 			}
+// 			else
+// 			{
+// 				dprintf(2, "str = (%s)\n", all->line->each_cmd->cmd[i]);
+// 				if (to_env)
+// 				{
+// 					ft_lstadd_back_chunk(&all->envp, ft_lstnewchunk(all->line->each_cmd->cmd[i]));
+// 				}
+// 				while (all->line->each_cmd->cmd[i][i_char] && all->line->each_cmd->cmd[i][i_char] != '=')
+// 					i_char++;
+// 				if (all->line->each_cmd->cmd[i][i_char])
+// 				{
+// 					joined_for_export = ft_joined_for_export(all->line->each_cmd->cmd[i], i_char);
+// 					ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(joined_for_export));
+// 					free(joined_for_export);
+// 				}
+// 				else
+// 				{
+// 					joined_for_export = ft_strjoin("declare -x ", all->line->each_cmd->cmd[i]);
+// 					ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(joined_for_export));
+// 					free(joined_for_export);
+// 				}
+// 			}
+// 			i++;
+// 		}
+// 		sorter_export(all);
+// 		if (to_env == 1)
+// 		{
+// 			if (all->envcur)
+// 				free2d(all->envcur);
+// 			all->envcur = update_env(all);
+// 		}
+// 	}
+// 	// just to test the out put
+// 	// printf("test\n\n\n");
+// 	// chuncks = all->export;
+// 	// while (chuncks)
+// 	// {
+// 	// 	printf("%s\n", chuncks->str);
+// 	// 	chuncks = chuncks->next;
+// 	// }
+// }
 
 // void	error_exit(t_all *all)
 // {
@@ -720,12 +941,14 @@ void	ft_export(t_all	*all)
 
 void	ft_exit(t_all *all)
 {
-	int	i;
-	int	local;
+	int		i;
+	int		local;
+	char	*str;
 
 	i = 0;
+	str = all->line->each_cmd->cmd[1];
 	//check arguments
-	if (all->line->each_cmd->cmd[1] == NULL)
+	if (str == NULL)
 	{
 		//no arguments
 		local = all->line->exit_value;
@@ -736,9 +959,7 @@ void	ft_exit(t_all *all)
 			exit(local);
 		}
 		else
-		{
 			exit(local);
-		}
 	}
 	else
 	{
@@ -753,22 +974,24 @@ void	ft_exit(t_all *all)
 		{
 			//just one arguments
 			//check if is it digit
-			while (all->line->each_cmd->cmd[1][i] && ft_isdigit(all->line->each_cmd->cmd[1][i]))
-			{
+			if (str[0] && (str[0] == '+' || str[0] == '-'))
 				i++;
-			}
-			if (all->line->each_cmd->cmd[1][i] != '\0')
+			while (str[i] && ft_isdigit(str[i]))
+				i++;
+			if (str[i] != '\0')
 			{
 				//there is another char
-				printf(" %s: numeric argument required\n", all->line->each_cmd->cmd[1]);
+				printf(" %s: numeric argument required\n", str);
 				all->last_exit_status = 2;
 				exit(2);
 			}
 			else
 			{
 				//just numbers
-				all->last_exit_status = ft_atoi(all->line->each_cmd->cmd[1]);
-				exit(ft_atoi(all->line->each_cmd->cmd[1]));
+				all->last_exit_status = ft_atoi(str) % 256;
+				while (all->last_exit_status < 0)
+					all->last_exit_status += 256;
+				exit(all->last_exit_status);
 			}
 		}
 	}

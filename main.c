@@ -392,36 +392,36 @@ g_glob = 0;
 
 
 
-void	init_each_command(t_all *all)
-{
-	t_line *line;
-	int i;
+// void	init_each_command(t_all *all)
+// {
+// 	t_line *line;
+// 	int i;
 
-	line = all->line;
-	line->each_cmd = ft_calloc(line->total_cmd + 1, sizeof(t_cmd));
-	if (!line->each_cmd)
-		exit(1);
-}
+// 	line = all->line;
+// 	line->each_cmd = ft_calloc(line->total_cmd + 1, sizeof(t_cmd));
+// 	if (!line->each_cmd)
+// 		exit(1);
+// }
 
 
-void	initialize_each_cmd(t_all *all)
-{
-	int		i;
+// void	initialize_each_cmd(t_all *all)
+// {
+// 	int		i;
 
-	i = 0;
-	// printf("all->line->total_cmd is %d\n", all->line->total_cmd);
-	all->line->each_cmd = ft_calloc(all->line->total_cmd + 1, sizeof(t_cmd));
-	// while (i < all->line->total_cmd)
-	// {
-	// 	printf("before initialize_t_all\n\n");
-	// 	// all->line->each_cmd[i].cmd = ft_calloc(2, sizeof(chwhile (check_quotes(curline, all) != 0)
-		//check_line(curline, all);ar));
-	// 	// all->line->each_cmd[i].infile = ft_calloc(2, sizeof(char));
-	// 	// all->line->each_cmd[i].outfile = ft_calloc(2, sizeof(char));
-	// 	i++;
-	// }
-	// printf("after initialize_t_all\n\n");
-}
+// 	i = 0;
+// 	// printf("all->line->total_cmd is %d\n", all->line->total_cmd);
+// 	all->line->each_cmd = ft_calloc(all->line->total_cmd + 1, sizeof(t_cmd));
+// 	// while (i < all->line->total_cmd)
+// 	// {
+// 	// 	printf("before initialize_t_all\n\n");
+// 	// 	// all->line->each_cmd[i].cmd = ft_calloc(2, sizeof(chwhile (check_quotes(curline, all) != 0)
+// 		//check_line(curline, all);ar));
+// 	// 	// all->line->each_cmd[i].infile = ft_calloc(2, sizeof(char));
+// 	// 	// all->line->each_cmd[i].outfile = ft_calloc(2, sizeof(char));
+// 	// 	i++;
+// 	// }
+// 	// printf("after initialize_t_all\n\n");
+// }
 
 void	make_line(t_all *all)
 {
@@ -435,6 +435,7 @@ void	make_line(t_all *all)
 	free(current_path);
 	current_path = NULL;
 	curline = readline(prompt);
+	add_history(curline);
 	free(prompt);
 	prompt = NULL;
 	if (!curline)
@@ -460,6 +461,13 @@ void	make_line(t_all *all)
 		free(curline);
 		curline = NULL;
 		split_cmd_nodes(all);
+		// int i = -1;
+		// while (all->line->each_cmd->cmd[i++])
+		// 	dprintf(2, "cmd = (%s)\n", all->line->each_cmd->cmd[i]);
+		// // all->line->each_cmd = all->line->each_cmd->next;
+		// i = -1;
+		// while (all->line->each_cmd->cmd[i++])
+		// 	dprintf(2, "cmd = (%s)\n", all->line->each_cmd->cmd[i]);
 		remove_whitespace_quotes(all, all->line->each_cmd);
 		start_exec(all);
 		// dup2(all->stdinfd, 0);
@@ -483,7 +491,7 @@ int	main(int argc, char **argv, char **envp)
 	sigemptyset(&all->sa.sa_mask);
 	all->sa.sa_flags = SA_INTERRUPT;
 
-	all->envpcpy = envp;
+	// all->envpcpy = envp;
 	all->stdinfd = dup(STDIN_FILENO);
 	all->stdoutfd = dup(STDOUT_FILENO);
 	// printf("address = %s", all->line->each_cmd->infile->str);
@@ -491,6 +499,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	make_envp_and_set(all, envp);
 	make_export(all, envp);
+	all->envcur = update_env(all);
 	while (1)
 	{
 		// g_glob = 0;

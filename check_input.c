@@ -13,6 +13,12 @@ char	*join_line_after_quotes(char *curline, t_all *all)
 	free(curline);
 	curline = NULL;
 	input = readline("> ");
+	if (!input)
+	{
+		// dprintf(2, "exit\n");
+		free_all(&all);
+		exit(0);
+	}
 	while (previous_line[i])
 	{
 		if (previous_line[i] == 10)
@@ -98,6 +104,10 @@ int	check_meta(t_all *all, char *curline)
 	// printf("after print nodes\n");
 	while (cur)
 	{
+		// dprintf(2, "cur = (%s)\n", cur->str);
+		// if (cur->next)
+		// 	dprintf(2, "cur = (%s)\n\n", cur->next->str);
+		// dprintf(2, "cur = (%s)\n\n", cur->next->next->str);
 		i = 0;
 		if (cur->str[0] == '|')
 		{
@@ -105,10 +115,11 @@ int	check_meta(t_all *all, char *curline)
 				return (2);
 			if (cur->next == NULL)
 				return (1);
-			if (cur->next->str[0] == '|')
-				return (2);
+			// dprintf(2, "cur->next = (%s)\n\n", cur->next->str);
 			while (cur->next->str[i] && is_white_space(cur->next->str[i]))
 				i++;
+			if (!cur->next->str[i] || cur->next->str[i] == '|' || cur->next->str[i] == '<' || cur->next->str[i] == '>')
+				return (2);
 			if (cur->next->str[i])
 				return (0);
 			else
@@ -117,13 +128,20 @@ int	check_meta(t_all *all, char *curline)
 		}
 		if (cur->str[0] == '<' || cur->str[0] == '>')
 		{
-			// printf("here\n\n");
+			// dprintf(2, "this here\n\n");
+			// if (cur->next)
+				// dprintf(2, "cur = (%s)dprintf(2, "cur = (%s)\n\n", cur->next->str);\n\n", cur->next->str);
 			if (cur->next && cur->next->str[0] == '<')
 				return (2);
 			if (cur->next && cur->next->str[0] == '>')
 				return (2);
-			if (cur->next == NULL || (cur->next && !check_space(cur->next->str)))
+			if (cur->next && cur->next->str[0] == '|')
 				return (2);
+			if (cur->next == NULL || (cur->next && !check_space(cur->next->str)))
+			{
+				// dprintf(2, "here\n");
+				return (2);
+			}
 		}
 		prev = cur;
 		cur = cur->next;
@@ -147,10 +165,14 @@ void	split_all_substring(char *curline, t_line *line, int *pos, int *i)
 {
 	char	*str;
 
+	// dprintf(2, "curline is (%s)\n", curline);
 	str = ft_substr(curline, *pos, *i - *pos);
+	// dprintf(2, "substr is (%s)\n", str);
 	*pos = *i;
 	if (ft_strlen(str) != 0)
 		ft_lstadd_back_chunk(&line->chunks, ft_lstnewchunk(str));
+	else
+		free(str);
 	if ((curline[*i] == '<' && curline[*i + 1] == '<') || (curline \
 		[*i] == '>' && curline[*i + 1] == '>'))
 		++*i;
@@ -192,25 +214,46 @@ void	split_all(char *curline, t_all *all)
 
 char	*check_input(char *curline, t_all *all)
 {
-	int	i;
+	int		i;
 	char	*temp;
+	char	*prompt;
+	char	*current_path;
 
 	while (1)
 	{
 		if (check_quotes(curline, all))
+		{
 			curline = join_line_after_quotes(curline, all);
+			add_history(curline);
+		}
 		else
 		{
 			split_all(curline, all);
 			i = check_meta(all, curline);
 			if (i == 1)
+			{
 				curline = join_line_after_quotes(curline, all);
+				add_history(curline);
+			}
 			else if (i == 2)
 			{
 				lstclear(&all->line->chunks);
 				free(curline);
-				printf("parse error near \n");
-				curline = readline("current working directory$");
+				dprintf(2, "parse error near \n");
+				current_path = get_current_dir();
+				prompt = ft_strjoin(current_path, "$ ");
+				free(current_path);
+				current_path = NULL;
+				curline = readline(prompt);
+				free(prompt);
+				prompt = NULL;
+				if (!curline)
+				{
+					// dprintf(2, "exit\n");
+					free_all(&all);
+					exit(0);
+				}
+				add_history(curline);
 			}
 			else if (i == 0)
 			{

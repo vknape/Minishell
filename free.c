@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/20 13:02:28 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/06/03 08:53:16 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/06/05 15:16:12 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,4 +135,17 @@ void	free_all(t_all **all)
 		// close(STDIN_FILENO);
 	}
 	all = NULL;
+}
+
+void	kill_process(t_all *all)
+{
+	int	local;
+
+	local = all->last_exit_status;
+	//dprintf(2, "local is (%d)\n", local);
+	free_all(&all);
+	if (g_glob == 2)
+		exit(130);
+	else
+		exit(local);
 }

@@ -444,6 +444,12 @@ void	make_line(t_all *all)
 		free_all(&all);
 		exit(0);
 	}
+	if (!check_space(curline))
+	{
+		free(curline);
+		add_history(curline);
+		return ;
+	}
 	if (curline[0] != '\0')
 	{
 		curline = check_input(curline, all);

@@ -132,17 +132,8 @@ Your error is:
 35.
 36.
 37.
-Bash error is:	
-Your error is:	
-error invalid dir
 38.
-Bash error is:	
-Your error is:	
-error invalid dir
 39.
-Bash error is:	
-Your error is:	
-error invalid dir
 40.
 Bash error is:	
 bash: line 1: cd: too many arguments

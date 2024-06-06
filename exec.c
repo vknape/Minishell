@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/08 09:40:42 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/06/05 13:56:57 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/06/06 10:51:43 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,10 +141,11 @@ void	exec_cmd(t_all *all, t_cmd *cmd)
 	if (cmd->path_found == 0)
 	{
 		// dprintf(2, "are we here\n");
-		all->line->exit_value = 127;
-		free_all(&all);
-		exit(127);
-		ft_exit(all);
+		//all->line->exit_value = 127;
+		kill_process(all);
+		// free_all(&all);
+		// exit(127);
+		// ft_exit(all);
 	}
 	// printf("here\n");
 	// printf("%s\n", all->line->each_cmd->cmd[0]);
@@ -155,7 +156,10 @@ void	exec_cmd(t_all *all, t_cmd *cmd)
 	close(all->stdoutfd);
 	execve(cmd->cmd[0], cmd->cmd, all->envcur);
 	// dprintf(2, "here\n");
-	exit(1);
+	perror("execve ");
+	all->last_exit_status = 1;
+	kill_process(all);
+	//exit(1);
 }
 
 void	exec_builtin(t_all *all, t_cmd *cmd)
@@ -179,9 +183,10 @@ void	exec_builtin(t_all *all, t_cmd *cmd)
 		// free_all(&all);
 		// exit(1);
 	}
-	free_all(&all);
-	exit(0);
-	ft_exit(all);
+	kill_process(all);
+	// free_all(&all);
+	// exit(0);
+	// ft_exit(all);
 }
 
 void	check_scenario(t_all *all, t_cmd *cmd)
@@ -239,7 +244,8 @@ pid_t	start_fork(t_all *all, t_cmd *cmd)
 			// rl_replace_line("", 0);
 			// rl_redisplay();
 			// printf("\n");
-			ft_exit(all);
+			kill_process(all);
+			//ft_exit(all);
 		}
 		// dprintf(2, "cmd here is %s\n", all->line->each_cmd->cmd[0]);
 		close(all->line->pipe[0]);
@@ -274,13 +280,14 @@ pid_t	start_fork_1cmd(t_all *all, t_cmd *cmd)
 
 		if (sigaction(SIGINT, &all->sa, NULL) == -1)
 		{
-			free_all(&all);
+			kill_process(all);
+			//free_all(&all);
+			//ft_exit(all);
 			// printf("\n");
 			// rl_on_new_line();
 			// rl_replace_line("", 0);
 			// rl_redisplay();
 			// printf("\n");
-			ft_exit(all);
 		}
 		// dprintf(2, "cmd here is %s\n", all->line->each_cmd->cmd[0]);
 		// dup2(all->stdoutfd, STDOUT_FILENO);
@@ -325,6 +332,8 @@ void	start_exec(t_all *all)
 			{
 				ft_exit(all);
 			}
+			all->last_exit_status = 0;
+			// free_line(&all->line);
 			// free_all(&all);
 			// exit(0);
 		}

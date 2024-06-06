@@ -89,7 +89,6 @@ void	get_path(t_all *all, t_cmd *cmd);
 void	expanded(t_all *all, t_cmd *cmd);
 void	sigparent(int sig);
 void	sigchild(int sig);
-void	ft_kill_minishell(t_all *all);
 
 // char	*get_current_dir(void);
 // void	change_directory(char *dir);
@@ -148,11 +147,14 @@ void	ft_exit(t_all *all);
 int		ft_isalnum_under(int c);
 char	**update_env(t_all *all);
 int		ft_strncmp2(const char *str1, const char *str2, size_t n);
+void	update_export(t_all *all, char *str, int varvalue);
+void	update_envp(t_all *all, char *str, int varvalue);
 
 //free
 void	free_line(t_line **line);
 void	free_all(t_all **all);
 void	free2d(char **str);
+void	kill_process(t_all *all);
 
 
 #endif

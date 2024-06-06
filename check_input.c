@@ -16,8 +16,10 @@ char	*join_line_after_quotes(char *curline, t_all *all)
 	if (!input)
 	{
 		// dprintf(2, "exit\n");
-		free_all(&all);
-		exit(0);
+		all->last_exit_status = 2;
+		kill_process(all);
+		// free_all(&all);
+		// exit(0);
 	}
 	while (previous_line[i])
 	{
@@ -240,6 +242,7 @@ char	*check_input(char *curline, t_all *all)
 				lstclear(&all->line->chunks);
 				free(curline);
 				dprintf(2, "parse error near \n");
+				//all->last_exit_status = 2;
 				current_path = get_current_dir();
 				prompt = ft_strjoin(current_path, "$ ");
 				free(current_path);
@@ -249,9 +252,11 @@ char	*check_input(char *curline, t_all *all)
 				prompt = NULL;
 				if (!curline)
 				{
-					// dprintf(2, "exit\n");
-					free_all(&all);
-					exit(0);
+					//dprintf(2, "exit\n");
+					all->last_exit_status = 2;
+					kill_process(all);
+					// free_all(&all);
+					// exit(0);
 				}
 				add_history(curline);
 			}

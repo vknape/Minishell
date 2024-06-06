@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/08 11:52:52 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/06/05 13:54:33 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/06/05 14:38:12 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,5 +162,6 @@ void	get_path(t_all *all, t_cmd *cmd)
 	{
 		// dprintf(2, "no command\n");
 		cmd->path_found = 0;
+		all->last_exit_status = 127;
 	}
 }

@@ -541,102 +541,309 @@ int	number_of_char_until_first_slash(char *s)
 	return (0);
 }
 
+void	update_pwd_oldpwd(t_all *all, char *oldpwd)
+{
+	char	*pwd;
+	char	*temp;
+
+	temp = ft_strjoin("OLDPWD=", oldpwd);
+	free(oldpwd);
+	oldpwd = ft_strdup(temp);
+	update_envp(all, temp, 2);
+	update_export(all, oldpwd, 2);
+	free(oldpwd);
+	free(temp);
+	pwd = get_current_dir();
+	temp = ft_strjoin("PWD=", pwd);
+	free(pwd);
+	pwd = ft_strdup(temp);
+	update_envp(all, temp, 2);
+	update_export(all, pwd, 2);
+	free(pwd);
+	free(temp);
+	if (all->envcur)
+		free2d(all->envcur);
+	all->envcur = update_env(all);
+	sorter_export(all);
+}
+
+// void	change_pwd_oldpwd(t_all *all, char *new_pwd)
+// {
+// 	char	*cur_dir;
+// 	t_chunk	*chunk;
+// 	char	*temp;
+
+// 	cur_dir = get_current_dir();
+// 	temp = ft_strjoin("PWD=", new_pwd);
+// 	free(new_pwd);
+// 	chunk = all->envp;
+// 	while (chunk)
+// 	{
+// 		if (!ft_strncmp2("PWD", chunk->str, ft_strlen(chunk->str)))
+// 		{
+// 			free(chunk->str);
+// 			chunk->str = ft_strdup(temp);
+// 			break ;
+// 		}
+// 		chunk = chunk->next;
+// 	}
+// 	new_pwd = ft_joined_for_export(temp, 4);
+// 	chunk = all->export;
+// 	while (chunk)
+// 	{
+// 		if (!ft_strncmp2("PWD", chunk->str + 11, ft_strlen(chunk->str)))
+// 		{
+// 			free(chunk->str);
+// 			chunk->str = ft_strdup(new_pwd);
+// 			break ;
+// 		}
+// 		chunk = chunk->next;
+// 	}
+// 	free(new_pwd);
+// 	temp = ft_strjoin("OLDPWD=", cur_dir);
+// 	chunk = all->envp;
+// 	while (chunk)
+// 	{
+// 		if (!ft_strncmp2("OLDPWD", chunk->str, ft_strlen(chunk->str)))
+// 		{void	update_envp(t_all *all, char *str, int varvalue)
+// 			free(chunk->str);
+// 			chunk->str = ft_strdup(temp);
+// 			break ;
+// 		}
+// 		chunk = chunk->next;
+// 	}
+// 	new_pwd = ft_joined_for_export(temp, 7);
+// 	chunk = all->export;
+// 	while (chunk)
+// 	{
+// 		if (!ft_strncmp2("OLDPWD", chunk->str + 11, ft_strlen(chunk->str)))
+// 		{
+// 			free(chunk->str);
+// 			chunk->str = new_pwd;
+// 			break ;
+// 		}
+// 		chunk = chunk->next;
+// 	}
+// 	free(new_pwd);
+// }
+
 char *create_new_path(t_all *all, char **array)
 {
-	int		i;
 	char	*dir;
 	char	*new_dir;
 
-	i = 0;
-	dir = get_current_dir();
-	// printf("array[i] (%s)\n", array[i]);
-	while (array && array[i])
+	if (!array[1] || array[1][0] == '~')
 	{
-		// printf("array[i] (%s)\n", array[i]);
-		if (!ft_strncmp(array[i], ".", 2))
+		new_dir = value_of_dollar_sign(all, "HOME", 4);
+		dir = remove_quotes_cmd(new_dir);
+		if (array[1] && array[1][1])
 		{
-			i++;
-			continue ;
-		}
-		else if (!ft_strncmp(array[i], "..", 3))
-		{
-			new_dir = ft_substr(dir, 0, number_of_char_until_first_slash(dir));
-			if (new_dir[0] == '\0')
-			{
-				free(new_dir);
-				new_dir = ft_substr(dir, 0, 1);
-			}
-			free(dir);
-			dir = new_dir;
-			// printf("new_dir = (%s)\n", new_dir);
-		}
-		else if (!ft_strncmp(array[i], "~", 2) && i == 0)
-		{
-			dir = value_of_dollar_sign(all, "HOME", 4);
-			// printf("value $ HOME (%s)\n", new_dir);
-			// dir = ft_strjoin_free(dir, "/");
-			// dir = ft_strjoin_free(dir, new_dir);
-			// printf("new dir (%s)\n", dir);
-		}
-		else if (!ft_strncmp(array[i], "-", 2) && i == 0)
-		{
-			new_dir = value_of_dollar_sign(all, "OLDPWD", 7);
-			dir = ft_strjoin_free(dir, "/");
+			new_dir = ft_substr(array[1], 1, ft_strlen(array[1]));
 			dir = ft_strjoin_free(dir, new_dir);
 			free(new_dir);
 		}
-		else
-		{
-			// printf("new dir (%s)\n", dir);
-			dir = ft_strjoin_free(dir, "/");
-			dir = ft_strjoin_free(dir, array[i]);
-		}
-		i++;
 	}
-	// printf("new dir (%s)\n", dir);
+	else if (array[1][0] == '-')
+	{
+		new_dir = value_of_dollar_sign(all, "OLDPWD", 7);
+		dir = remove_quotes_cmd(new_dir);
+		// dprintf(2, "oldpwd  = (%s)\n", dir);
+		// dir = ft_strjoin_free(dir, "/");
+		// dir = ft_strjoin_free(dir, new_dir);
+		// free(new_dir);
+	}
 	return (dir);
 }
+	// if (!array)
+	// {
+	// 	dir = value_of_dollar_sign(all, "HOME", 4);
+	// 	new_dir = remove_quotes_cmd(dir);
+	// 	return (new_dir);
+	// }
+	// dir = get_current_dir();
+	// while (array && array[i])
+	// {
+	// 	if (!ft_strncmp(array[i], ".", 2))
+	// 	{
+	// 		i++;
+	// 		continue ;
+	// 	}
+	// 	else if (!ft_strncmp(array[i], "..", 3))
+	// 	{
+	// 		new_dir = ft_substr(dir, 0, number_of_char_until_first_slash(dir));
+	// 		if (new_dir[0] == '\0')
+	// 		{
+	// 			free(new_dir);
+	// 			new_dir = ft_substr(dir, 0, 1);
+	// 		}
+	// 		free(dir);
+	// 		dir = new_dir;
+	// 		// printf("new_dir = (%s)\n", new_dir);
+	// 	}
+	// 	else if (!ft_strncmp(array[i], "~", 2) && i == 0)
+	// 	{
+	// 		new_dir = value_of_dollar_sign(all, "HOME", 4);
+	// 		dir = remove_quotes_cmd(new_dir);
+	// 	}
+	// 	else if (!ft_strncmp(array[i], "-", 2) && i == 0)
+	// 	{
+	// 		new_dir = value_of_dollar_sign(all, "OLDPWD", 7);
+	// 		dir = ft_strjoin_free(dir, "/");
+	// 		dir = ft_strjoin_free(dir, new_dir);
+	// 		free(new_dir);
+	// 	}
+	// 	else
+	// 	{
+	// 		// printf("new dir (%s)\n", dir);
+	// 		dir = ft_strjoin_free(dir, "/");
+	// 		dir = ft_strjoin_free(dir, array[i]);
+	// 	}
+	// 	i++;
+	// }
+	// printf("new dir (%s)\n", dir);
+	// return (dir);
+// }
 
 void	ft_cd(t_all *all)
 {
-	char	*current_dir;
 	char	*new_dir;
 	char	**array;
-	int		total_indexes;
+	char	*pwd;
 
-	current_dir = get_current_dir();
-	// dprintf(2, "(%s)\n", current_dir);
-	total_indexes = 0;
-	while (all->line->each_cmd->cmd && all->line->each_cmd->cmd[total_indexes])
-		total_indexes++;
-	// printf("here (%s)\n", current_dir);
-	if (total_indexes > 2)
+	array = all->line->each_cmd->cmd;
+	if (array[1] && array[2])
 	{
 		dprintf(2, "error bash: cd: too many arguments\n");
-		exit(EXIT_FAILURE);
+		all->last_exit_status = 1;
+		kill_process(all);
 	}
-	if (!ft_strncmp(all->line->each_cmd->cmd[1], "/", 2))
-	{
-		new_dir = ft_substr(current_dir, 0, 1);
-	}
+	if (!array[1])
+		new_dir = create_new_path(all, array);
+	else if (array[1][0] == '~' || array[1][0] == '-')
+		new_dir = create_new_path(all, array);
 	else
-	{
-		array = ft_split(all->line->each_cmd->cmd[1], '/');
-		if (total_indexes == 2)
-		{
-			new_dir = create_new_path(all, array);
-		}
-	}
-	// printf("new dir is (%s)\n", new_dir);
+		new_dir = ft_substr(array[1], 0, ft_strlen(array[1]));
 	if (chdir(new_dir) == -1)
 	{
+		free(new_dir);
 		dprintf(2, "error invalid dir\n");
+		all->last_exit_status = 1;
+		kill_process(all);
 	}
-	free(current_dir);
+	pwd = get_current_dir();
+	update_pwd_oldpwd(all, pwd);
 	free(new_dir);
-	// current_dir = get_current_dir();
-	// dprintf(2, "here %s\n", current_dir);
+	// kill_process(all);
 }
+
+// char *create_new_path(t_all *all, char **array)
+// {
+// 	int		i;
+// 	char	*dir;
+// 	char	*new_dir;
+
+// 	i = 0;
+// 	if (!array)
+// 	{
+// 		dir = value_of_dollar_sign(all, "HOME", 4);
+// 		new_dir = remove_quotes_cmd(dir);
+// 		return (new_dir);
+// 	}
+// 	dir = get_current_dir();
+// 	while (array && array[i])
+// 	{
+// 		if (!ft_strncmp(array[i], ".", 2))
+// 		{
+// 			i++;
+// 			continue ;
+// 		}
+// 		else if (!ft_strncmp(array[i], "..", 3))
+// 		{
+// 			new_dir = ft_substr(dir, 0, number_of_char_until_first_slash(dir));
+// 			if (new_dir[0] == '\0')
+// 			{
+// 				free(new_dir);
+// 				new_dir = ft_substr(dir, 0, 1);
+// 			}
+// 			free(dir);
+// 			dir = new_dir;
+// 			// printf("new_dir = (%s)\n", new_dir);
+// 		}
+// 		else if (!ft_strncmp(array[i], "~", 2) && i == 0)
+// 		{
+// 			new_dir = value_of_dollar_sign(all, "HOME", 4);
+// 			dir = remove_quotes_cmd(new_dir);
+// 		}
+// 		else if (!ft_strncmp(array[i], "-", 2) && i == 0)
+// 		{
+// 			new_dir = value_of_dollar_sign(all, "OLDPWD", 7);
+// 			dir = ft_strjoin_free(dir, "/");
+// 			dir = ft_strjoin_free(dir, new_dir);
+// 			free(new_dir);
+// 		}
+// 		else
+// 		{
+// 			// printf("new dir (%s)\n", dir);
+// 			dir = ft_strjoin_free(dir, "/");
+// 			dir = ft_strjoin_free(dir, array[i]);
+// 		}
+// 		i++;
+// 	}
+// 	// printf("new dir (%s)\n", dir);
+// 	return (dir);
+// }
+
+// void	ft_cd(t_all *all)
+// {
+// 	char	*current_dir;
+// 	char	*new_dir;
+// 	char	**array;
+// 	int		total_indexes;
+
+// 	current_dir = get_current_dir();
+// 	array = NULL;
+// 	// dprintf(2, "(%s)\n", current_dir);
+// 	total_indexes = 0;
+// 	while (all->line->each_cmd->cmd && all->line->each_cmd->cmd[total_indexes])
+// 		total_indexes++;
+// 	// printf("here (%s)\n", current_dir);
+// 	if (total_indexes > 2)
+// 	{
+// 		dprintf(2, "error bash: cd: too many arguments\n");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	dprintf(2, "total_indexes(%d)\n", total_indexes);
+// 	if (total_indexes > 1 && !ft_strncmp(all->line->each_cmd->cmd[1], "/", 2))
+// 	{
+// 		new_dir = ft_substr(current_dir, 0, 1);
+// 	}
+// 	else
+// 	{
+// 		if (total_indexes == 1)
+// 		{
+// 			dprintf(2, "just\n");
+// 			new_dir = create_new_path(all, array);
+// 		}
+// 		else
+// 		{
+// 			array = ft_split(all->line->each_cmd->cmd[1], '/');
+// 			if (total_indexes == 2)
+// 			{
+// 				new_dir = create_new_path(all, array);
+// 			}
+// 		}
+// 	}
+// 	// printf("new dir is (%s)\n", new_dir);
+// 	if (chdir(new_dir) == -1)
+// 	{
+// 		dprintf(2, "error invalid dir\n");
+// 	}
+// 	change_pwd_oldpwd(all, new_dir);
+// 	free(current_dir);
+// 	free(new_dir);
+// 	// current_dir = get_current_dir();
+// 	// dprintf(2, "here %s\n", current_dir);
+// }
 
 char	*ft_joined_for_export(char *str, int start)
 {

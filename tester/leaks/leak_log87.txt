@@ -1,30 +1,30 @@
-==2524274== Memcheck, a memory error detector
-==2524274== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==2524274== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==2524274== Command: /usr/bin/cat
-==2524274== Parent PID: 2524272
-==2524274== ===2524==2524272== 
-==2524272== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==2524272== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log87.txt
-==2524272==    <inherited from parent>
-==2524272== 
-==2524272== 
-==2524272== HEAP SUMMARY:
-==2524272==     in use at exit: 208,219 bytes in 222 blocks
-==2524272==   total heap usage: 1,288 allocs, 1,066 frees, 266,552 bytes allocated
-==2524272== 
-==2524272== LEAK SUMMARY:
-==2524272==    definitely lost: 0 bytes in 0 blocks
-==2524272==    indirectly lost: 0 bytes in 0 blocks
-==2524272==      possibly lost: 0 bytes in 0 blocks
-==2524272==    still reachable: 0 bytes in 0 blocks
-==2524272==         suppressed: 208,219 bytes in 222 blocks
-==2524272== 
-==2524272== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
---2524272-- 
---2524272-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
-==2524272== 
-==2524272== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+==2655326== Memcheck, a memory error detector
+==2655327== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2655327== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2655327== Command: /usr/bin/cat
+==2655327== Parent PID: 2655325
+==2655327== ===2655==2655325== 
+==2655325== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==2655325== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log87.txt
+==2655325==    <inherited from parent>
+==2655325== 
+==2655325== 
+==2655325== HEAP SUMMARY:
+==2655325==     in use at exit: 208,219 bytes in 222 blocks
+==2655325==   total heap usage: 1,288 allocs, 1,066 frees, 266,547 bytes allocated
+==2655325== 
+==2655325== LEAK SUMMARY:
+==2655325==    definitely lost: 0 bytes in 0 blocks
+==2655325==    indirectly lost: 0 bytes in 0 blocks
+==2655325==      possibly lost: 0 bytes in 0 blocks
+==2655325==    still reachable: 0 bytes in 0 blocks
+==2655325==         suppressed: 208,219 bytes in 222 blocks
+==2655325== 
+==2655325== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+--2655325-- 
+--2655325-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
+==2655325== 
+==2655325== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
 d: 22,358 bytes in 65 blocks
-==2524273== 
-==2524273== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+==2655326== 
+==2655326== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)

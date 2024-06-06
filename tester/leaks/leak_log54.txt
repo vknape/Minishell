@@ -1,28 +1,28 @@
-==2522735== Memcheck, a memory error detector
-==2522735== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==2522735== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==2522735== Command: ./tester/Minishell
-==2522735== Parent PID: 2522052
-==2522735== 
-==2522735== 
-==2522735== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==2522735== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log54.txt
-==2522735==    <inherited from parent>
-==2522735== 
-==2522735== 
-==2522735== HEAP SUMMARY:
-==2522735==     in use at exit: 208,219 bytes in 222 blocks
-==2522735==   total heap usage: 1,300 allocs, 1,078 frees, 266,702 bytes allocated
-==2522735== 
-==2522735== LEAK SUMMARY:
-==2522735==    definitely lost: 0 bytes in 0 blocks
-==2522735==    indirectly lost: 0 bytes in 0 blocks
-==2522735==      possibly lost: 0 bytes in 0 blocks
-==2522735==    still reachable: 0 bytes in 0 blocks
-==2522735==         suppressed: 208,219 bytes in 222 blocks
-==2522735== 
-==2522735== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
---2522735-- 
---2522735-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
-==2522735== 
-==2522735== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+==2654948== Memcheck, a memory error detector
+==2654948== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2654948== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2654948== Command: ./tester/Minishell
+==2654948== Parent PID: 2654275
+==2654948== 
+==2654948== 
+==2654948== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==2654948== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log54.txt
+==2654948==    <inherited from parent>
+==2654948== 
+==2654948== 
+==2654948== HEAP SUMMARY:
+==2654948==     in use at exit: 208,219 bytes in 222 blocks
+==2654948==   total heap usage: 1,300 allocs, 1,078 frees, 266,697 bytes allocated
+==2654948== 
+==2654948== LEAK SUMMARY:
+==2654948==    definitely lost: 0 bytes in 0 blocks
+==2654948==    indirectly lost: 0 bytes in 0 blocks
+==2654948==      possibly lost: 0 bytes in 0 blocks
+==2654948==    still reachable: 0 bytes in 0 blocks
+==2654948==         suppressed: 208,219 bytes in 222 blocks
+==2654948== 
+==2654948== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+--2654948-- 
+--2654948-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
+==2654948== 
+==2654948== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)

@@ -345,3 +345,4 @@ tester 'cat < out_new > tester/bredir.txt'
 # rm $OUTFILE2
 rm read.supp
 printf $WHITE
+exit

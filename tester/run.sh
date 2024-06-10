@@ -5,6 +5,7 @@ source ./tester/tests/test.sh
 source ./tester/tests/echo.sh
 source ./tester/tests/heredoc.sh
 source ./tester/tests/cd.sh
+source ./tester/tests/custom.sh
 # print "here\n"
 
 OUTFILE1=tester/vbash.txt
@@ -182,17 +183,45 @@ rm tester/child_leak2.txt
 
 # exit
 printf "\033[1m\033[36mSYNTAX TESTS\n"
-# tester ''
-# tester ' '
+tester '\n'
+tester ' \n'
 tester '|'
 # exit
 tester '||'
+tester '|a'
+tester '| a'
+tester '||a'
+tester '|| a'
 tester '>'
 tester '>>'
 tester '>>>'
 tester '<'
 tester '<<'
 tester '<<<'
+tester '>a'
+tester '>>a'
+tester '>>>a'
+tester '<a'
+tester '<<a'
+tester '<<<a'
+tester '> a'
+tester '>> a'
+tester '>>> a'
+tester '< a'
+tester '<< a'
+tester '<<< a'
+tester 'a>'
+tester 'a>>'
+tester 'a>>>'
+tester 'a<'
+tester 'a<<'
+tester 'a<<<'
+tester 'a >'
+tester 'a >>'
+tester 'a >>>'
+tester 'a <'
+tester 'a <<'
+tester 'a <<<'
 tester 'echo hello >'
 tester 'echo hello <'
 tester 'echo hello |> ls'
@@ -200,13 +229,13 @@ tester 'echo hello >| ls'
 tester 'echo hello > | ls'
 tester 'echo hello | > ls'
 tester 'echo hello |	> ls'
-tester 'echo hello <> ls'
+# tester 'echo hello <> ls'
 tester 'echo hello >< ls'
 tester 'echo hello < > ls'
 tester 'echo hello > < ls'
-tester 'echo hello | "|"'
-tester 'echo hello | "<"'
-tester 'echo hello | ">"'
+# tester 'echo hello | "|"'
+# tester 'echo hello | "<"'
+# tester 'echo hello | ">"'
 
 printf "\033[1m\033[36mECHO TESTS\n"
 tester 'echo hello \n echo hello'
@@ -263,22 +292,22 @@ tester 'echo "$"'
 tester "echo '$'"
 tester 'echo $ '
 tester 'echo  $'
-tester 'echo $$'
+# tester 'echo $$'
 export var=hello
 tester 'echo $var'
 tester 'echo $ $'
 tester 'echo $ $var'
 tester 'echo $var$var'
-tester 'echo $$$'
-tester 'echo $ $$'
+# tester 'echo $$$'
+# tester 'echo $ $$'
 tester 'echo $ $var$'
 tester 'echo $?'
 tester 'echo $??'
 tester 'echo $?$?'
 tester 'echo $var$?'
 tester 'echo $?$var'
-tester 'echo ?'
-tester 'echo $ ?'
+# tester 'echo ?'
+# tester 'echo $ ?'
 tester 'echo $var?'
 unset var
 
@@ -340,6 +369,17 @@ printf "\n\033[1m\033[36mCMD with multiple infiles outfiles and pipes TESTS\n"
 tester 'cat < infile.txt < out_new | cat -e | cat -e >outfile >tester/bredir.txt'
 tester 'cat < infile.txt < out_new | ls | cat -e >outfile >tester/bredir.txt'
 tester 'cat < out_new > tester/bredir.txt'
+
+printf "\n\033[1m\033[36mCustom TESTS\n"
+tester_custom 'echo hello | "|"'
+tester_custom 'echo hello | ">"'
+tester_custom 'echo hello | "<"'
+tester_custom 'echo hello <> ls'
+tester_custom 'echo $$'
+tester_custom 'echo $$$'
+tester_custom 'echo $ $$'
+tester_custom "echo '?'"
+tester_custom "echo $ '?'"
 
 # rm $OUTFILE1
 # rm $OUTFILE2

@@ -1,4 +1,11 @@
-source ./tester/echo/echo.sh
+
+# source ./tester/echo/echo.sh
+# echo "here"
+source ./tester/tests/test.sh
+source ./tester/tests/echo.sh
+source ./tester/tests/heredoc.sh
+source ./tester/tests/cd.sh
+# print "here\n"
 
 OUTFILE1=tester/vbash.txt
 OUTFILE2=tester/vmini.txt
@@ -40,106 +47,107 @@ ECHO_FILES=tester/echo/
 ECHO_I=0
 
 
-error_log()
-{
-	if [ $@ -eq 1 ]; then
-		echo "Bash output is:	" >> $LOG
-		cat $OUTFILE1 >> $LOG
-		echo "Your output is:	" >> $LOG
-		cat $OUTFILE2 >> $LOG
-	fi
-	if [ $@ -eq 2 ]; then
-		echo "Bash exit status is: $es1" >> $LOG
-		echo "Your exit status is: $es2" >> $LOG
-	fi
-	if [ $@ -eq 3 ]; then
-		echo "Bash error is:	" >> $ERROR_LOG
-		cat $ERROR1 >> $ERROR_LOG
-		echo "Your error is:	" >> $ERROR_LOG
-		cat $ERROR2 >> $ERROR_LOG
-	fi
-	
-}
-
-# exit_status()
+# error_log()
 # {
+# 	if [ $@ -eq 1 ]; then
+# 		echo "Bash output is:	" >> $LOG
+# 		cat $OUTFILE1 >> $LOG
+# 		echo "Your output is:	" >> $LOG
+# 		cat $OUTFILE2 >> $LOG
+# 	fi
+# 	if [ $@ -eq 2 ]; then
+# 		echo "Bash exit status is: $es1" >> $LOG
+# 		echo "Your exit status is: $es2" >> $LOG
+# 	fi
+# 	if [ $@ -eq 3 ]; then
+# 		echo "Bash error is:	" >> $ERROR_LOG
+# 		cat $ERROR1 >> $ERROR_LOG
+# 		echo "Your error is:	" >> $ERROR_LOG
+# 		cat $ERROR2 >> $ERROR_LOG
+# 	fi
 	
 # }
 
-tester()
-{
-	i=$((i+1))
-	echo -e "\033[1m\033[37mtest $i: $@"
-	# echo $@ "; exit" | ./Minishell >$OUTFILE1
-	# echo $@ "; exit" | bash >$OUTFILE2
-	echo -e $@ | bash >$OUTFILE1 2>$ERROR1
-	es1=$?
-	if test -f $OUTPUT1 ; then
-		mv $OUTPUT1 $OUTFILE1
-	fi
-	echo -e $@ | valgrind --suppressions="read.supp" -s --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --trace-children=yes --track-fds=yes --error-exitcode=42 ./tester/Minishell >$OUTFILE2 2>$ERROR2
-	es2=$?
-	grep -v "$REM" $OUTFILE2 > tester/temp.txt
-	mv tester/temp.txt $OUTFILE2
-	# grep -v ">" $OUTFILE2 > tester/temp.txt
-	# mv tester/temp.txt $OUTFILE2
-	# grep -v "> end" $OUTFILE2 > tester/temp.txt
-	# mv tester/temp.txt $OUTFILE2
-	# sed -i "s@$REM@""@g"
-	# sed -i	'1d' $OUTFILE2
-	# grep . $OUTFILE2 > tester/temp.txt && mv tester/temp.txt $OUTFILE2
-	# cat $OUTFILE2 > tester/temp.txt
-	# REM=$(grep -m1 "" $OUTFILE2)
-	# grep -m1 "" $OUTFILE2 > tester/temp1.txt
-	# awk -v pat="$REM" '/$0~pat/' $OUTFILE2 > tester/temp.txt 
-	# gawk -i inplace -v pat="$REM" 'pat' $OUTFILE2 > tester/temp.txt 
-	echo "$i." >> $LOG
-	echo "$i." >> $ERROR_LOG
-	if test -f $OUTPUT1 ; then
-		mv $OUTPUT1 $OUTFILE2
-	fi
-	if diff $OUTFILE1 $OUTFILE2 >/dev/null; then
-		printf "$BOLDGREEN output"
-	else
-		printf "$BOLDRED output"
-		error_log 1
-	fi
-	# printf $es1\n
-	# printf $es2\n
-	if [ $es1 -eq $es2 ]; then
-		printf "$BOLDGREEN exit"
-	else
-		printf "$BOLDRED exit"
-		error_log 2
-	fi
-	if diff $ERROR1 $ERROR2 >/dev/null; then
-		printf "$BOLDGREEN error"
-	else
-		printf "$BOLDRED error"
-		error_log 3
-	fi
-	#echo $@ | valgrind --suppressions="read.supp" -s --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --trace-children=yes --track-fds=yes --error-exitcode=42 ./tester/Minishell &>/dev/null
-	es2=$?
-	# printf "$es2\n"
-	grep "ERROR SUMMARY: " tester/leaks/leak_log$i.txt >tester/child_leak.txt
+# # exit_status()
+# # {
+	
+# # }
 
-	# CHILD_LEAK=$(awk '$4 != "0"' tester/child_leak.txt)
-	awk '$4 != "0" {print $4}' tester/child_leak.txt > tester/child_leak2.txt
-	# printf $CHILD_LEAK\n
-	CHILD_LEAK=0
-	# CHILD_LEAK_NUM=0
-	while read -r CHILD_LEAK_NUM
-	do
-		CHILD_LEAK=1
-	done < "tester/child_leak2.txt"
-	if [ $es2 -ne 42 ] && [ $CHILD_LEAK -eq 0 ]; then
-		printf "$BOLDGREEN MOK\n"
-	else
-		printf "$BOLDRED MKO\n"
-	fi
-	# rm $OUTFILE1
-	# rm $OUTFILE2
-}
+# tester()
+# {
+# 	i=$((i+1))
+# 	echo -e "\033[1m\033[37mtest $i: $@"
+# 	# echo $@ "; exit" | ./Minishell >$OUTFILE1
+# 	# echo $@ "; exit" | bash >$OUTFILE2
+# 	echo -e $@ | bash >$OUTFILE1 2>$ERROR1
+# 	es1=$?
+# 	if test -f $OUTPUT1 ; then
+# 		mv $OUTPUT1 $OUTFILE1
+# 	fi
+# 	echo -e $@ | valgrind --suppressions="read.supp" -s --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --trace-children=yes --track-fds=yes --error-exitcode=42 ./tester/Minishell >$OUTFILE2 2>$ERROR2
+# 	es2=$?
+# 	grep -v "$REM" $OUTFILE2 > tester/temp.txt
+# 	mv tester/temp.txt $OUTFILE2
+# 	# grep -v ">" $OUTFILE2 > tester/temp.txt
+# 	# mv tester/temp.txt $OUTFILE2
+# 	# grep -v "> end" $OUTFILE2 > tester/temp.txt
+# 	# mv tester/temp.txt $OUTFILE2
+# 	# sed -i "s@$REM@""@g"
+# 	# sed -i	'1d' $OUTFILE2
+# 	# grep . $OUTFILE2 > tester/temp.txt && mv tester/temp.txt $OUTFILE2
+# 	# cat $OUTFILE2 > tester/temp.txt
+# 	# REM=$(grep -m1 "" $OUTFILE2)
+# 	# grep -m1 "" $OUTFILE2 > tester/temp1.txt
+# 	# awk -v pat="$REM" '/$0~pat/' $OUTFILE2 > tester/temp.txt 
+# 	# gawk -i inplace -v pat="$REM" 'pat' $OUTFILE2 > tester/temp.txt 
+# 	echo "$i." >> $LOG
+# 	echo "$i." >> $ERROR_LOG
+# 	if test -f $OUTPUT1 ; then
+# 		mv $OUTPUT1 $OUTFILE2
+# 	fi
+# 	if diff $OUTFILE1 $OUTFILE2 >/dev/null; then
+# 		printf "$BOLDGREEN output"
+# 	else
+# 		printf "$BOLDRED output"
+# 		error_log 1
+# 	fi
+# 	# printf $es1\n
+# 	# printf $es2\n
+# 	if [ $es1 -eq $es2 ]; then
+# 		printf "$BOLDGREEN exit"
+# 	else
+# 		printf "$BOLDRED exit"
+# 		error_log 2
+# 	fi
+# 	if diff $ERROR1 $ERROR2 >/dev/null; then
+# 		printf "$BOLDGREEN error"
+# 	else
+# 		printf "$BOLDRED error"
+# 		error_log 3
+# 	fi
+# 	#echo $@ | valgrind --suppressions="read.supp" -s --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --trace-children=yes --track-fds=yes --error-exitcode=42 ./tester/Minishell &>/dev/null
+# 	es2=$?
+# 	# printf "$es2\n"
+# 	grep "ERROR SUMMARY: " tester/leaks/leak_log$i.txt >tester/child_leak.txt
+
+# 	# CHILD_LEAK=$(awk '$4 != "0"' tester/child_leak.txt)
+# 	awk '$4 != "0" {print $4}' tester/child_leak.txt > tester/child_leak2.txt
+# 	# printf $CHILD_LEAK\n
+# 	CHILD_LEAK=0
+# 	# CHILD_LEAK_NUM=0
+# 	while read -r CHILD_LEAK_NUM
+# 	do
+# 		CHILD_LEAK=1
+# 	done < "tester/child_leak2.txt"
+# 	if [ $es2 -ne 42 ] && [ $CHILD_LEAK -eq 0 ]; then
+# 		printf "$BOLDGREEN MOK\n"
+# 	else
+# 		printf "$BOLDRED MKO\n"
+# 	fi
+# 	# rm $OUTFILE1
+# 	# rm $OUTFILE2
+# }
+# echo "here\n"
 if test -f "tester/Minishell" ; then
 	rm tester/Minishell
 fi
@@ -174,7 +182,10 @@ rm tester/child_leak2.txt
 
 # exit
 printf "\033[1m\033[36mSYNTAX TESTS\n"
+# tester ''
+# tester ' '
 tester '|'
+# exit
 tester '||'
 tester '>'
 tester '>>'
@@ -215,13 +226,13 @@ tester 'pwd'
 tester 'pwd hello'
 
 printf "\n\033[1m\033[36mCD TESTS\n"
-tester 'cd'
-tester 'cd ..\npwd'
-tester 'cd $PWD\npwd'
-tester 'cd ~\npwd'
-tester 'cd ..\ncd -\npwd'
-tester 'cd .. ..'
-tester 'cd invalid'
+tester_cd 'cd'
+tester_cd 'cd ..\npwd'
+tester_cd 'cd $PWD\npwd'
+tester_cd 'cd ~\npwd'
+tester_cd 'cd ..\ncd -\npwd'
+tester_cd 'cd .. ..'
+tester_cd 'cd invalid'
 
 printf "\n\033[1m\033[36mEXPORT TESTS\n"
 # tester 'export var=5 \nexport'
@@ -237,7 +248,7 @@ printf "\n\033[1m\033[36mENV TESTS\n"
 # tester 'env'
 
 printf "\n\033[1m\033[36mHEREDOC TESTS\n"
-tester 'cat << end\nhere\nend'
+tester_heredoc 'cat << end\nhere\nend'
 
 printf "\n\033[1m\033[36m$ TESTS\n"
 export var="ls"

@@ -19,37 +19,41 @@ tester_custom ()
 		fi
 	fi
 	if [ $CUSTOM -eq 4 ]; then
-		es1=2
-		> $OUTFILE1
-	fi
-	if [ $CUSTOM -eq 5 ]; then
 		es1=0
 		echo '$$' > $OUTFILE1
 		# if diff $OUTFILE2 tester/temp.txt >/dev/null; then
 		# 	echo '$$' > $OUTFILE1
 		# fi
 	fi
-	if [ $CUSTOM -eq 6 ]; then
+	if [ $CUSTOM -eq 5 ]; then
 		es1=0
 		echo '$$$' > $OUTFILE1
 		# if diff $OUTFILE2 tester/temp.txt >/dev/null; then
 		# 	echo '$$$' > $OUTFILE1
 		# fi
 	fi
-	if [ $CUSTOM -eq 7 ]; then
+	if [ $CUSTOM -eq 6 ]; then
 		es1=0
 		echo '$ $$' > $OUTFILE1
 		# if diff $OUTFILE2 tester/temp.txt >/dev/null; then
 		# 	echo '$ $$' > $OUTFILE1
 		# fi
 	fi
-	if [ $CUSTOM -eq 8 ]; then
+	if [ $CUSTOM -eq 7 ]; then
 		es1=0
 		echo '?' > $OUTFILE1
 	fi
-	if [ $CUSTOM -eq 9 ]; then
+	if [ $CUSTOM -eq 8 ]; then
 		es1=0
 		echo '$ ?' > $OUTFILE1
+	fi
+	if [ $CUSTOM -gt 8 ]; then
+		es1=2
+		while read -r TEMP_NUM
+		do
+			cat $ERROR2 > $ERROR1
+		done < $ERROR2
+		> $OUTFILE1
 	fi
 	# grep -v ">" $OUTFILE2 > tester/temp.txt
 	# mv tester/temp.txt $OUTFILE2

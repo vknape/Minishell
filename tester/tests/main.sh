@@ -101,7 +101,7 @@ compare_main ()
 	while read -r TEMP_NUM
 	do
 		VERROR=1
-	done < $ERROR1
+	done < $ERROR2
 	if diff $ERROR1 $ERROR2 >/dev/null; then
 		printf "$BOLDGREEN error"
 	elif [ $BERROR -eq $VERROR ]; then

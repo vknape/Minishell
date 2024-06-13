@@ -1,0 +1,113 @@
+==3460876== Memcheck, a memory error detector
+==3460876== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3460876== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==3460876== Command: ./tester/Minishell
+==3460876== Parent PID: 3460846
+==3460876== 
+==3460876== Invalid read of size 1
+==3460876==    at 0x484ED16: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x48A4B2D: alloc_history_entry (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x48A6F65: add_history (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x4013A4: make_line (main.c:450)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876==  Address 0x4b7b400 is 0 bytes inside a block of size 1 free'd
+==3460876==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x40139B: make_line (main.c:449)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876==  Block was alloc'd at
+==3460876==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x40134E: make_line (main.c:437)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876== 
+==3460876== Invalid read of size 1
+==3460876==    at 0x4852A10: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x48A4B47: alloc_history_entry (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x48A6F65: add_history (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x4013A4: make_line (main.c:450)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876==  Address 0x4b7b400 is 0 bytes inside a block of size 1 free'd
+==3460876==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x40139B: make_line (main.c:449)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876==  Block was alloc'd at
+==3460876==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x40134E: make_line (main.c:437)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876== 
+==3460876== 
+==3460876== FILE DESCRIPTORS: 7 open (3 std) at exit.
+==3460876== Open file descriptor 103: /usr/share/code/v8_context_snapshot.bin
+==3460876==    <inherited from parent>
+==3460876== 
+==3460876== Open file descriptor 40: /usr/share/code/resources/app/node_modules.asar
+==3460876==    <inherited from parent>
+==3460876== 
+==3460876== Open file descriptor 38: /home/vknape/.config/Code/logs/20240611T134748/ptyhost.log
+==3460876==    <inherited from parent>
+==3460876== 
+==3460876== Open file descriptor 3: /home/vknape/projects/minishell/Abbas/tester/leaks/leak_log2.txt
+==3460876==    <inherited from parent>
+==3460876== 
+==3460876== 
+==3460876== HEAP SUMMARY:
+==3460876==     in use at exit: 208,231 bytes in 222 blocks
+==3460876==   total heap usage: 1,381 allocs, 1,159 frees, 264,692 bytes allocated
+==3460876== 
+==3460876== LEAK SUMMARY:
+==3460876==    definitely lost: 0 bytes in 0 blocks
+==3460876==    indirectly lost: 0 bytes in 0 blocks
+==3460876==      possibly lost: 0 bytes in 0 blocks
+==3460876==    still reachable: 0 bytes in 0 blocks
+==3460876==         suppressed: 208,231 bytes in 222 blocks
+==3460876== 
+==3460876== ERROR SUMMARY: 4 errors from 2 contexts (suppressed: 63 from 63)
+==3460876== 
+==3460876== 2 errors in context 1 of 2:
+==3460876== Invalid read of size 1
+==3460876==    at 0x4852A10: memmove (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x48A4B47: alloc_history_entry (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x48A6F65: add_history (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x4013A4: make_line (main.c:450)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876==  Address 0x4b7b400 is 0 bytes inside a block of size 1 free'd
+==3460876==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x40139B: make_line (main.c:449)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876==  Block was alloc'd at
+==3460876==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x40134E: make_line (main.c:437)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876== 
+==3460876== 
+==3460876== 2 errors in context 2 of 2:
+==3460876== Invalid read of size 1
+==3460876==    at 0x484ED16: strlen (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x48A4B2D: alloc_history_entry (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x48A6F65: add_history (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x4013A4: make_line (main.c:450)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876==  Address 0x4b7b400 is 0 bytes inside a block of size 1 free'd
+==3460876==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x40139B: make_line (main.c:449)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876==  Block was alloc'd at
+==3460876==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3460876==    by 0x48ADBAC: xmalloc (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x488B694: readline_internal_teardown (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x4895D2A: readline (in /usr/lib/x86_64-linux-gnu/libreadline.so.8.1)
+==3460876==    by 0x40134E: make_line (main.c:437)
+==3460876==    by 0x401539: main (main.c:528)
+==3460876== 
+--3460876-- 
+--3460876-- used_suppression:     63 readline read.supp:3 suppressed: 208,231 bytes in 222 blocks
+==3460876== 
+==3460876== ERROR SUMMARY: 4 errors from 2 contexts (suppressed: 63 from 63)

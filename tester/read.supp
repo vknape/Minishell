@@ -1,0 +1,14 @@
+
+{
+   readline
+   Memcheck:Leak
+   ...
+   obj:*/libreadline.so.*
+}
+
+{
+   ls
+   Memcheck:Leak
+   ...
+   obj:*/bin/ls*
+}

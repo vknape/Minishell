@@ -1,0 +1,6 @@
+1.
+Bash exit status is: 0
+Your exit status is: 42
+2.
+Bash exit status is: 0
+Your exit status is: 42

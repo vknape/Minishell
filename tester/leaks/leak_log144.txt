@@ -1,0 +1,28 @@
+==3691511== Memcheck, a memory error detector
+==3691511== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==3691511== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==3691511== Command: ./tester/Minishell
+==3691511== Parent PID: 3689440
+==3691511== 
+==3691511== 
+==3691511== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==3691511== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log144.txt
+==3691511==    <inherited from parent>
+==3691511== 
+==3691511== 
+==3691511== HEAP SUMMARY:
+==3691511==     in use at exit: 208,219 bytes in 222 blocks
+==3691511==   total heap usage: 1,265 allocs, 1,043 frees, 266,345 bytes allocated
+==3691511== 
+==3691511== LEAK SUMMARY:
+==3691511==    definitely lost: 0 bytes in 0 blocks
+==3691511==    indirectly lost: 0 bytes in 0 blocks
+==3691511==      possibly lost: 0 bytes in 0 blocks
+==3691511==    still reachable: 0 bytes in 0 blocks
+==3691511==         suppressed: 208,219 bytes in 222 blocks
+==3691511== 
+==3691511== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+--3691511-- 
+--3691511-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
+==3691511== 
+==3691511== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)

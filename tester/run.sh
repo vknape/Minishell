@@ -172,7 +172,7 @@ REM=$(grep -m1 "" $OUTFILE2)
 # REM=$(echo '' | ./tester/Minishell)
 # printf "$REM\n"
 rm tester/leaks/*.txt
-rm tester/*.txt
+rm - ftester/*.txt
 rm tester/child_leak.txt
 rm tester/child_leak2.txt
 cc tester/test_files/hello_world.c -o tester/test_files/hello_world
@@ -417,7 +417,7 @@ rm $OUTFILE11
 # rm $OUTFILE22
 mv tester/error_log.txt tester/error_log
 mv tester/output_log.txt tester/output_log
-rm tester/*.txt
+rm -f tester/*.txt
 mv tester/error_log tester/error_log.txt
 mv tester/output_log.txt tester/output_log.txt
 printf $WHITE

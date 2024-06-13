@@ -1,9 +1,5 @@
 1.
-Bash exit status is: 0
-Your exit status is: 42
 2.
-Bash exit status is: 0
-Your exit status is: 42
 3.
 4.
 5.
@@ -84,6 +80,8 @@ Your exit status is: 42
 72.
 73.
 74.
+Bash exit status is: 0
+Your exit status is: 42
 75.
 76.
 77.
@@ -134,8 +132,6 @@ Your exit status is: 42
 122.
 123.
 124.
-Bash exit status is: 1
-Your exit status is: 0
 125.
 Bash exit status is: 1
 Your exit status is: 0
@@ -143,9 +139,147 @@ Your exit status is: 0
 Bash exit status is: 1
 Your exit status is: 0
 127.
+Bash exit status is: 1
+Your exit status is: 0
 128.
+Bash output is:	
+Your output is:	
+1
+a
+access.c
+access.o
+again_out
+bash_notes.txt
+big_in
+builtins.c
+builtins.o
+check_input.c
+check_input.o
+envp.c
+envp.o
+exec.c
+exec.o
+expaneded.c
+expaneded.o
+fill_each_cmd.c
+fill_each_cmd.o
+free.c
+free.o
+ft_kill_minishell.c
+ft_kill_minishell.o
+ft_signal.c
+ft_signal.o
+ft_splite_modified.c
+ft_splite_modified.o
+ft_split_skip.c
+ft_split_skip.o
+get_line.c
+get_line.o
+here
+infile_second.txt
+infile.txt
+libft
+libft__abbas
+link_list_chunk.c
+link_list_chunk.o
+link_list_cmd.c
+link_list_cmd.o
+ls
+lss
+main.c
+main.o
+Makefile
+Minishell
+minishell.h
+new
+order.txt
+out
+ outfile
+outfile
+out_new
+README.md
+read.supp
+remove_whitespace_quotes.c
+remove_whitespace_quotes.o
+sleep_test
+sleep_test.c
+tester
+tests
+tests.txt
+to_do.txt
+Bash exit status is: 1
+Your exit status is: 0
 129.
+Bash exit status is: 1
+Your exit status is: 0
 130.
+Bash output is:	
+Your output is:	
+1
+a
+access.c
+access.o
+again_out
+bash_notes.txt
+big_in
+builtins.c
+builtins.o
+check_input.c
+check_input.o
+envp.c
+envp.o
+exec.c
+exec.o
+expaneded.c
+expaneded.o
+fill_each_cmd.c
+fill_each_cmd.o
+free.c
+free.o
+ft_kill_minishell.c
+ft_kill_minishell.o
+ft_signal.c
+ft_signal.o
+ft_splite_modified.c
+ft_splite_modified.o
+ft_split_skip.c
+ft_split_skip.o
+get_line.c
+get_line.o
+here
+infile_second.txt
+infile.txt
+libft
+libft__abbas
+link_list_chunk.c
+link_list_chunk.o
+link_list_cmd.c
+link_list_cmd.o
+ls
+lss
+main.c
+main.o
+Makefile
+Minishell
+minishell.h
+new
+order.txt
+out
+ outfile
+outfile
+out_new
+README.md
+read.supp
+remove_whitespace_quotes.c
+remove_whitespace_quotes.o
+sleep_test
+sleep_test.c
+tester
+tests
+tests.txt
+to_do.txt
+Bash exit status is: 1
+Your exit status is: 0
 131.
 132.
 133.
@@ -159,3 +293,4 @@ Your exit status is: 0
 141.
 142.
 143.
+144.

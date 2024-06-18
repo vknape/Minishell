@@ -172,7 +172,7 @@ REM=$(grep -m1 "" $OUTFILE2)
 # REM=$(echo '' | ./tester/Minishell)
 # printf "$REM\n"
 rm tester/leaks/*.txt
-rm - ftester/*.txt
+rm -f ftester/*.txt
 rm tester/child_leak.txt
 rm tester/child_leak2.txt
 cc tester/test_files/hello_world.c -o tester/test_files/hello_world
@@ -283,9 +283,15 @@ tester 'export var=hello var1=helloo\n unset var var1\n echo $var $var1'
 
 printf "\n\033[1m\033[36mENV TESTS\n"
 tester './tester/test_files/hello_world'
+tester '~/Desktop/Abbas/tester/test_files/hello_world'
 
 printf "\n\033[1m\033[36mHEREDOC TESTS\n"
+tester_heredoc '<< end\nend'
 tester_heredoc 'cat << end\nhere\nend'
+tester_heredoc 'cat << end << out << new\nhere\n\nhere\nout\nnew'
+tester_heredoc 'cat << end << out << new\nhere\n\nhere\nout\nhello\nnew'
+tester_heredoc 'cat << end | cat -e\nhere\nhere\nend'
+tester_heredoc 'cat << end | ls\nhere\nhere\nend'
 
 printf "\n\033[1m\033[36m$ TESTS\n"
 export var="ls"
@@ -412,13 +418,13 @@ tester_custom 'echo hello | > ls'
 # rm $OUTFILE2
 rm read.supp
 rm tester/test_files/hello_world
-rm tester/test_files/infile_no_permissions.txt
-rm $OUTFILE11
+rm -f tester/test_files/infile_no_permissions.txt
+rm -f $OUTFILE11
 # rm $OUTFILE22
 mv tester/error_log.txt tester/error_log
 mv tester/output_log.txt tester/output_log
 rm -f tester/*.txt
 mv tester/error_log tester/error_log.txt
-mv tester/output_log.txt tester/output_log.txt
+mv tester/output_log tester/output_log.txt
 printf $WHITE
 exit

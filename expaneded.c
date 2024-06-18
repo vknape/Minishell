@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/09 07:40:37 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/06/05 13:57:40 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/06/14 12:48:19 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ void	dollar_signe_join(t_all *all, char **whole, char *str, int start)
 	{
 		*whole = ft_substr(str, start, all->line->tempi - start);
 		dvalue = dollar_found(all, &str[all->line->tempi]);
+		// dprintf(2, "str is (%s)\n", dvalue);
 		// dprintf(2 , "here\n");
 		// if (!dvalue)
 		// 	dprintf(2, "nuu\n");
@@ -396,6 +397,7 @@ char	*search_dollar_signe(t_all *all, char *str)
 		}
 	}
 	free(str);
+	// dprintf(2, "str is (%s)\n", whole);
 	return (whole);
 }
 

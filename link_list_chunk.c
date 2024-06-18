@@ -1,13 +1,13 @@
 
 #include "minishell.h"
 
-t_chunk	*ft_lstnewchunk(char *str)
+t_chunk	*ft_lstnewchunk(t_all *all, char *str)
 {
 	t_chunk	*lst1;
 
 	lst1 = calloc(1, sizeof(t_chunk));
 	if (lst1 == NULL)
-		return (NULL);
+		memory_allocation_failed(all);
 	(*lst1).next = NULL;
 	lst1->str = str;
 	// dprintf(2, "str to add is (%s)\n", str);

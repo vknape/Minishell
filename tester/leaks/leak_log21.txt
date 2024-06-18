@@ -1,28 +1,28 @@
-==3689736== Memcheck, a memory error detector
-==3689736== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==3689736== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==3689736== Command: ./tester/Minishell
-==3689736== Parent PID: 3689440
-==3689736== 
-==3689736== 
-==3689736== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==3689736== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log21.txt
-==3689736==    <inherited from parent>
-==3689736== 
-==3689736== 
-==3689736== HEAP SUMMARY:
-==3689736==     in use at exit: 208,219 bytes in 222 blocks
-==3689736==   total heap usage: 1,277 allocs, 1,055 frees, 266,428 bytes allocated
-==3689736== 
-==3689736== LEAK SUMMARY:
-==3689736==    definitely lost: 0 bytes in 0 blocks
-==3689736==    indirectly lost: 0 bytes in 0 blocks
-==3689736==      possibly lost: 0 bytes in 0 blocks
-==3689736==    still reachable: 0 bytes in 0 blocks
-==3689736==         suppressed: 208,219 bytes in 222 blocks
-==3689736== 
-==3689736== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
---3689736-- 
---3689736-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
-==3689736== 
-==3689736== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+==99053== Memcheck, a memory error detector
+==99053== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==99053== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==99053== Command: ./tester/Minishell
+==99053== Parent PID: 98679
+==99053== 
+==99053== 
+==99053== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==99053== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log21.txt
+==99053==    <inherited from parent>
+==99053== 
+==99053== 
+==99053== HEAP SUMMARY:
+==99053==     in use at exit: 208,075 bytes in 220 blocks
+==99053==   total heap usage: 1,266 allocs, 1,046 frees, 266,162 bytes allocated
+==99053== 
+==99053== LEAK SUMMARY:
+==99053==    definitely lost: 0 bytes in 0 blocks
+==99053==    indirectly lost: 0 bytes in 0 blocks
+==99053==      possibly lost: 0 bytes in 0 blocks
+==99053==    still reachable: 0 bytes in 0 blocks
+==99053==         suppressed: 208,075 bytes in 220 blocks
+==99053== 
+==99053== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 61 from 61)
+--99053-- 
+--99053-- used_suppression:     61 readline read.supp:3 suppressed: 208,075 bytes in 220 blocks
+==99053== 
+==99053== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 61 from 61)

@@ -6,20 +6,37 @@
 /*   By: vknape <vknape@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/04/24 11:45:42 by vknape        #+#    #+#                 */
-/*   Updated: 2024/06/03 09:21:42 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/06/17 11:54:11 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// void	make_envp_and_set(t_all *all, char *envp[])
+// {
+// 	int		i;
+
+// 	i = 0;
+// 	while (envp[i])
+// 	{
+// 		ft_lstadd_back_chunk(&all->envp, ft_lstnewchunk(ft_substr(envp[i], 0, ft_strlen(envp[i]))));
+// 		i++;
+// 	}
+// }
+
 void	make_envp_and_set(t_all *all, char *envp[])
 {
-	int	i;
+	int		i;
+	char	*temp;
 
 	i = 0;
 	while (envp[i])
 	{
-		ft_lstadd_back_chunk(&all->envp, ft_lstnewchunk(ft_substr(envp[i], 0, ft_strlen(envp[i]))));
+		temp = NULL;
+		temp = ft_substr(envp[i], 0, ft_strlen(envp[i]));
+		if (!temp && errno == 12)
+			memory_allocation_failed(all);
+		ft_lstadd_back_chunk(&all->envp, ft_lstnewchunk(all, temp));
 		// ft_lstadd_back_chunk(&all->set, ft_lstnewchunk(ft_substr(envp[i], 0, ft_strlen(envp[i]))));
 		i++;
 	}
@@ -79,7 +96,7 @@ void	make_export(t_all *all, char *envp[])
 		j = 0;
 		while (envp[i][j] && envp[i][j] != '=')
 			j++;
-		ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(ft_joined_for_export(envp[i], j)));
+		ft_lstadd_back_chunk(&all->export, ft_lstnewchunk(all, ft_joined_for_export(all, envp[i], j)));
 		i++;
 	}
 	sorter_export(all);

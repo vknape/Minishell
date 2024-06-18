@@ -24,6 +24,7 @@ test_main ()
 	es2=$?
 	echo "$i." >> $LOG
 	echo "$i." >> $ERROR_LOG
+	error_log 1
 	# grep -v "$REM" $OUTFILE2 > tester/temp.txt
 	# mv tester/temp.txt $OUTFILE2
 	# echo "$i." >> $LOG

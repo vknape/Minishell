@@ -85,7 +85,6 @@ syntax error near unexpected token
 Bash error is:	
 bash: line 1: warning: here-document at line 1 delimited by end-of-file (wanted `a')
 Your error is:	
-creat heredoc text
 wanted a: here-document delimited by end-of-file
 20.
 21.
@@ -100,7 +99,6 @@ syntax error near unexpected token
 Bash error is:	
 bash: line 1: warning: here-document at line 1 delimited by end-of-file (wanted `a')
 Your error is:	
-creat heredoc text
 wanted a: here-document delimited by end-of-file
 25.
 Bash error is:	
@@ -245,23 +243,35 @@ invalid: No such file or directory
 67.
 68.
 69.
-Bash error is:	
-Your error is:	
-creat heredoc text
-creat heredoc text
 70.
 71.
 72.
 Bash error is:	
-bash: line 1: adakheel: command not found
+bash: line 6: warning: here-document at line 1 delimited by end-of-file (wanted `end')
+bash: line 6: warning: here-document at line 6 delimited by end-of-file (wanted `out')
+bash: line 6: warning: here-document at line 6 delimited by end-of-file (wanted `new')
 Your error is:	
-adakheel: Command not found
+wanted end: here-document delimited by end-of-file
+wanted out: here-document delimited by end-of-file
+wanted new: here-document delimited by end-of-file
 73.
+Bash error is:	
+bash: line 7: warning: here-document at line 1 delimited by end-of-file (wanted `end')
+bash: line 7: warning: here-document at line 7 delimited by end-of-file (wanted `out')
+bash: line 7: warning: here-document at line 7 delimited by end-of-file (wanted `new')
+Your error is:	
+wanted end: here-document delimited by end-of-file
+wanted out: here-document delimited by end-of-file
+wanted new: here-document delimited by end-of-file
 74.
 75.
 76.
 77.
 78.
+Bash error is:	
+bash: line 1: adakheel: command not found
+Your error is:	
+adakheel: Command not found
 79.
 80.
 81.
@@ -282,29 +292,29 @@ adakheel: Command not found
 96.
 97.
 98.
+99.
+100.
+101.
+102.
+103.
+104.
 Bash error is:	
 bash: line 1: exit: hello: numeric argument required
 Your error is:	
 exit: numeric argument required
-99.
+105.
 Bash error is:	
 bash: line 1: exit: too many arguments
 Your error is:	
 exit: too many arguments
-100.
-101.
+106.
+107.
 Bash error is:	
 sleep: missing operand
 Try 'sleep --help' for more information.
 Your error is:	
 /usr/bin/sleep: missing operand
 Try '/usr/bin/sleep --help' for more information.
-102.
-103.
-104.
-105.
-106.
-107.
 108.
 109.
 110.
@@ -322,60 +332,69 @@ Try '/usr/bin/sleep --help' for more information.
 122.
 123.
 124.
+125.
+126.
+127.
+128.
+129.
+130.
 Bash error is:	
 cat: tester/test_files/infile_no_permissions.txt: Permission denied
 Your error is:	
 /usr/bin/cat: tester/test_files/infile_no_permissions.txt: Permission denied
-125.
-Bash error is:	
-bash: line 1: tester/test_files/infile_no_permissions.txt: Permission denied
-Your error is:	
-can't open file: : Permission denied
-126.
-Bash error is:	
-bash: line 1: tester/test_files/infile_no_permissions.txt: Permission denied
-Your error is:	
-can't open file: : Permission denied
-127.
-Bash error is:	
-bash: line 1: tester/test_files/infile_no_permissions.txt: Permission denied
-Your error is:	
-can't open file: : Permission denied
-128.
-Bash error is:	
-bash: line 1: tester/vbash11.txt: Permission denied
-Your error is:	
-129.
-Bash error is:	
-bash: line 1: tester/vbash11.txt: Permission denied
-Your error is:	
-130.
-Bash error is:	
-bash: line 1: tester/vbash11.txt: Permission denied
-Your error is:	
 131.
+Bash error is:	
+bash: line 1: tester/test_files/infile_no_permissions.txt: Permission denied
+Your error is:	
+tester/test_files/infile_no_permissions.txt: permission denied
+132.
+Bash error is:	
+bash: line 1: tester/test_files/infile_no_permissions.txt: Permission denied
+Your error is:	
+tester/test_files/infile_no_permissions.txt: permission denied
+133.
+Bash error is:	
+bash: line 1: tester/test_files/infile_no_permissions.txt: Permission denied
+Your error is:	
+tester/test_files/infile_no_permissions.txt: permission denied
+134.
+Bash error is:	
+bash: line 1: tester/vbash11.txt: Permission denied
+Your error is:	
+can't open file: : Permission denied
+135.
+Bash error is:	
+bash: line 1: tester/vbash11.txt: Permission denied
+Your error is:	
+can't open file: : Permission denied
+136.
+Bash error is:	
+bash: line 1: tester/vbash11.txt: Permission denied
+Your error is:	
+can't open file: : Permission denied
+137.
 Bash error is:	
 bash: line 1: |: command not found
 Your error is:	
 |: Command not found
-132.
+138.
 Bash error is:	
 bash: line 1: >: command not found
 Your error is:	
 >: Command not found
-133.
+139.
 Bash error is:	
 bash: line 1: <: command not found
 Your error is:	
 <: Command not found
-134.
-135.
-136.
-137.
-138.
-139.
 140.
 141.
 142.
 143.
 144.
+145.
+146.
+147.
+148.
+149.
+150.

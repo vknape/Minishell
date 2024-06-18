@@ -6,11 +6,25 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 13:24:01 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/03/25 09:46:08 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/06/10 12:47:12 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+// void	*safe_malloc(size_t size, void *all)
+// {
+// 	void	*ptr;
+
+// 	ptr = malloc(size);
+// 	if (!ptr)
+// 	{
+// 		//print error
+// 		//free;
+// 		//exit
+// 	}
+// 	return (ptr);
+// }
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -26,6 +40,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	lens1 = ft_strlen(s1);
 	lens2 = ft_strlen(s2);
 	tolen = lens1 + lens2 + 1;
+	//p = safe_malloc(tolen * (sizeof(char)));
 	p = (char *)malloc(tolen * (sizeof(char)));
 	if (!p)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/20 13:02:28 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/06/05 15:16:12 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/06/18 13:57:57 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void	free_line(t_line **line)
 	if (line && *line)
 	{
 		free2d((*line)->splits);
-		if ((*line)->saved_line)
-			free((*line)->saved_line);
+		if ((*line)->temp)
+			free((*line)->temp);
 		free_chunk(&(*line)->chunks);
 		free_cmd(&(*line)->each_cmd);
 		free(*line);
@@ -137,15 +137,58 @@ void	free_all(t_all **all)
 	all = NULL;
 }
 
+
+
+
+
+void	create_print_error(t_all *all, char *str, int num)
+{
+	char	*temp;
+	char	*temp2;
+
+	if (num == 1)
+		temp = ": Command not found";
+	else if (num == 2)
+		temp = ": too many arguments";
+	else if (num == 3)
+		temp = ": numeric argument required";
+	else if (num == 4)
+		temp = ": not a valid identifier";
+	else if (num == 5)
+		temp = ": No such file or directory";
+	else if (num == 6)
+		temp = "syntax error near unexpected token";
+	else if (num == 7)
+		temp = ": here-document delimited by end-of-file";
+	else if (num == 8)
+		temp = ": permission denied";
+	else if (num == 12)
+		temp = ": Cannot allocate memory";
+	else
+		temp = ": something else";
+	temp2 = ft_strjoin(str, temp);
+	temp2 = ft_strjoin_free(temp2, "\n");
+	write(2, temp2, ft_strlen(temp2));
+	free(temp2);
+}
+
+void	memory_allocation_failed(t_all *all)
+{
+	all->last_exit_status = 12;
+	perror("");
+	kill_process(all);
+}
+
 void	kill_process(t_all *all)
 {
 	int	local;
 
 	local = all->last_exit_status;
-	//dprintf(2, "local is (%d)\n", local);
-	free_all(&all);
 	if (g_glob == 2)
-		exit(130);
-	else
-		exit(local);
+	{
+		all->last_exit_status = 130;
+		local = all->last_exit_status;
+	}
+	free_all(&all);
+	exit(local);
 }

@@ -33,6 +33,6 @@ fclean:	clean
 re: fclean all
 
 test:
-	bash ./tester/test.sh
+	bash ./tester/run.sh
 
 .PHONY: all clean fclean re

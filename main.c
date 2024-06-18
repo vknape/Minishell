@@ -430,30 +430,38 @@ void	make_line(t_all *all)
 	char	*prompt;
 
 	all->line = ft_calloc(1, sizeof(t_line));
-	current_path = get_current_dir();
+	current_path = get_current_dir(all);
 	prompt = ft_strjoin(current_path, "$ ");
 	free(current_path);
 	current_path = NULL;
+	// if (all->ctrl_c == 1)
+	// 	curline = readline("");
+	// else
+	// printf("\n");
+	// rl_on_new_line();
+	// rl_replace_line("", 0);
+	// rl_redisplay();
 	curline = readline(prompt);
+	all->ctrl_c = 0;
 	add_history(curline);
 	free(prompt);
 	prompt = NULL;
 	if (!curline)
 	{
 		// dprintf(2, "exit\n");
-		free_all(&all);
-		exit(0);
+		// free_all(&all);
+		kill_process(all);
 	}
 	if (!check_space(curline))
 	{
-		free(curline);
 		add_history(curline);
+		free(curline);
 		return ;
 	}
 	if (curline[0] != '\0')
 	{
 		curline = check_input(curline, all);
-		// dprintf(2, "curline after check input() is (%s)\n", curline);
+		//dprintf(2, "curline after check input() is (%s)\n", curline);
 		// if (!ft_strlen(curline))
 		// 	add_history(all->line->saved_line);
 		// else
@@ -467,15 +475,25 @@ void	make_line(t_all *all)
 		free(curline);
 		curline = NULL;
 		split_cmd_nodes(all);
+		//dprintf(2, "here\n");
 		// int i = -1;
 		// while (all->line->each_cmd->cmd[i++])
 		// 	dprintf(2, "cmd = (%s)\n", all->line->each_cmd->cmd[i]);
 		// // all->line->each_cmd = all->line->each_cmd->next;
 		// i = -1;
 		// while (all->line->each_cmd->cmd[i++])
-		// 	dprintf(2, "cmd = (%s)\n", all->line->each_cmd->cmd[i]);
+		//dprintf(2, "cmd = (%s)\n", all->line->each_cmd->cmd[0]);
 		remove_whitespace_quotes(all, all->line->each_cmd);
+		//dprintf(2, "here\n");
 		start_exec(all);
+		if (all->last_exit_status == 131)
+		{
+			printf("Quit (core dumped)\n");
+			// printf("\n");
+			rl_on_new_line();
+			rl_replace_line("", 0);
+			// rl_redisplay();
+		}
 		// dup2(all->stdinfd, 0);
 	}
 
@@ -495,7 +513,8 @@ int	main(int argc, char **argv, char **envp)
 	all = ft_calloc(1, sizeof(t_all));
 	all->sa.sa_handler = &sigparent;
 	sigemptyset(&all->sa.sa_mask);
-	all->sa.sa_flags = SA_INTERRUPT;
+	// sigaddset(&all->sa.sa_mask, SIGQUIT);
+	all->sa.sa_flags = 0;
 
 	// all->envpcpy = envp;
 	all->stdinfd = dup(STDIN_FILENO);
@@ -511,21 +530,30 @@ int	main(int argc, char **argv, char **envp)
 		// g_glob = 0;
 		dup2(all->stdinfd, STDIN_FILENO);
 		dup2(all->stdoutfd, STDOUT_FILENO);
-		if (sigaction(SIGINT, &all->sa, NULL) == -1)
+		if (signal(SIGQUIT, SIG_IGN))
+			g_glob = 3;
+		//signal(SIGQUIT, SIG_DFL);
+		if (signal(SIGINT, sigparent) == SIG_ERR)// || signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		{
 			free_line(&all->line);
-			// printf("\n");
-			// rl_on_new_line();
-			// rl_replace_line("", 0);
-			// rl_redisplay();
 		}
-		else
+		// if (sigaction(SIGINT, &all->sa, NULL) == -1)// || sigaction(SIGQUIT, &all->sa, NULL) == -1)
+		// {
+		// 	free_line(&all->line);
+		// 	// printf("\n");
+		// 	// rl_on_new_line();
+		// 	// rl_replace_line("", 0);
+		// 	// rl_redisplay();
+		// }
+		// else
 		{
 			// dup2(all->stdinfd, STDIN_FILENO);
 			// dprintf(2, "start\n");
 			make_line(all);
 			free_line(&all->line);
 		}
+		// make_line(all);
+		// free_line(&all->line);
 		// printf("\n");
 		// rl_on_new_line();
 		// rl_replace_line("", 0);
@@ -604,7 +632,7 @@ int	main(int argc, char **argv, char **envp)
 	// 	// printf("%s\n", all->line->each_cmd[2].cmd[0]);
 	// 	// printf("print element\n\n\n");
 	// 	// print_elements(all);
-	// 	// free(curline);
+	// 	// free(curline);dprintf(2, "sig num 3\n");
 	// 	// curline = readline("Minishell >");
 	// 	exit(0);
 	// }

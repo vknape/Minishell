@@ -54,7 +54,7 @@ typedef struct s_line
 	int		invalid;
 	int		total_cmd;
 	char	**splits;
-	char	*saved_line;
+	char	*temp;
 	int		pipe[2];
 	int		tempc;
 	int		tempi;
@@ -77,6 +77,8 @@ typedef struct s_all
 	int		stdoutfd;
 	struct sigaction	sa;
 	int		last_exit_status;
+	int		ctrl_c;
+	int		i;
 
 }	t_all;
 
@@ -85,9 +87,10 @@ char	*check_input(char *curline, t_all *all);
 void	make_envp_and_set(t_all *all, char *envp[]);
 void	make_export(t_all *all, char *envp[]);
 void	start_exec(t_all *all);
-void	get_path(t_all *all, t_cmd *cmd);
+char	*get_path(t_all *all, t_cmd *cmd);
 void	expanded(t_all *all, t_cmd *cmd);
 void	sigparent(int sig);
+void	sigquit(int sig);
 void	sigchild(int sig);
 
 // char	*get_current_dir(void);
@@ -117,7 +120,7 @@ void	ft_lstadd_back_cmd(t_cmd **lst, t_cmd *new);
 void	lstclear_cmd(t_cmd **lst);
 
 // list of link list t_chunk
-t_chunk	*ft_lstnewchunk(char *str);
+t_chunk	*ft_lstnewchunk(t_all *all, char *str);
 t_chunk	*ft_lstlast_chunk(t_chunk *lst);
 void	ft_lstadd_back_chunk(t_chunk **lst, t_chunk *new);
 void	lstclear(t_chunk **lst);
@@ -135,15 +138,15 @@ char	*get_next_line(int fd);
 // bultins function
 //void	ft_echo(t_all *all, char **str);
 void	ft_echo_quotes(t_all *all, char **array_str);
-char	*get_current_dir(void);
-void	ft_pwd(void);
+char	*get_current_dir(t_all *all);
+void	ft_pwd(t_all *all);
 void	ft_env(t_all *all);
 void	ft_cd(t_all *all);
 void	ft_unset(t_all *all, char **str);
 void	ft_export(t_all	*all);
 void	sorter_export(t_all *all);
-char	*ft_joined_for_export(char *str, int start);
-void	ft_exit(t_all *all);
+char	*ft_joined_for_export(t_all	*all, char *str, int start);
+void	ft_exit(t_all *all, t_cmd *cmd);
 int		ft_isalnum_under(int c);
 char	**update_env(t_all *all);
 int		ft_strncmp2(const char *str1, const char *str2, size_t n);
@@ -155,6 +158,8 @@ void	free_line(t_line **line);
 void	free_all(t_all **all);
 void	free2d(char **str);
 void	kill_process(t_all *all);
+void	create_print_error(t_all *all, char *str, int num);
+void	memory_allocation_failed(t_all *all);
 
 
 #endif

@@ -15,11 +15,8 @@ char	*join_line_after_quotes(char *curline, t_all *all)
 	input = readline("> ");
 	if (!input)
 	{
-		// dprintf(2, "exit\n");
 		all->last_exit_status = 2;
 		kill_process(all);
-		// free_all(&all);
-		// exit(0);
 	}
 	while (previous_line[i])
 	{
@@ -34,8 +31,6 @@ char	*join_line_after_quotes(char *curline, t_all *all)
 			input[i] = 32;
 		i++;
 	}
-	// i = ft_strlen(previous_line);
-	// if (previous_line[i - 1] == ' ' && input)
 	line_joined = ft_strjoin_free(previous_line, input);
 	free(input);
 	curline = ft_strdup(line_joined);
@@ -148,7 +143,7 @@ int	check_meta(t_all *all, char *curline)
 		prev = cur;
 		cur = cur->next;
 	}
-	all->line->saved_line = ft_strdup(curline);
+	// all->line->saved_line = ft_strdup(curline);
 	// printf("curline = %s\n", curline);
 	return (0);
 }
@@ -163,54 +158,54 @@ void	find_match_quote(char *curline, int *i)
 		++*i;
 }
 
-void	split_all_substring(char *curline, t_line *line, int *pos, int *i)
+void	split_all_substring(t_all *all, char *curline, t_line *line, int *pos)
 {
 	char	*str;
 
 	// dprintf(2, "curline is (%s)\n", curline);
-	str = ft_substr(curline, *pos, *i - *pos);
+	str = ft_substr(curline, *pos, all->i - *pos);
 	// dprintf(2, "substr is (%s)\n", str);
-	*pos = *i;
+	*pos = all->i;
 	if (ft_strlen(str) != 0)
-		ft_lstadd_back_chunk(&line->chunks, ft_lstnewchunk(str));
+		ft_lstadd_back_chunk(&line->chunks, ft_lstnewchunk(all, str));
 	else
 		free(str);
-	if ((curline[*i] == '<' && curline[*i + 1] == '<') || (curline \
-		[*i] == '>' && curline[*i + 1] == '>'))
-		++*i;
-	if (curline[*i] != '\0')
+	if ((curline[all->i] == '<' && curline[all->i + 1] == '<') || (curline \
+		[all->i] == '>' && curline[all->i + 1] == '>'))
+		++all->i;
+	if (curline[all->i] != '\0')
 	{
-		str = ft_substr(curline, *pos, *i - *pos + 1);
-		*pos = *i + 1;
-		ft_lstadd_back_chunk(&line->chunks, ft_lstnewchunk(str));
+		str = ft_substr(curline, *pos, all->i - *pos + 1);
+		*pos = all->i + 1;
+		ft_lstadd_back_chunk(&line->chunks, ft_lstnewchunk(all, str));
 	}
 }
 
 void	split_all(char *curline, t_all *all)
 {
 	t_line	*line;
-	int		i;
 	int		pos;
 	char	*str;
 
 	line = all->line;
 	pos = 0;
-	i = 0;
+	all->i = 0;
 	if (line->chunks)
 		lstclear(&line->chunks);
-	while (curline[i] != '\0')
+	while (curline[all->i] != '\0')
 	{
-		if (curline[i] == 34 || curline[i] == 39)
-			find_match_quote(curline, &i);
-		if (curline[i] == '|' || curline[i] == '<' || curline[i] == '>')
-			split_all_substring(curline, line, &pos, &i);
-		i++;
+		if (curline[all->i] == 34 || curline[all->i] == 39)
+			find_match_quote(curline, &all->i);
+		if (curline[all->i] == '|' || curline[all->i] == '<'\
+			|| curline[all->i] == '>')
+			split_all_substring(all, curline, line, &pos);
+		all->i++;
 	}
-	if (pos < i)
+	if (pos < all->i)
 	{
-		str = ft_substr(curline, pos, i - pos);
+		str = ft_substr(curline, pos, all->i - pos);
 		if (ft_strlen(str) != 0)
-			ft_lstadd_back_chunk(&line->chunks, ft_lstnewchunk(str));
+			ft_lstadd_back_chunk(&line->chunks, ft_lstnewchunk(all, str));
 	}
 }
 
@@ -241,9 +236,10 @@ char	*check_input(char *curline, t_all *all)
 			{
 				lstclear(&all->line->chunks);
 				free(curline);
-				dprintf(2, "parse error near \n");
-				//all->last_exit_status = 2;
-				current_path = get_current_dir();
+				create_print_error(all, "", 6);
+				//dprintf(2, "parse error near \n");
+				all->last_exit_status = 2;
+				current_path = get_current_dir(all);
 				prompt = ft_strjoin(current_path, "$ ");
 				free(current_path);
 				current_path = NULL;

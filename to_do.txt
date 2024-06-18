@@ -10,6 +10,7 @@ don't accept unfinished tokens before pipe
 segfault after unfinished token and then enter on next line
 segfault after space enter
 update shell lvl
+only add spaces to history if there is no text
 
 exit > 255 = exit code is % 256
 exit accepts 1 + at the first spot
@@ -29,3 +30,6 @@ signals
 adding and removing variables
 readline prompt
 env export and unset
+tester_heredoc 'cat << end | cat -e\nhere\nhere'
+tester_heredoc 'cat << end | ls\nhere\nhere'
+tester_heredoc 'echo hello | cat << end\nhere\nhere\nend'

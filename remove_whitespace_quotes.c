@@ -6,7 +6,7 @@
 /*   By: adakheel <adakheel@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/05/14 11:16:06 by adakheel      #+#    #+#                 */
-/*   Updated: 2024/06/05 14:00:06 by adakheel      ########   odam.nl         */
+/*   Updated: 2024/06/17 15:31:40 by adakheel      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,26 +256,16 @@ char	*remove_quotes_exp(char *str)
 	}
 }
 
-char	*reduce_whitespace_between_words(char *str)
+char	*reduce_whitespace_between_words2(char *str, char *des, int i, int j)
 {
-	int		i;
-	char	*des;
-	int		j;
-	int		count;
+	int	count;
 
-	i = 0;
-	j = 0;
-	des = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	while (str[i])
 	{
 		if (!str[i])
 			break ;
 		if (!is_white_space(str[i]))
-		{
-			des[j] = str[i];
-			j++;
-			i++;
-		}
+			des[j++] = str[i++];
 		else
 		{
 			count = 0;
@@ -292,9 +282,27 @@ char	*reduce_whitespace_between_words(char *str)
 		}
 	}
 	des[j] = '\0';
+	return (des);
+}
+
+char	*reduce_whitespace_between_words(char *str)
+{
+	char	*des;
+	char	*temp;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	temp = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!temp)
+		return (NULL);
+	des = reduce_whitespace_between_words2(str, temp, i, j);
 	free(str);
 	str = ft_strdup(des);
 	free(des);
+	if (!str)
+		return (NULL);
 	return (str);
 }
 
@@ -306,87 +314,131 @@ char	*remove_whitespace_at_begin_end(char *str)
 	char	*end;
 
 	i = 0;
-	while (str[i] && is_white_space(str[i]))
-	{
+	while (str && str[i] && is_white_space(str[i]))
 		i++;
-	}
 	des = ft_substr(str, i, ft_strlen(str));
 	free(str);
+	if (!des)
+		return (NULL);
+	if (!des[0])
+		return (des);
 	j = ft_strlen(des) - 1;
-	// dprintf(2, "des[j] is (%c)\n", des[j]);
 	while (des[j] && is_white_space(des[j]))
-	{
-		// dprintf(2, "remove\n");
 		j--;
-	}
 	end = ft_substr(des, 0, j + 1);
-	end = reduce_whitespace_between_words(end);
 	free(des);
+	if (!end)
+		return (NULL);
+	end = reduce_whitespace_between_words(end);
 	return (end);
 }
 
-char	*remove_quotes_cmd(char *str)
+char	*remove_quotes_cmd2(char *str, char *temp, int i, int j)
 {
-	char	*chunk;
-	char	*whole;
-	int		i;
-	int		start;
-	int		c;
+	int	c;
 
-	// dprintf(2, "str in is (%s)\n", str);
-	i = 0;
-	start = 0;
-	whole = NULL;
 	while (str[i])
 	{
 		c = -1;
 		if (str[i] == 34 || str[i] == 39)
 		{
 			c = str[i];
-			if (!whole && i > start)
-				whole = ft_substr(str, 0, i);
-			else if (i > start)
-			{
-				chunk = ft_substr(str, start, i - start);
-				whole = ft_strjoin_free(whole, chunk);
-				free(chunk);
-			}
-			// dprintf(2, "str without quotes (%s)\n", whole);
 			i++;
-			start = i;
 			while (str[i] && str[i] != c)
-				i++;
-			chunk = ft_substr(str, start, i - start);
-			// dprintf(2, "chunk without quotes (%s)\n", chunk);
-			if (!whole)
-				whole = ft_strdup(chunk);
-			else
-				whole = ft_strjoin_free(whole, chunk);
-			// dprintf(2, "str without quotes (%s)\n", whole);
-			free(chunk);
-			start = i + 1;
+				temp[j++] = str[i++];
 			if (!str[i])
-				break;
-
+				break ;
+			i++;
 		}
-		i++;
-		// dprintf(2, "str without quotes (%s)\n", whole);
+		else
+			temp[j++] = str[i++];
 	}
-	// dprintf(2, "str without quotes (%s)\n", whole);
-	if (!whole)
-		whole = ft_strdup(str);
-	else if (i > start)
-	{
-		chunk = ft_substr(str, start, i - start);
-		whole = ft_strjoin_free(whole, chunk);
-		free(chunk);
-	}
-	free(str);
-	// dprintf(2, "str without quotes (%s)\n", whole);
-	whole = remove_whitespace_at_begin_end(whole);
-	// dprintf(2, "str after space (%s)\n", whole);
-	return (whole);
+	temp[j] = '\0';
 }
+
+char	*remove_quotes_cmd(char *str)
+{
+	char	*temp;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	temp = malloc(sizeof(char) * (ft_strlen(str) + 1));
+	if (!temp)
+		return (NULL);
+	remove_quotes_cmd2(str, temp, i, j);
+	free(str);
+	str = ft_strdup(temp);
+	free(temp);
+	if (!str)
+		return (NULL);
+	str = remove_whitespace_at_begin_end(str);
+	return (str);
+}
+
+// char	*remove_quotes_cmd(char *str)
+// {
+// 	char	*chunk;
+// 	char	*whole;
+// 	int		i;
+// 	int		start;
+// 	int		c;
+
+// 	// dprintf(2, "str in is (%s)\n", str);
+// 	i = 0;
+// 	start = 0;
+// 	whole = NULL;
+// 	while (str[i])
+// 	{
+// 		c = -1;
+// 		if (str[i] == 34 || str[i] == 39)
+// 		{
+// 			c = str[i];
+// 			if (!whole && i > start)
+// 				whole = ft_substr(str, 0, i);
+// 			else if (i > start)
+// 			{
+// 				chunk = ft_substr(str, start, i - start);
+// 				whole = ft_strjoin_free(whole, chunk);
+// 				free(chunk);
+// 			}
+// 			// dprintf(2, "str without quotes (%s)\n", whole);
+// 			i++;
+// 			start = i;
+// 			while (str[i] && str[i] != c)
+// 				i++;
+// 			chunk = ft_substr(str, start, i - start);
+// 			// dprintf(2, "chunk without quotes (%s)\n", chunk);
+// 			if (!whole)
+// 				whole = ft_strdup(chunk);
+// 			else
+// 				whole = ft_strjoin_free(whole, chunk);
+// 			// dprintf(2, "str without quotes (%s)\n", whole);
+// 			free(chunk);
+// 			start = i + 1;
+// 			if (!str[i])
+// 				break;
+
+// 		}
+// 		i++;
+// 		// dprintf(2, "str without quotes (%s)\n", whole);
+// 	}
+// 	// dprintf(2, "str without quotes (%s)\n", whole);
+// 	if (!whole)
+// 		whole = ft_strdup(str);
+// 	else if (i > start)
+// 	{
+// 		chunk = ft_substr(str, start, i - start);
+// 		whole = ft_strjoin_free(whole, chunk);
+// 		free(chunk);
+// 	}
+// 	free(str);
+// 	// dprintf(2, "str without quotes (%s)\n", whole);
+// 	whole = remove_whitespace_at_begin_end(whole);
+// 	// dprintf(2, "str after space (%s)\n", whole);
+// 	return (whole);
+// }
 
 // void	remove_whitespace_nodes(t_all *all, t_chunk *nodes)
 // {
@@ -427,9 +479,8 @@ void	remove_whitespace_quotes(t_all *all, t_cmd *cmd)
 	while (temp)
 	{
 		i = 0;
-		while (temp->cmd[i])
+		while (temp->cmd && temp->cmd[i])
 		{
-			// dprintf(2, "cmd = (%s)\n", temp->cmd[i]);
 			temp->cmd[i] = remove_whitespace_cmd(temp->cmd[i]);
 			// dprintf(2, "now here\n");
 			temp->cmd[i] = search_dollar_signe(all, temp->cmd[i]);
@@ -444,7 +495,7 @@ void	remove_whitespace_quotes(t_all *all, t_cmd *cmd)
 			node->str = remove_whitespace_cmd(node->str);
 			node->str = search_dollar_signe(all, node->str);
 			node->str = remove_quotes_cmd(node->str);
-			// dprintf(2, "str here is (%s)\n", node->str);
+			//dprintf(2, "delimiter here is (%s)\n", node->str);
 			node = node->next;
 		}
 		node = temp->infile;
@@ -453,7 +504,7 @@ void	remove_whitespace_quotes(t_all *all, t_cmd *cmd)
 			node->str = remove_whitespace_cmd(node->str);
 			node->str = search_dollar_signe(all, node->str);
 			node->str = remove_quotes_cmd(node->str);
-			// dprintf(2, "str here is (%s)\n", node->str);
+			//dprintf(2, "infile here is (%s)\n", node->str);
 			node = node->next;
 		}
 		node = temp->outfile;
@@ -463,7 +514,7 @@ void	remove_whitespace_quotes(t_all *all, t_cmd *cmd)
 			node->str = search_dollar_signe(all, node->str);
 			node->str = remove_quotes_cmd(node->str);
 			
-			// dprintf(2, "str here is (%s)\n", node->str);
+			//dprintf(2, "outfile here is (%s)\n", node->str);
 			node = node->next;
 		}
 		temp = temp->next;

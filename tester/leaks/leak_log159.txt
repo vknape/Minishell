@@ -1,0 +1,26 @@
+==75573== Memcheck, a memory error detector
+==75573== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==75573== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==75573== Command: /usr/bin/cat tester/test_files/infile_no_permissions.txt
+===75572== 
+==75572== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==75572== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log159.txt
+==75572==    <inherited from parent>
+==75572== 
+==75572== 
+==75572== HEAP SUMMARY:
+==75572==     in use at exit: 208,219 bytes in 222 blocks
+==75572==   total heap usage: 1,285 allocs, 1,063 frees, 266,962 bytes allocated
+==75572== 
+==75572== LEAK SUMMARY:
+==75572==    definitely lost: 0 bytes in 0 blocks
+==75572==    indirectly lost: 0 bytes in 0 blocks
+==75572==      possibly lost: 0 bytes in 0 blocks
+==75572==    still reachable: 0 bytes in 0 blocks
+==75572==         suppressed: 208,219 bytes in 222 blocks
+==75572== 
+==75572== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+--75572-- 
+--75572-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
+==75572== 
+==75572== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)

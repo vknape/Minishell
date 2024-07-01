@@ -18,6 +18,7 @@
 # include <errno.h>
 # include "libft/libft.h"
 # include <stdbool.h>
+# include <sys/ioctl.h>
 
 extern int	g_glob;
 
@@ -55,6 +56,7 @@ typedef struct s_line
 	int		total_cmd;
 	char	**splits;
 	char	*temp;
+	char	*curline;
 	int		pipe[2];
 	int		tempc;
 	int		tempi;
@@ -62,6 +64,7 @@ typedef struct s_line
 	int		exit_value;
 	t_chunk	*chunks;
 	t_cmd	*each_cmd;
+	t_chunk	*tempchunk;
 }	t_line;
 
 typedef struct s_all
@@ -72,7 +75,6 @@ typedef struct s_all
 	// char	**envpcpy;
 	char	**envcur;
 	t_chunk	*export;
-	t_chunk	*set;
 	int		stdinfd;
 	int		stdoutfd;
 	struct sigaction	sa;
@@ -86,16 +88,15 @@ int		main(int argc, char **argv, char **envm);
 char	*check_input(char *curline, t_all *all);
 void	make_envp_and_set(t_all *all, char *envp[]);
 void	make_export(t_all *all, char *envp[]);
-void	start_exec(t_all *all);
 char	*get_path(t_all *all, t_cmd *cmd);
 void	expanded(t_all *all, t_cmd *cmd);
 void	sigparent(int sig);
+void	sigparent2(int sig);
 void	sigquit(int sig);
 void	sigchild(int sig);
 
 // char	*get_current_dir(void);
 // void	change_directory(char *dir);
-// char	**ft_split_until(char const *s, char c, int max_position);
 // char	**ft_split_quotes(char const *s, char c);
 // t_chunk	*ft_lstnewchunk(char *str);
 // t_chunk	*ft_lstlast_chunk(t_chunk *lst);
@@ -109,9 +110,10 @@ char	*value_of_dollar_sign(t_all *all, char *str, int len);
 char	*ft_strjoin_free(char *s1, char *s2);
 void	remove_whitespace_quotes(t_all *all, t_cmd *cmd);
 char	*remove_whitespace_cmd(char *str);
-char	*remove_quotes_cmd(char *str);
+char	*remove_quotes_cmd(char *str, int option);
 char	*remove_quotes_exp(char *str);
 char	*search_dollar_signe(t_all *all, char *str);
+char	*remove_whitespace_at_begin_end(char *str);
 
 // list of link list t_cmd
 t_cmd	*ft_lstnewcmd(void);
@@ -121,6 +123,7 @@ void	lstclear_cmd(t_cmd **lst);
 
 // list of link list t_chunk
 t_chunk	*ft_lstnewchunk(t_all *all, char *str);
+t_chunk	*ft_lstnewchunkfree(t_all *all, char *str);
 t_chunk	*ft_lstlast_chunk(t_chunk *lst);
 void	ft_lstadd_back_chunk(t_chunk **lst, t_chunk *new);
 void	lstclear(t_chunk **lst);
@@ -132,8 +135,10 @@ void	split_cmd_nodes(t_all *all);
 
 //parsing utils
 int		check_space(char *str);
-char	**ft_split_quotes(char const *s, char c);
+char	**ft_split_quotes(t_all *all, char const *s, char c);
 char	*get_next_line(int fd);
+char	*dup_protect(char *str, t_all *all);
+char	*sub_protect(char *str, t_all *all, int start, int len);
 
 // bultins function
 //void	ft_echo(t_all *all, char **str);
@@ -152,14 +157,31 @@ char	**update_env(t_all *all);
 int		ft_strncmp2(const char *str1, const char *str2, size_t n);
 void	update_export(t_all *all, char *str, int varvalue);
 void	update_envp(t_all *all, char *str, int varvalue);
+void	ft_remove_var(t_chunk *chunk, char *str);
+void	update_pwd(t_all *all);
+char	*change_shlvl(t_all *all, char *str);
 
 //free
 void	free_line(t_line **line);
 void	free_all(t_all **all);
 void	free2d(char **str);
+void	free2d_from_indexn(int index, char **array);
 void	kill_process(t_all *all);
 void	create_print_error(t_all *all, char *str, int num);
 void	memory_allocation_failed(t_all *all);
+void	free_open_faild(t_all *all, char *str);
+void	free_chunk(t_chunk **chunk);
+
+//execute
+void	start_exec(t_all *all);
+void	check_heredoc(t_all *all, pid_t p, int status);
+char	*heredoc_text(t_all *all, t_chunk *infile);
+void	handle_outfiles(t_all *all, t_chunk *outfile);
+void	handle_infiles(t_all *all, t_chunk *infile);
+void	check_scenario(t_all *all, t_cmd *cmd);
+pid_t	start_fork_1cmd(t_all *all, t_cmd *cmd);
+pid_t	start_fork(t_all *all, t_cmd *cmd);
+void	exec_builtin(t_all *all, t_cmd *cmd, int child);
 
 
 #endif

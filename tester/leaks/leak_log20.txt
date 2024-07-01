@@ -1,28 +1,28 @@
-==99027== Memcheck, a memory error detector
-==99027== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==99027== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==99027== Command: ./tester/Minishell
-==99027== Parent PID: 98679
-==99027== 
-==99027== 
-==99027== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==99027== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log20.txt
-==99027==    <inherited from parent>
-==99027== 
-==99027== 
-==99027== HEAP SUMMARY:
-==99027==     in use at exit: 208,219 bytes in 222 blocks
-==99027==   total heap usage: 1,267 allocs, 1,045 frees, 266,172 bytes allocated
-==99027== 
-==99027== LEAK SUMMARY:
-==99027==    definitely lost: 0 bytes in 0 blocks
-==99027==    indirectly lost: 0 bytes in 0 blocks
-==99027==      possibly lost: 0 bytes in 0 blocks
-==99027==    still reachable: 0 bytes in 0 blocks
-==99027==         suppressed: 208,219 bytes in 222 blocks
-==99027== 
-==99027== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
---99027-- 
---99027-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
-==99027== 
-==99027== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+==73282== Memcheck, a memory error detector
+==73282== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==73282== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==73282== Command: ./tester/Minishell
+==73282== Parent PID: 72922
+==73282== 
+==73282== 
+==73282== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==73282== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log20.txt
+==73282==    <inherited from parent>
+==73282== 
+==73282== 
+==73282== HEAP SUMMARY:
+==73282==     in use at exit: 208,219 bytes in 222 blocks
+==73282==   total heap usage: 1,259 allocs, 1,037 frees, 266,076 bytes allocated
+==73282== 
+==73282== LEAK SUMMARY:
+==73282==    definitely lost: 0 bytes in 0 blocks
+==73282==    indirectly lost: 0 bytes in 0 blocks
+==73282==      possibly lost: 0 bytes in 0 blocks
+==73282==    still reachable: 0 bytes in 0 blocks
+==73282==         suppressed: 208,219 bytes in 222 blocks
+==73282== 
+==73282== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+--73282-- 
+--73282-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
+==73282== 
+==73282== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)

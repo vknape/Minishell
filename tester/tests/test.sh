@@ -9,6 +9,8 @@ tester()
 	test_main $@
 	grep -v "$REM" $OUTFILE2 > tester/temp.txt
 	mv tester/temp.txt $OUTFILE2
+	grep -v ">" $OUTFILE2 > tester/temp.txt
+	mv tester/temp.txt $OUTFILE2
 	# grep -v ">" $OUTFILE2 > tester/temp.txt
 	# mv tester/temp.txt $OUTFILE2
 	# grep -v "> end" $OUTFILE2 > tester/temp.txt

@@ -1,50 +1,28 @@
-==100587== Memcheck, a memory error detector
-==100587== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==100587== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==100587== Command: /usr/bin/ls
-==100587== Parent PID: 100586
-==100587== 
-==100587== 
-==100587== FILE DESCRIPTORS: 3 open (1 std) at exit.
-==100587== Open file descriptor 4: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log111.txt
-==100587==    <inherited from parent>
-==100587== 
-==100587== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log111.txt
-==100587==    <inherited from parent>
-==100587== 
-==100587== 
-==100587== HEAP SUMMARY:
-==100587==     in use at exit: 22,435 bytes in 67 blocks
-==100587==   total heap usage: 119 allocs, 52 frees, 69,196 bytes allocated
-==100587== 
-==100587== LEAK SUMMARY:
-==100587==    definitely lost: 0 bytes in 0 blocks
-==100587==    indirectly lost: 0 bytes in 0 blocks
-==100587==      possibly lost: 0 bytes in 0 blocks
-==100587==    still reachable: 0 bytes in 0 blocks
-==100587==         suppressed: 22,435 bytes in 67 blocks
-==100587== 
-==100587== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
---100587-- 
---100587-- used_suppression:      6 ls read.supp:10 suppress==100586== 
-==100586== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==100586== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log111.txt
-==100586==    <inherited from parent>
-==100586== 
-==100586== 
-==100586== HEAP SUMMARY:
-==100586==     in use at exit: 208,219 bytes in 222 blocks
-==100586==   total heap usage: 1,290 allocs, 1,068 frees, 266,454 bytes allocated
-==100586== 
-==100586== LEAK SUMMARY:
-==100586==    definitely lost: 0 bytes in 0 blocks
-==100586==    indirectly lost: 0 bytes in 0 blocks
-==100586==      possibly lost: 0 bytes in 0 blocks
-==100586==    still reachable: 0 bytes in 0 blocks
-==100586==         suppressed: 208,219 bytes in 222 blocks
-==100586== 
-==100586== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
---100586-- 
---100586-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
-==100586== 
-==100586== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+==74698== Memcheck, a memory error detector
+==74698== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==74698== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==74698== Command: ./tester/Minishell
+==74698== Parent PID: 72922
+==74698== 
+==74698== 
+==74698== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==74698== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log111.txt
+==74698==    <inherited from parent>
+==74698== 
+==74698== 
+==74698== HEAP SUMMARY:
+==74698==     in use at exit: 208,219 bytes in 222 blocks
+==74698==   total heap usage: 1,275 allocs, 1,053 frees, 265,179 bytes allocated
+==74698== 
+==74698== LEAK SUMMARY:
+==74698==    definitely lost: 0 bytes in 0 blocks
+==74698==    indirectly lost: 0 bytes in 0 blocks
+==74698==      possibly lost: 0 bytes in 0 blocks
+==74698==    still reachable: 0 bytes in 0 blocks
+==74698==         suppressed: 208,219 bytes in 222 blocks
+==74698== 
+==74698== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+--74698-- 
+--74698-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
+==74698== 
+==74698== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)

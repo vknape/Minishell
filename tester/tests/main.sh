@@ -24,7 +24,7 @@ test_main ()
 	es2=$?
 	echo "$i." >> $LOG
 	echo "$i." >> $ERROR_LOG
-	error_log 1
+	# error_log 1
 	# grep -v "$REM" $OUTFILE2 > tester/temp.txt
 	# mv tester/temp.txt $OUTFILE2
 	# echo "$i." >> $LOG
@@ -115,7 +115,7 @@ compare_main ()
 	#echo $@ | valgrind --suppressions="read.supp" -s --log-file="tester/leaks/leak_log$i.txt" --leak-check=full --errors-for-leak-kinds=all --show-leak-kinds=all --trace-children=yes --track-fds=yes --error-exitcode=42 ./tester/Minishell &>/dev/null
 	es2=$?
 	# printf "$es2\n"
-	grep "ERROR SUMMARY: " tester/leaks/leak_log$i.txt >tester/child_leak.txt
+	grep -a "ERROR SUMMARY: " tester/leaks/leak_log$i.txt >tester/child_leak.txt
 
 	# CHILD_LEAK=$(awk '$4 != "0"' tester/child_leak.txt)
 	awk '$4 != "0" {print $4}' tester/child_leak.txt > tester/child_leak2.txt

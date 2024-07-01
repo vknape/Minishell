@@ -1,31 +1,30 @@
-==100800== Memcheck, a memory error detector
-==100800== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==100800== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==100800== Command: /usr/bin/ls
-==100800== Parent PID: 100799
-==100800== 
-==1008==100799== 
-==100799== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==100799== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log123.txt
-==100799==    <inherited from parent>
-==100799== 
-==100799== 
-==100799== HEAP SUMMARY:
-==100799==     in use at exit: 208,219 bytes in 222 blocks
-==100799==   total heap usage: 1,295 allocs, 1,073 frees, 266,737 bytes allocated
-==100799== 
-==100799== LEAK SUMMARY:
-==100799==    definitely lost: 0 bytes in 0 blocks
-==100799==    indirectly lost: 0 bytes in 0 blocks
-==100799==      possibly lost: 0 bytes in 0 blocks
-==100799==    still reachable: 0 bytes in 0 blocks
-==100799==         suppressed: 208,219 bytes in 222 blocks
-==100799== 
-==100799== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
---100799-- 
---100799-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
-==100799== 
-==100799== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
-ed: 22,435 bytes in 67 blocks
-==100800== 
-==100800== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+==74905== Memcheck, a memory error detector
+==74905== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==74905== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==74905== Command: /usr/bin/sleep 1
+==74905== Parent PID: 74904
+==74905========74904== 
+==74904== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==74904== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log123.txt
+==74904==    <inherited from parent>
+==74904== 
+==74904== 
+==74904== HEAP SUMMARY:
+==74904==     in use at exit: 208,219 bytes in 222 blocks
+==74904==   total heap usage: 1,312 allocs, 1,090 frees, 266,696 bytes allocated
+==74904== 
+==74904== LEAK SUMMARY:
+==74904==    definitely lost: 0 bytes in 0 blocks
+==74904==    indirectly lost: 0 bytes in 0 blocks
+==74904==      possibly lost: 0 bytes in 0 blocks
+==74904==    still reachable: 0 bytes in 0 blocks
+==74904==         suppressed: 208,219 bytes in 222 blocks
+==74904== 
+==74904== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+--74904-- 
+--74904-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
+==74904== 
+==74904== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+ssed: 21,329 bytes in 39 blocks
+==74906== 
+==74906== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 8 from 8)

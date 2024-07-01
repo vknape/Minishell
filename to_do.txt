@@ -11,6 +11,9 @@ segfault after unfinished token and then enter on next line
 segfault after space enter
 update shell lvl
 only add spaces to history if there is no text
+symlink sgoinfre not
+
+ls -l /proc/$$/fd
 
 exit > 255 = exit code is % 256
 exit accepts 1 + at the first spot

@@ -172,10 +172,12 @@ REM=$(grep -m1 "" $OUTFILE2)
 # REM=$(echo '' | ./tester/Minishell)
 # printf "$REM\n"
 rm tester/leaks/*.txt
-rm -f ftester/*.txt
+rm -f tester/*.txt
 rm tester/child_leak.txt
 rm tester/child_leak2.txt
 cc tester/test_files/hello_world.c -o tester/test_files/hello_world
+touch $ERROR_LOG
+touch $LOG
 touch tester/test_files/infile_no_permissions.txt
 echo This text here > tester/test_files/infile_no_permissions.txt
 chmod 000 tester/test_files/infile_no_permissions.txt
@@ -188,7 +190,10 @@ chmod 000 tester/test_files/infile_no_permissions.txt
 # tester 'echo "exit_code ->$? user"'
 
 # tester "echo 'exit_code ->$? user ->$USER home -> $HOME'"
+tester '"hello'
+tester '"hello\n'
 printf "\033[1m\033[36mSYNTAX TESTS\n"
+tester '"      "'
 tester '\n'
 tester ' \n'
 tester '|'
@@ -267,6 +272,8 @@ tester_cd 'cd ~\npwd'
 tester_cd 'cd ..\ncd -\npwd'
 tester_cd 'cd .. ..'
 tester_cd 'cd invalid'
+tester_cd 'unset OLDPWD\ncd -'
+tester_cd 'unset OLDPWD\ncd ..\ncd -'
 
 printf "\n\033[1m\033[36mEXPORT TESTS\n"
 # tester 'export var=5 \nexport'
@@ -274,7 +281,9 @@ export var="'hello'"
 tester 'echo $var'
 tester 'echo "$var"'
 unset var
+tester 'echo $SHLVL'
 # exit
+
 printf "\n\033[1m\033[36mUNSET TESTS\n"
 tester 'unset'
 tester 'export var=hello\nunset USERS'
@@ -300,6 +309,21 @@ unset var
 export var="ls "
 tester '$var'
 unset var
+export var=" ls "
+tester '$var'
+unset var
+export var="ls -la"
+tester '$var'
+unset var
+# export var="$INFILE"
+# tester '$var'
+# unset var
+# export var=" $INFILE"
+# tester '$var'
+# unset var
+# export var="$INFILE $INFILE"
+# tester '$var'
+# unset var
 tester '$USER'
 tester 'echo $'
 tester 'echo $h'
@@ -326,6 +350,83 @@ tester 'echo $?$var'
 tester 'echo $var?'
 unset var
 
+printf "\n\033[1m\033[36mEXIT TESTS\n"
+tester 'exit 123'
+tester 'exit 298'
+tester 'exit +100'
+tester 'exit "+100"'
+tester 'exit +"100"'
+tester 'exit -100'
+tester 'exit "-100"'
+tester 'exit -"100"'
+tester 'exit hello'
+tester 'exit 42 world'
+
+printf "\n\033[1m\033[36mCMD TESTS\n"
+tester 'ls'
+tester 'sleep'
+
+printf "\n\033[1m\033[36mCMD with flags TESTS\n"
+tester 'ls -l'
+tester 'sleep 1'
+tester 'cat infile.txt'
+
+
+printf "\n\033[1m\033[36mCMD with pipe TESTS\n"
+tester 'ls | echo hello'
+tester 'ls | pwd'
+tester 'ls | exit 99'
+tester 'ls | cat'
+tester 'sleep 1 | ls -l'
+tester 'ls -l | sleep 1'
+
+# printf "\n\033[1m\033[36m$ TESTS\n"
+# export var="ls"
+# tester '$var'
+# unset var
+# export var="ls "
+# tester '$var'
+# unset var
+# export var=" ls "
+# tester '$var'
+# unset var
+# export var="ls -la"
+# tester '$var'
+# unset var
+# export var="$INFILE"
+# tester '$var'
+# unset var
+# export var=" $INFILE"
+# tester '$var'
+# unset var
+# export var="$INFILE $INFILE"
+# tester '$var'
+# unset var
+# tester '$USER'
+# tester 'echo $'
+# tester 'echo $h'
+# tester 'echo "$"'
+# tester "echo '$'"
+# tester 'echo $ '
+# tester 'echo  $'
+# # tester 'echo $$'
+# export var=hello
+# tester 'echo $var'
+# tester 'echo $ $'
+# tester 'echo $ $var'
+# tester 'echo $var$var'
+# # tester 'echo $$$'
+# # tester 'echo $ $$'
+# tester 'echo $ $var$'
+# tester 'echo $?'
+# tester 'echo $??'
+# tester 'echo $?$?'
+# tester 'echo $var$?'
+# tester 'echo $?$var'
+# # tester 'echo ?'
+# # tester 'echo $ ?'
+# tester 'echo $var?'
+# unset var
 
 printf "\n\033[1m\033[36mEXIT TESTS\n"
 tester 'exit 123'

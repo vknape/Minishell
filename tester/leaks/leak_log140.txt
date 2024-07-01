@@ -1,28 +1,50 @@
-==101128== Memcheck, a memory error detector
-==101128== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==101128== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==101128== Command: ./tester/Minishell
-==101128== Parent PID: 98679
-==101128== 
-==101128== 
-==101128== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==101128== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log140.txt
-==101128==    <inherited from parent>
-==101128== 
-==101128== 
-==101128== HEAP SUMMARY:
-==101128==     in use at exit: 208,075 bytes in 220 blocks
-==101128==   total heap usage: 1,284 allocs, 1,064 frees, 266,230 bytes allocated
-==101128== 
-==101128== LEAK SUMMARY:
-==101128==    definitely lost: 0 bytes in 0 blocks
-==101128==    indirectly lost: 0 bytes in 0 blocks
-==101128==      possibly lost: 0 bytes in 0 blocks
-==101128==    still reachable: 0 bytes in 0 blocks
-==101128==         suppressed: 208,075 bytes in 220 blocks
-==101128== 
-==101128== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 61 from 61)
---101128-- 
---101128-- used_suppression:     61 readline read.supp:3 suppressed: 208,075 bytes in 220 blocks
-==101128== 
-==101128== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 61 from 61)
+==75199== Memcheck, a memory error detector
+==75199== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==75199== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==75199== Command: /usr/bin/ls
+==75199== Parent PID: 75198
+==75199== 
+==75199== 
+==75199== FILE DESCRIPTORS: 3 open (1 std) at exit.
+==75199== Open file descriptor 4: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log140.txt
+==75199==    <inherited from parent>
+==75199== 
+==75199== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log140.txt
+==75199==    <inherited from parent>
+==75199== 
+==75199== 
+==75199== HEAP SUMMARY:
+==75199==     in use at exit: 21,273 bytes in 37 blocks
+==75199==   total heap usage: 89 allocs, 52 frees, 68,034 bytes allocated
+==75199== 
+==75199== LEAK SUMMARY:
+==75199==    definitely lost: 0 bytes in 0 blocks
+==75199==    indirectly lost: 0 bytes in 0 blocks
+==75199==      possibly lost: 0 bytes in 0 blocks
+==75199==    still reachable: 0 bytes in 0 blocks
+==75199==         suppressed: 21,273 bytes in 37 blocks
+==75199== 
+==75199== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+--75199-- 
+--75199-- used_suppression:      6 ls read.supp:10 suppressed:==75198== 
+==75198== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==75198== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log140.txt
+==75198==    <inherited from parent>
+==75198== 
+==75198== 
+==75198== HEAP SUMMARY:
+==75198==     in use at exit: 208,219 bytes in 222 blocks
+==75198==   total heap usage: 1,303 allocs, 1,081 frees, 266,652 bytes allocated
+==75198== 
+==75198== LEAK SUMMARY:
+==75198==    definitely lost: 0 bytes in 0 blocks
+==75198==    indirectly lost: 0 bytes in 0 blocks
+==75198==      possibly lost: 0 bytes in 0 blocks
+==75198==    still reachable: 0 bytes in 0 blocks
+==75198==         suppressed: 208,219 bytes in 222 blocks
+==75198== 
+==75198== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+--75198-- 
+--75198-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
+==75198== 
+==75198== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)

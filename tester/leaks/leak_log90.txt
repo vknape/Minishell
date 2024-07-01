@@ -1,28 +1,28 @@
-==100121== Memcheck, a memory error detector
-==100121== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==100121== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==100121== Command: ./tester/Minishell
-==100121== Parent PID: 98679
-==100121== 
-==100121== 
-==100121== FILE DESCRIPTORS: 4 open (3 std) at exit.
-==100121== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log90.txt
-==100121==    <inherited from parent>
-==100121== 
-==100121== 
-==100121== HEAP SUMMARY:
-==100121==     in use at exit: 208,219 bytes in 222 blocks
-==100121==   total heap usage: 1,289 allocs, 1,067 frees, 266,407 bytes allocated
-==100121== 
-==100121== LEAK SUMMARY:
-==100121==    definitely lost: 0 bytes in 0 blocks
-==100121==    indirectly lost: 0 bytes in 0 blocks
-==100121==      possibly lost: 0 bytes in 0 blocks
-==100121==    still reachable: 0 bytes in 0 blocks
-==100121==         suppressed: 208,219 bytes in 222 blocks
-==100121== 
-==100121== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
---100121-- 
---100121-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
-==100121== 
-==100121== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+==74404== Memcheck, a memory error detector
+==74404== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==74404== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==74404== Command: ./tester/Minishell
+==74404== Parent PID: 72922
+==74404== 
+==74404== 
+==74404== FILE DESCRIPTORS: 4 open (3 std) at exit.
+==74404== Open file descriptor 3: /home/adakheel/Desktop/Abbas/tester/leaks/leak_log90.txt
+==74404==    <inherited from parent>
+==74404== 
+==74404== 
+==74404== HEAP SUMMARY:
+==74404==     in use at exit: 208,219 bytes in 222 blocks
+==74404==   total heap usage: 1,284 allocs, 1,062 frees, 266,391 bytes allocated
+==74404== 
+==74404== LEAK SUMMARY:
+==74404==    definitely lost: 0 bytes in 0 blocks
+==74404==    indirectly lost: 0 bytes in 0 blocks
+==74404==      possibly lost: 0 bytes in 0 blocks
+==74404==    still reachable: 0 bytes in 0 blocks
+==74404==         suppressed: 208,219 bytes in 222 blocks
+==74404== 
+==74404== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)
+--74404-- 
+--74404-- used_suppression:     63 readline read.supp:3 suppressed: 208,219 bytes in 222 blocks
+==74404== 
+==74404== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 63 from 63)

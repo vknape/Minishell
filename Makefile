@@ -6,9 +6,11 @@ LIBS = -lreadline
 
 #HEADERS   := -I ./include -I $(LIBFTDIR)
 
-SRCS	= main.c builtins.c link_list_chunk.c link_list_cmd.c check_input.c \
-		fill_each_cmd.c ft_splite_modified.c ft_split_skip.c envp.c exec.c access.c expaneded.c\
-		remove_whitespace_quotes.c get_line.c ft_signal.c free.c ft_kill_minishell.c
+SRCS	= sources/main.c sources/builtins.c sources/link_list_chunk.c sources/link_list_chunk2.c sources/link_list_cmd.c sources/check_input.c \
+		sources/fill_each_cmd.c sources/ft_split_skip.c sources/envp.c sources/exec.c sources/access.c sources/expaneded.c\
+		sources/remove_whitespace_quotes.c sources/ft_signal.c sources/free.c sources/utils1.c sources/builtins_env_pwd_exit.c \
+		sources/builtins_cd.c sources/builtins_echo_value_dollar.c sources/builtins_export.c sources/builtins_export2.c \
+		sources/exec_check_heredoc.c sources/exec_heredoc_text.c sources/exec_handle_file.c sources/exec_start_fork.c sources/free2.c sources/free3.c
 objects	= $(SRCS:.c=.o)
 
 all: $(NAME)
@@ -19,7 +21,7 @@ $(LIBFTDIR):
 $(NAME): 	$(objects) $(LIBFTDIR)
 	@cc $(FLAGS) -o $(NAME) $(objects) $(LIBFTDIR) $(LIBS)
 
-%.o: %.c	
+sources%.o: sources%.c	
 	cc $(FLAGS) -c $< -o $@
 
 clean:
